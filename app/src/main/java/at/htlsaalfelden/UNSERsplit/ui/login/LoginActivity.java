@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import at.htlsaalfelden.UNSERsplit.MainActivity;
 import at.htlsaalfelden.UNSERsplit.R;
+import at.htlsaalfelden.UNSERsplit.ui.home.HomeActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -22,6 +23,11 @@ public class LoginActivity extends AppCompatActivity {
 
         findViewById(R.id.register).setOnClickListener(v -> {
             Intent myIntent = new Intent(this, MainActivity.class);
+            startActivity(myIntent);
+        });
+
+        findViewById(R.id.login).setOnClickListener(v -> {
+            Intent myIntent = new Intent(this, HomeActivity.class);
             startActivity(myIntent);
         });
 

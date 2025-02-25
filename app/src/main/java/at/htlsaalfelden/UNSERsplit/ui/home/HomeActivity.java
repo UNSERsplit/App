@@ -1,5 +1,6 @@
-package at.htlsaalfelden.UNSERsplit;
+package at.htlsaalfelden.UNSERsplit.ui.home;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -9,18 +10,22 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import at.htlsaalfelden.UNSERsplit.ui.login.LoginActivity;
+import at.htlsaalfelden.UNSERsplit.MainActivity;
+import at.htlsaalfelden.UNSERsplit.R;
 
-public class MainActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_home);
 
-        Intent myIntent = new Intent(this, LoginActivity.class);
-        startActivity(myIntent);
+       /* findViewById(R.id.navHome).setOnClickListener(v -> {
+            Intent myIntent = new Intent(this, MainActivity.class);
+            startActivity(myIntent);
+        });*/
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.home), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
