@@ -1,13 +1,11 @@
 package at.htlsaalfelden.UNSERsplit.ui.login;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import at.htlsaalfelden.UNSERsplit.MainActivity;
 import at.htlsaalfelden.UNSERsplit.R;
@@ -15,18 +13,19 @@ import at.htlsaalfelden.UNSERsplit.ui.home.HomeActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
 
-        findViewById(R.id.register).setOnClickListener(v -> {
+        findViewById(R.id.btnregister).setOnClickListener(v -> {
             Intent myIntent = new Intent(this, MainActivity.class);
             startActivity(myIntent);
         });
 
-        findViewById(R.id.login).setOnClickListener(v -> {
+        findViewById(R.id.btnlogin).setOnClickListener(v -> {
             Intent myIntent = new Intent(this, HomeActivity.class);
             startActivity(myIntent);
         });
