@@ -1,0 +1,9 @@
+Felder:
+    Vorname
+    Nachname
+    Iban
+    Passwort
+
+    Speichern
+    Abbrechen
+
