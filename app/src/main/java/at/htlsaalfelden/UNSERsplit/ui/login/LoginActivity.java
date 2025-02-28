@@ -9,7 +9,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import at.htlsaalfelden.UNSERsplit.MainActivity;
 import at.htlsaalfelden.UNSERsplit.R;
+import at.htlsaalfelden.UNSERsplit.api.API;
+import at.htlsaalfelden.UNSERsplit.api.model.LoginRequest;
+import at.htlsaalfelden.UNSERsplit.api.model.LoginResponse;
 import at.htlsaalfelden.UNSERsplit.ui.home.HomeActivity;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -25,9 +31,29 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(myIntent);
         });
 
+
+
         findViewById(R.id.btnlogin).setOnClickListener(v -> {
-            Intent myIntent = new Intent(this, HomeActivity.class);
-            startActivity(myIntent);
+            var t = this;
+            Call<LoginResponse> r = API.service.login(new LoginRequest("a", "b"));
+            r.enqueue(new Callback<LoginResponse>() {
+                @Override
+                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                    if(response.isSuccessful()) {
+
+                        Intent myIntent = new Intent(t, HomeActivity.class);
+                        startActivity(myIntent);
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<LoginResponse> call, Throwable t) {
+
+                }
+            });
+
+
         });
 
         /*ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.home), (v, insets) -> {
