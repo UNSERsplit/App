@@ -18,15 +18,120 @@
         app:srcCompat="@drawable/linie" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="320dp"
-        android:layout_height="518dp"
+        android:layout_width="324dp"
+        android:layout_height="456dp"
         android:background="@drawable/background_white"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:layout_constraintVertical_bias="0.536"/>
+        app:layout_constraintVertical_bias="0.522">
+
+        <EditText
+            android:id="@+id/txtInputVorname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_text"
+            android:ems="10"
+            android:hint="Vorname"
+            android:inputType="text"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.509"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.127" />
+
+        <EditText
+            android:id="@+id/txtInputNachname"
+            android:layout_width="211dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/rounded_text"
+            android:ems="10"
+            android:hint="Nachname"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtInputVorname" />
+
+        <EditText
+            android:id="@+id/txtInputIban"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/rounded_text"
+            android:ems="10"
+            android:hint="IBAN"
+            android:inputType="number"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtInputNachname" />
+
+        <EditText
+            android:id="@+id/txtInputPasswort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/rounded_text"
+            android:ems="10"
+            android:hint="Passwort"
+            android:inputType="textNoSuggestions|textCapCharacters"
+            android:minWidth="200dp"
+            android:minHeight="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtInputIban" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="294dp"
+            android:layout_height="115dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtInputPasswort"
+            app:layout_constraintVertical_bias="0.39">
+
+            <Button
+                android:id="@+id/btnZurueck"
+                android:layout_width="102dp"
+                android:layout_height="65dp"
+                android:backgroundTint="#034763"
+                android:text="Zurück"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.07"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:cornerRadius="12dp">
+
+            </Button>
+
+            <Button
+                android:id="@+id/btnRegistrieren"
+                android:layout_width="141dp"
+                android:layout_height="65dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="28dp"
+                android:backgroundTint="#22b4f0"
+
+                android:text="Registrieren"
+
+                app:cornerRadius="12dp"
+                app:layout_constraintBottom_toBottomOf="@+id/btnZurueck"
+                app:layout_constraintStart_toEndOf="@+id/btnZurueck"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/textView5"

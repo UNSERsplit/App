@@ -13,6 +13,7 @@ import at.htlsaalfelden.UNSERsplit.api.API;
 import at.htlsaalfelden.UNSERsplit.api.model.LoginRequest;
 import at.htlsaalfelden.UNSERsplit.api.model.LoginResponse;
 import at.htlsaalfelden.UNSERsplit.ui.home.HomeActivity;
+import at.htlsaalfelden.UNSERsplit.ui.register.RegisterActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         findViewById(R.id.btnregister).setOnClickListener(v -> {
-            Intent myIntent = new Intent(this, MainActivity.class);
+            Intent myIntent = new Intent(this, RegisterActivity.class);
             startActivity(myIntent);
         });
 
