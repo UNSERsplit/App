@@ -3,9 +3,6 @@ package at.htlsaalfelden.UNSERsplit.ui.settings;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,8 +11,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.lang.reflect.Modifier;
+
 import at.htlsaalfelden.UNSERsplit.MainActivity;
 import at.htlsaalfelden.UNSERsplit.R;
+import at.htlsaalfelden.UNSERsplit.ui.home.HomeActivity;
 
 public class SettingsActivity extends AppCompatActivity {
     /*ConstraintLayout layout = findViewById(R.id.contentLayout);
@@ -42,7 +42,7 @@ public class SettingsActivity extends AppCompatActivity {
 
 
         findViewById(R.id.navHome).setOnClickListener(v -> {
-            Intent myIntent = new Intent(this, MainActivity.class);
+            Intent myIntent = new Intent(this, HomeActivity.class);
             startActivity(myIntent);
         });
 

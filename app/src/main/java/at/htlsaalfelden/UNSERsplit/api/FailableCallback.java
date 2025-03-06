@@ -15,11 +15,24 @@ public interface FailableCallback<T, U> extends Callback<T> {
 
         Request re = call.request();
         Invocation invocation = re.tag(Invocation.class);
-        Object o = invocation.arguments().get(0);
+        Object o;
+
+        if(invocation == null || invocation.arguments().isEmpty()) {
+            o = null;
+        } else {
+            o = invocation.arguments().get(0);
+        }
 
         if(response.isSuccessful()) {
             onSucess(response.body());
         } else {
+            if(response.code() >= 300 && response.code() < 400) {
+                on300(call, response, (U) o);
+            } else if(response.code() >= 400 && response.code() < 500) {
+                on400(call, response, (U) o);
+            } else if(response.code() >= 500 && response.code() < 600) {
+                on500(call, response, (U) o);
+            }
             onError(call, response, (U) o);
         }
 
@@ -30,7 +43,19 @@ public interface FailableCallback<T, U> extends Callback<T> {
 
     }
 
-    void onError(@NonNull Call<T> call, @NonNull Response<T> response, U requestData);
+    default void onError(@NonNull Call<T> call, @NonNull Response<T> response, U requestData) {
+
+    }
+
+    default void on300(@NonNull Call<T> call, @NonNull Response<T> response, U requestData) {
+
+    }
+    default void on400(@NonNull Call<T> call, @NonNull Response<T> response, U requestData) {
+
+    }
+    default void on500(@NonNull Call<T> call, @NonNull Response<T> response, U requestData) {
+
+    }
 
     void onSucess(@Nullable T response);
 }
