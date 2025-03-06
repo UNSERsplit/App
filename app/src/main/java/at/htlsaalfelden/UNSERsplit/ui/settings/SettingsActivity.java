@@ -3,9 +3,13 @@ package at.htlsaalfelden.UNSERsplit.ui.settings;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -14,12 +18,28 @@ import at.htlsaalfelden.UNSERsplit.MainActivity;
 import at.htlsaalfelden.UNSERsplit.R;
 
 public class SettingsActivity extends AppCompatActivity {
+    /*ConstraintLayout layout = findViewById(R.id.contentLayout);
+    ViewGroup.LayoutParams params = layout.getLayoutParams();
+    DisplayMetrics displayMetrics = new DisplayMetrics();*/
+
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_settings);
+
+        /*getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height =  (int)(displayMetrics.heightPixels * 0.8);
+        int width = (int) (displayMetrics.widthPixels * 0.6);
+
+        params.height = height;
+        params.width = width;
+        layout.setLayoutParams(params);*/
+
+
+
 
         findViewById(R.id.navHome).setOnClickListener(v -> {
             Intent myIntent = new Intent(this, MainActivity.class);
