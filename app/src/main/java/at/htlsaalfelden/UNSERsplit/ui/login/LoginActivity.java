@@ -3,6 +3,7 @@ package at.htlsaalfelden.UNSERsplit.ui.login;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.transition.Fade;
 import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
@@ -33,6 +34,19 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
+
+        Fade fade = new Fade();
+        fade.excludeTarget(R.id.bottomNavigationView, true);
+
+        getWindow().setEnterTransition(fade);
+        getWindow().setExitTransition(fade);
+        getWindow().setReenterTransition(fade);
+        getWindow().setReturnTransition(fade);
+        getWindow().setSharedElementEnterTransition(null);
+        getWindow().setSharedElementExitTransition(null);
+        getWindow().setSharedElementReenterTransition(null);
+        getWindow().setSharedElementReturnTransition(null);
+
 
         var ctx = this;
 

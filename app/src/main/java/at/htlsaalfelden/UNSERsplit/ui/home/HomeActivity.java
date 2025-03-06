@@ -3,6 +3,7 @@ package at.htlsaalfelden.UNSERsplit.ui.home;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.transition.Fade;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,8 +22,20 @@ public class HomeActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home);
 
+        Fade fade = new Fade();
+        fade.excludeTarget(R.id.bottomNavigationView, true);
+
+        getWindow().setEnterTransition(fade);
+        getWindow().setExitTransition(fade);
+        getWindow().setReenterTransition(fade);
+        getWindow().setReturnTransition(fade);
+        getWindow().setSharedElementEnterTransition(null);
+        getWindow().setSharedElementExitTransition(null);
+        getWindow().setSharedElementReenterTransition(null);
+        getWindow().setSharedElementReturnTransition(null);
+
         findViewById(R.id.navHome).setOnClickListener(v -> {
-            Intent myIntent = new Intent(this, MainActivity.class);
+            Intent myIntent = new Intent(this, HomeActivity.class);
             startActivity(myIntent);
         });
 
