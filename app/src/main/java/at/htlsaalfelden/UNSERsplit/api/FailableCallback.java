@@ -3,6 +3,7 @@ package at.htlsaalfelden.UNSERsplit.api;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import at.htlsaalfelden.UNSERsplit.ui.error.ErrorActivity;
 import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,7 +41,7 @@ public interface FailableCallback<T, U> extends Callback<T> {
 
     @Override
     default void onFailure(@NonNull Call<T> call, @NonNull Throwable t) {
-
+        ErrorActivity.showError("I:" + t.getClass().getSimpleName(), t.getLocalizedMessage());
     }
 
     default void onError(@NonNull Call<T> call, @NonNull Response<T> response, U requestData) {
