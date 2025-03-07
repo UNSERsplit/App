@@ -4,6 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.transition.Fade;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,6 +49,10 @@ public class HomeActivity extends AppCompatActivity {
             Intent myIntent = new Intent(this, SettingsActivity.class);
             startActivity(myIntent);
         });
+
+        ListView groups = findViewById(R.id.listVgruppenPersonen);
+        groups.setAdapter(new ArrayAdapter<String>(this, R.layout.layout_group, R.id.textView3, new String[]{"a","b","c","d","" +
+                "e","f","g","h","i","j","k","l","m","n"}));
 
         /*ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.home), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
