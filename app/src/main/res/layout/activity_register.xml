@@ -37,8 +37,8 @@
 
         <EditText
             android:id="@+id/txtInputNachname"
-            android:layout_width="211dp"
-            android:layout_height="51dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@drawable/rounded_text"
             android:ems="10"

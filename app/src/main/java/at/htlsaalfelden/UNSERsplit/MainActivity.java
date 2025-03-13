@@ -16,6 +16,8 @@ import at.htlsaalfelden.UNSERsplit.api.API;
 import at.htlsaalfelden.UNSERsplit.api.FailableCallback;
 import at.htlsaalfelden.UNSERsplit.ui.home.HomeActivity;
 import at.htlsaalfelden.UNSERsplit.ui.login.LoginActivity;
+import at.htlsaalfelden.UNSERsplit.ui.register.RegisterActivity;
+import at.htlsaalfelden.UNSERsplit.ui.settings.SettingsActivity;
 import retrofit2.Call;
 import retrofit2.Response;
 
