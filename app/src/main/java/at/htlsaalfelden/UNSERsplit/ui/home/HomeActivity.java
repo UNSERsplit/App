@@ -4,18 +4,17 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.transition.Fade;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import at.htlsaalfelden.UNSERsplit.MainActivity;
+import java.util.ArrayList;
+import java.util.List;
+
 import at.htlsaalfelden.UNSERsplit.R;
+import at.htlsaalfelden.UNSERsplit.api.model.Group;
 import at.htlsaalfelden.UNSERsplit.ui.settings.SettingsActivity;
 
 public class HomeActivity extends AppCompatActivity {
@@ -51,8 +50,10 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         ListView groups = findViewById(R.id.listVgruppenPersonen);
-        groups.setAdapter(new ArrayAdapter<String>(this, R.layout.layout_group, R.id.textView3, new String[]{"a","b","c","d","" +
-                "e","f","g","h","i","j","k","l","m","n"}));
+        //groups.setAdapter(new ArrayAdapter<String>(this, R.layout.layout_group, R.id.txtViewGroupName, new String[]{"a","b","c","d","" +
+        //        "e","f","g","h","i","j","k","l","m","n"}));
+
+        groups.setAdapter(new GroupAdapter(this, List.of(new Group("G1"), new Group("Gruppe 1"), new Group("Saubärnstommtisch"), new Group("Freunde"))));
 
         /*ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.home), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
