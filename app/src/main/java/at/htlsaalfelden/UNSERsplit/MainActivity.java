@@ -1,5 +1,8 @@
 package at.htlsaalfelden.UNSERsplit;
 
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.transition.Fade;
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
             public void on400(@NonNull Call<String> call, @NonNull Response<String> response, Object requestData) {
                 if(response.code() == 401) {
                     Intent myIntent = new Intent(ctx, LoginActivity.class);
+                    myIntent.setFlags(FLAG_ACTIVITY_CLEAR_TASK | FLAG_ACTIVITY_NEW_TASK);
                     startActivity(myIntent);
                 }
             }
@@ -55,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSucess(@Nullable String response) {
                 Intent myIntent = new Intent(ctx, HomeActivity.class);
+                myIntent.setFlags(FLAG_ACTIVITY_CLEAR_TASK | FLAG_ACTIVITY_NEW_TASK);
                 startActivity(myIntent);
             }
         });
