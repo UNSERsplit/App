@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.transition.Fade;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import at.htlsaalfelden.UNSERsplit.R;
 import at.htlsaalfelden.UNSERsplit.api.model.Group;
@@ -54,6 +56,7 @@ public class HomeActivity extends AppCompatActivity {
         //        "e","f","g","h","i","j","k","l","m","n"}));
 
         groups.setAdapter(new GroupAdapter(this, List.of(new Group("G1"), new Group("Gruppe 1"), new Group("Saubärnstommtisch"), new Group("Freunde"))));
+
 
         /*ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.home), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

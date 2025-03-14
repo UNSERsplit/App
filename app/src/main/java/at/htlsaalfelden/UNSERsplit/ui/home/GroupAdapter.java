@@ -2,11 +2,13 @@ package at.htlsaalfelden.UNSERsplit.ui.home;
 
 import androidx.annotation.Nullable;
 import android.content.Context;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -65,6 +67,12 @@ public class GroupAdapter extends BaseAdapter {
 
         final Group item = getItem(position);
         groupName.setText(item.getName());
+
+        //wenn der Gruppenname länger als 10 Zeichen ist wird er abgeschnitten
+        if (groupName.getText().length() > 10){
+            groupName.setText(groupName.getText().subSequence(0, 10) + "...");
+        }
+
         groupBalance.setText("+10");
         groupUsers.setText("7 Mitglieder");
 
