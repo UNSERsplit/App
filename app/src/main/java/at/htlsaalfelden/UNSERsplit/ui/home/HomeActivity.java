@@ -18,6 +18,7 @@ import java.util.Objects;
 import at.htlsaalfelden.UNSERsplit.R;
 import at.htlsaalfelden.UNSERsplit.api.model.Group;
 import at.htlsaalfelden.UNSERsplit.ui.settings.SettingsActivity;
+import at.htlsaalfelden.UNSERsplit.ui.transaction.TransactionActivity;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -43,6 +44,11 @@ public class HomeActivity extends AppCompatActivity {
 
         findViewById(R.id.navHome).setOnClickListener(v -> {
             Intent myIntent = new Intent(this, HomeActivity.class);
+            startActivity(myIntent);
+        });
+
+        findViewById(R.id.navAdd).setOnClickListener(v -> {
+            Intent myIntent = new Intent(this, TransactionActivity.class);
             startActivity(myIntent);
         });
 

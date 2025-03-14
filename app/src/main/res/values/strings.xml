@@ -12,4 +12,5 @@
     <string name="title_activity_home">Home</string>
     <string name="title_activity_settings">title_activity_settings</string>
     <string name="title_activity_register">title_activity_register\n</string>
+    <string name="title_activity_transaction">title_activity_transaction\n</string>
 </resources>
