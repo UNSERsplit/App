@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Objects;
 
 import at.htlsaalfelden.UNSERsplit.R;
+import at.htlsaalfelden.UNSERsplit.api.model.CombinedGroup;
 import at.htlsaalfelden.UNSERsplit.api.model.Group;
 import at.htlsaalfelden.UNSERsplit.ui.settings.SettingsActivity;
 import at.htlsaalfelden.UNSERsplit.ui.transaction.TransactionActivity;
@@ -61,7 +62,24 @@ public class HomeActivity extends AppCompatActivity {
         //groups.setAdapter(new ArrayAdapter<String>(this, R.layout.layout_group, R.id.txtViewGroupName, new String[]{"a","b","c","d","" +
         //        "e","f","g","h","i","j","k","l","m","n"}));
 
-        groups.setAdapter(new GroupAdapter(this, List.of(new Group("G1"), new Group("Gruppe 1"), new Group("Saubärnstommtisch"), new Group("Freunde"))));
+        groups.setAdapter(new GroupAdapter(this, List.of(
+                new CombinedGroup(
+                        new Group("G1"),
+                        List.of(),0
+                ),
+                new CombinedGroup(
+                        new Group("G2"),
+                        List.of(),100
+                ),
+                new CombinedGroup(
+                        new Group("Saubärnstommtisch"),
+                        List.of(),-10
+                ),
+                new CombinedGroup(
+                        new Group("Freundeskreis"),
+                        List.of(),0
+                )
+        )));
 
 
         /*ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.home), (v, insets) -> {

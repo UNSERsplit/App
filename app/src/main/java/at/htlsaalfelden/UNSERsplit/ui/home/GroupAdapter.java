@@ -10,22 +10,24 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import java.util.List;
 
 import at.htlsaalfelden.UNSERsplit.R;
+import at.htlsaalfelden.UNSERsplit.api.model.CombinedGroup;
 import at.htlsaalfelden.UNSERsplit.api.model.Group;
 
 public class GroupAdapter extends BaseAdapter {
 
     private Context context;
-    private List<Group> groups;
+    private List<CombinedGroup> groups;
 
     private LayoutInflater layoutInflater;
 
-    public GroupAdapter(@NonNull Context context, @NonNull List<Group> groups) {
+    public GroupAdapter(@NonNull Context context, @NonNull List<CombinedGroup> groups) {
         this.context = context;
         this.groups = groups;
         this.layoutInflater = LayoutInflater.from(context);
@@ -37,7 +39,7 @@ public class GroupAdapter extends BaseAdapter {
     }
 
     @Override
-    public Group getItem(int position) {
+    public CombinedGroup getItem(int position) {
         return groups.get(position);
     }
 
@@ -65,16 +67,20 @@ public class GroupAdapter extends BaseAdapter {
         TextView groupBalance = view.findViewById(R.id.txtViewGroupBalance);
         TextView groupUsers = view.findViewById(R.id.txtViewGroupMembers);
 
-        final Group item = getItem(position);
-        groupName.setText(item.getName());
+        final CombinedGroup item = getItem(position);
+        groupName.setText(item.getGroup().getName());
 
-        //wenn der Gruppenname länger als 10 Zeichen ist wird er abgeschnitten
         if (groupName.getText().length() > 10){
             groupName.setText(groupName.getText().subSequence(0, 10) + "...");
         }
 
-        groupBalance.setText("+10");
-        groupUsers.setText("7 Mitglieder");
+        groupBalance.setText(item.getBalance() + "");
+        groupUsers.setText(item.getMembers().size() + " Mitglieder");
+
+        view.setOnClickListener(v -> {
+            Toast toast = Toast.makeText(v.getContext(), item.getGroup().getName(), Toast.LENGTH_SHORT);
+            toast.show();
+        });
 
         return view;
     }

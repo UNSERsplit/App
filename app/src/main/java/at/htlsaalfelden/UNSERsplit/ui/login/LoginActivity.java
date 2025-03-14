@@ -16,7 +16,6 @@ import at.htlsaalfelden.UNSERsplit.R;
 import at.htlsaalfelden.UNSERsplit.api.API;
 import at.htlsaalfelden.UNSERsplit.api.DefaultCallback;
 import at.htlsaalfelden.UNSERsplit.api.FailableCallback;
-import at.htlsaalfelden.UNSERsplit.api.model.LoginRequest;
 import at.htlsaalfelden.UNSERsplit.api.model.LoginResponse;
 import at.htlsaalfelden.UNSERsplit.ui.home.HomeActivity;
 import okhttp3.Request;
@@ -58,16 +57,16 @@ public class LoginActivity extends AppCompatActivity {
 
 
         findViewById(R.id.btnlogin).setOnClickListener(v -> {
-            LoginRequest request = new LoginRequest(
-                    ((EditText) findViewById(R.id.txtVname)).getText().toString(),
-                    ((EditText) findViewById(R.id.txtVpassword)).getText().toString()
-            );
+
+            String username = ((EditText) findViewById(R.id.txtVname)).getText().toString();
+            String password = ((EditText) findViewById(R.id.txtVpassword)).getText().toString();
+
 
             API.service.login(
-                    request).enqueue(
-                    new FailableCallback<LoginResponse, LoginRequest>() {
+                    username, password).enqueue(
+                    new FailableCallback<LoginResponse, String>() {
                         @Override
-                        public void onError(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response, LoginRequest requestData) {
+                        public void on400(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response, String requestData) {
                             if(response.code() == 401) {
                                 ((EditText) findViewById(R.id.txtVname)).setError("Username/password wrong");
                                 ((EditText) findViewById(R.id.txtVpassword)).setError("Username/password wrong");

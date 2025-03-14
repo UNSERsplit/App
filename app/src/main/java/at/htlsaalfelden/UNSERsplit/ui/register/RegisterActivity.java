@@ -10,14 +10,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.IOException;
+
 import at.htlsaalfelden.UNSERsplit.MainActivity;
 import at.htlsaalfelden.UNSERsplit.R;
 import at.htlsaalfelden.UNSERsplit.api.API;
+import at.htlsaalfelden.UNSERsplit.api.DefaultCallback;
 import at.htlsaalfelden.UNSERsplit.api.FailableCallback;
-import at.htlsaalfelden.UNSERsplit.api.model.LoginRequest;
 import at.htlsaalfelden.UNSERsplit.api.model.LoginResponse;
 import at.htlsaalfelden.UNSERsplit.api.model.User;
 import at.htlsaalfelden.UNSERsplit.api.model.UserCreateRequest;
+import at.htlsaalfelden.UNSERsplit.ui.error.ErrorActivity;
 import at.htlsaalfelden.UNSERsplit.ui.home.HomeActivity;
 import at.htlsaalfelden.UNSERsplit.ui.login.LoginActivity;
 import retrofit2.Call;
@@ -59,7 +62,11 @@ public class RegisterActivity extends AppCompatActivity {
                     new FailableCallback<User, UserCreateRequest>() {
                         @Override
                         public void onError(@NonNull Call<User> call, @NonNull Response<User> response, UserCreateRequest requestData) {
-
+                            try {
+                                ErrorActivity.showError(response.code() + "-" + response.message(), response.errorBody().string());
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
                         }
 
                         @Override
