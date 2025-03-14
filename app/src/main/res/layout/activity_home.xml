@@ -5,19 +5,77 @@
     android:id="@+id/home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f0f0f0"
+    android:background="@drawable/background_shaped_blue7"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="541dp"
-        android:layout_height="742dp"
-        android:layout_marginTop="-350dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/background_shaped_blue2" />
+        app:layout_constraintVertical_bias="0.07999998">
+
+        <TextView
+            android:id="@+id/txtVPlusMinus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+"
+            android:textSize="40dp" />
+
+        <TextView
+            android:id="@+id/txtVkontostand"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="###"
+            android:textSize="40dp" />
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="329dp"
+        android:layout_height="435dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.79">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/txtViewGruppenPersonen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Gruppen/Personen:"
+
+                android:textSize="24sp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <ListView
+                android:id="@+id/listVgruppenPersonen"
+                android:layout_width="match_parent"
+                android:divider="#f1f1f1"
+                android:dividerHeight="5dp"
+
+                android:layout_height="385dp" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
@@ -27,53 +85,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/button_nav_menu" />
-
-    <TextView
-        android:id="@+id/txtVkontostand"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginBottom="270dp"
-        android:fontFamily="@font/roboto_medium"
-        android:text="###"
-        android:textSize="40dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.55"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ListView
-        android:id="@+id/listVgruppenPersonen"
-        android:layout_width="387dp"
-        android:layout_height="433dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
-
-    <TextView
-        android:id="@+id/txtViewGruppenPersonen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="14dp"
-        android:fontFamily="@font/roboto_medium"
-        android:text="Gruppen/Personen:"
-        android:textSize="20sp"
-
-        app:layout_constraintBottom_toTopOf="@+id/listVgruppenPersonen"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95" />
-
-    <TextView
-        android:id="@+id/txtVPlusMinus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="+"
-        android:textSize="40dp"
-        app:layout_constraintBottom_toBottomOf="@+id/txtVkontostand"
-        app:layout_constraintEnd_toStartOf="@+id/txtVkontostand"
-        app:layout_constraintTop_toTopOf="@+id/txtVkontostand" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
