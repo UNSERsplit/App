@@ -26,9 +26,11 @@ public interface DefaultCallback<T> extends FailableCallback<T, Object> {
             throw new RuntimeException(e);
         }
 
+        System.out.println(detail);
+
         if(response.errorBody().contentType().equals(MediaType.get("application/json"))) {
             Gson gson = new Gson();
-            detail = gson.fromJson(detail, ErrorResponse.class).detail;
+            detail = gson.fromJson(detail, ErrorResponse.class).detail.toString();
         }
 
         ErrorActivity.showError(response.code() + "-" + response.message(), detail);
@@ -38,6 +40,6 @@ public interface DefaultCallback<T> extends FailableCallback<T, Object> {
     void onSucess(@Nullable T response);
 
     class ErrorResponse {
-        public String detail;
+        public Object detail;
     }
 }

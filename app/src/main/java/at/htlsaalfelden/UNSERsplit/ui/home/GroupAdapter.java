@@ -52,7 +52,6 @@ public class GroupAdapter extends BaseAdapter {
     private @NonNull View createViewFromResource(@NonNull LayoutInflater inflater, int position,
                                                                     @Nullable View convertView, @NonNull ViewGroup parent, int resource) {
         final View view;
-        final TextView text;
 
         if (convertView == null) {
             view = inflater.inflate(resource, parent, false);

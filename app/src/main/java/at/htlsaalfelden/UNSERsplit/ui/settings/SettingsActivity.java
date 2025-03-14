@@ -11,10 +11,15 @@ import android.widget.EditText;
 import android.widget.Space;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import at.htlsaalfelden.UNSERsplit.R;
+import at.htlsaalfelden.UNSERsplit.api.API;
+import at.htlsaalfelden.UNSERsplit.api.DefaultCallback;
+import at.htlsaalfelden.UNSERsplit.api.model.User;
+import at.htlsaalfelden.UNSERsplit.api.model.UserCreateRequest;
 import at.htlsaalfelden.UNSERsplit.ui.home.HomeActivity;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -132,17 +137,33 @@ public class SettingsActivity extends AppCompatActivity {
 
 
         //Set all Editfields to "not editable"
-        EditText d = findViewById(R.id.txtViewSettingVornameData);
-        d.setInputType(InputType.TYPE_NULL);
+        EditText vorname = findViewById(R.id.txtViewSettingVornameData);
+        vorname.setInputType(InputType.TYPE_NULL);
 
-        d = findViewById(R.id.txtViewSettingNameData);
-        d.setInputType(InputType.TYPE_NULL);
+        EditText name = findViewById(R.id.txtViewSettingNameData);
+        name.setInputType(InputType.TYPE_NULL);
 
-        d = findViewById(R.id.txtViewSettingIbanData);
-        d.setInputType(InputType.TYPE_NULL);
+        EditText iban = findViewById(R.id.txtViewSettingIbanData);
+        iban.setInputType(InputType.TYPE_NULL);
 
-        d = findViewById(R.id.txtInputPasswortData);
-        d.setInputType(InputType.TYPE_NULL);
+        EditText passwort = findViewById(R.id.txtInputPasswortData);
+        passwort.setInputType(InputType.TYPE_NULL);
+
+        var ctx = this;
+
+        final User[] currentUser = {null};
+
+        /*API.service.getUser().enqueue(new DefaultCallback<User>() {
+            @Override
+            public void onSucess(@Nullable User response) {
+                vorname.setText(response.getFirstname());
+                name.setText(response.getLastname());
+                iban.setText(response.getIban());
+                passwort.setText("");
+
+                currentUser[0] = response;
+            }
+        });*/
 
 
 
@@ -157,8 +178,17 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         findViewById(R.id.btnSpeichern).setOnClickListener(v -> {
-            Intent myIntent = new Intent(this, HomeActivity.class);
-            startActivity(myIntent);
+            API.service.updateUser(new UserCreateRequest(vorname.getText().toString(),
+                                                        name.getText().toString(),
+                                                        currentUser[0].getEmail(),
+                                                        iban.getText().toString(),
+                                                        passwort.getText().toString())).enqueue(new DefaultCallback<User>() {
+                @Override
+                public void onSucess(@Nullable User response) {
+                    Intent myIntent = new Intent(ctx, HomeActivity.class);
+                    startActivity(myIntent);
+                }
+            });
         });
 
         findViewById(R.id.btnSettingVornameChange).setOnClickListener(v -> {
