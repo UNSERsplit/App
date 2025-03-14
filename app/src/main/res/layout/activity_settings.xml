@@ -252,34 +252,40 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btnSpeichern"
-            android:layout_width="123dp"
-            android:layout_height="55dp"
-            android:backgroundTint="#2E971E"
-            android:fontFamily="@font/roboto_medium"
-            android:text="Speichern"
-            app:cornerRadius="5dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.84"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-            app:layout_constraintVertical_bias="0.8" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-        <Button
-            android:id="@+id/btnZurück"
-            android:layout_width="123dp"
-            android:layout_height="55dp"
-            android:backgroundTint="#DBB12B"
-            android:fontFamily="@font/roboto_medium"
-            android:text="Zurück"
-            app:cornerRadius="5dp"
-            app:layout_constraintBottom_toBottomOf="@+id/btnSpeichern"
-            app:layout_constraintEnd_toStartOf="@+id/btnSpeichern"
-            app:layout_constraintHorizontal_bias="0.25"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btnSpeichern" />
+            <Button
+                android:id="@+id/btnZurück"
+                android:layout_width="123dp"
+                android:layout_height="55dp"
+                android:backgroundTint="#DBB12B"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Zurück"
+                app:cornerRadius="5dp" />
+
+            <Space
+                android:id="@+id/spaceBtn"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/btnSpeichern"
+                android:layout_width="123dp"
+                android:layout_height="55dp"
+                android:backgroundTint="#2E971E"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Speichern"
+                app:cornerRadius="5dp" />
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

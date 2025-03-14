@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Space;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,9 +18,6 @@ import at.htlsaalfelden.UNSERsplit.R;
 import at.htlsaalfelden.UNSERsplit.ui.home.HomeActivity;
 
 public class SettingsActivity extends AppCompatActivity {
-
-
-
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -51,6 +50,7 @@ public class SettingsActivity extends AppCompatActivity {
         params.height = height;
         params.width = width;
         VornameInnerContainer.setLayoutParams(params);
+
 
         //Dynamic Nachname
         ConstraintLayout NachnameInnerContainer = findViewById(R.id.NachnameInnerContainer);
@@ -90,6 +90,46 @@ public class SettingsActivity extends AppCompatActivity {
         params.height = height;
         params.width = width;
         PasswortInnerContainer.setLayoutParams(params);
+
+
+        //Dynamic Buttons
+        Button btnZurueck = findViewById(R.id.btnZurück);
+        params = btnZurueck.getLayoutParams();
+        displayMetrics = new DisplayMetrics();
+
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        height =  (int)(displayMetrics.heightPixels * 0.065);
+        width = (int) (displayMetrics.widthPixels * 0.35);
+
+        params.height = height;
+        params.width = width;
+        btnZurueck.setLayoutParams(params);
+
+
+        //Dynamic Buttons
+        Button btnSpeichern = findViewById(R.id.btnSpeichern);
+        params = btnSpeichern.getLayoutParams();
+        displayMetrics = new DisplayMetrics();
+
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        height =  (int)(displayMetrics.heightPixels * 0.065);
+        width = (int) (displayMetrics.widthPixels * 0.35);
+
+        params.height = height;
+        params.width = width;
+        btnSpeichern.setLayoutParams(params);
+
+        //Dynamic Space
+        Space buttonSpace = findViewById(R.id.spaceBtn);
+        params = buttonSpace.getLayoutParams();
+        displayMetrics = new DisplayMetrics();
+
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        width = (int) (displayMetrics.widthPixels * 0.2);
+
+        params.width = width;
+        buttonSpace.setLayoutParams(params);
+
 
         //Set all Editfields to "not editable"
         EditText d = findViewById(R.id.txtViewSettingVornameData);
