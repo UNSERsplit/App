@@ -1,14 +1,14 @@
 package at.htlsaalfelden.UNSERsplit.api.model;
 
 public class LoginResponse {
-    private String token;
-    private String expiration;
+    private String access_token;
+    private String token_type;
 
     public String getToken() {
-        return token;
+        return access_token;
     }
 
-    public String getExpiration() {
-        return expiration;
+    public String getType() {
+        return token_type;
     }
 }

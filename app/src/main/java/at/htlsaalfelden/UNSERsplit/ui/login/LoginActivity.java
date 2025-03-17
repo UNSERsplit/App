@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onSucess(@Nullable LoginResponse response) {
                             if(response != null ){
-                                API.token = response.getToken();
+                                API.setToken(ctx, response.getToken());
 
                                 Intent myIntent = new Intent(ctx, HomeActivity.class);
                                 startActivity(myIntent);

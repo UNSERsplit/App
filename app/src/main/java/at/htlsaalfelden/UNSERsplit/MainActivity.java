@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
         var ctx = this;
 
+        API.loadToken(this);
+
         API.service.test().enqueue(new FailableCallback<>() {
             @Override
             public void on400(@NonNull Call<String> call, @NonNull Response<String> response, Object requestData) {
