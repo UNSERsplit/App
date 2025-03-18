@@ -1,7 +1,11 @@
 package at.htlsaalfelden.UNSERsplit.api;
 
+import java.util.List;
+
+import at.htlsaalfelden.UNSERsplit.api.model.Group;
 import at.htlsaalfelden.UNSERsplit.api.model.LoginResponse;
 import at.htlsaalfelden.UNSERsplit.api.model.PublicUserData;
+import at.htlsaalfelden.UNSERsplit.api.model.Transaction;
 import at.htlsaalfelden.UNSERsplit.api.model.User;
 import at.htlsaalfelden.UNSERsplit.api.model.UserCreateRequest;
 import retrofit2.Call;
@@ -22,6 +26,8 @@ public interface ApiService {
     @GET("test")
     Call<String> test();
 
+
+
     @POST("user/")
     Call<User> register(@Body UserCreateRequest request);
 
@@ -35,5 +41,19 @@ public interface ApiService {
     Call<User> getUser();
 
     @DELETE("user/me")
-    Call<String> deleteUser();
+    Call<User> deleteUser();
+
+
+    @GET("transactions/me")
+    Call<List<Transaction>> getTransactions();
+
+    @GET("transactions/to/{userid}")
+    Call<List<Transaction>> getTransactions(@Path("userid") int userid);
+
+
+    @GET("group/")
+    Call<List<Group>> getGroups();
+
+    @GET("group/{groupid}/users")
+    Call<List<PublicUserData>> getUsers(@Path("groupid") int groupid);
 }

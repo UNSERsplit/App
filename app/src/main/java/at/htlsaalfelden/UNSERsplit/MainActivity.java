@@ -17,6 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import at.htlsaalfelden.UNSERsplit.api.API;
 import at.htlsaalfelden.UNSERsplit.api.FailableCallback;
+import at.htlsaalfelden.UNSERsplit.api.model.User;
 import at.htlsaalfelden.UNSERsplit.ui.home.HomeActivity;
 import at.htlsaalfelden.UNSERsplit.ui.login.LoginActivity;
 import at.htlsaalfelden.UNSERsplit.ui.register.RegisterActivity;
@@ -48,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
 
         API.loadToken(this);
 
-        API.service.test().enqueue(new FailableCallback<>() {
+        API.service.getUser().enqueue(new FailableCallback<>() {
             @Override
-            public void on400(@NonNull Call<String> call, @NonNull Response<String> response, Object requestData) {
+            public void on400(@NonNull Call<User> call, @NonNull Response<User> response, Object requestData) {
                 if(response.code() == 401) {
                     Intent myIntent = new Intent(ctx, LoginActivity.class);
                     myIntent.setFlags(FLAG_ACTIVITY_CLEAR_TASK | FLAG_ACTIVITY_NEW_TASK);
@@ -59,7 +60,9 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onSucess(@Nullable String response) {
+            public void onSucess(@Nullable User response) {
+                API.userID = response.getUserid();
+
                 Intent myIntent = new Intent(ctx, HomeActivity.class);
                 myIntent.setFlags(FLAG_ACTIVITY_CLEAR_TASK | FLAG_ACTIVITY_NEW_TASK);
                 startActivity(myIntent);

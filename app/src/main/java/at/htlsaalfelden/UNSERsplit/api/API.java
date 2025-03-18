@@ -17,6 +17,7 @@ public class API {
     public static final ApiService service;
 
     private static String token = "";
+    public static int userID = 0;
     private final static String PREFERENCESNAME = "Unsersplit";
     private final static String TOKEN_NAME = "token";
 

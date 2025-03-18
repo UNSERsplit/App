@@ -70,6 +70,7 @@ public interface FailableCallback<T, U> extends Callback<T> {
     @Override
     default void onFailure(@NonNull Call<T> call, @NonNull Throwable t) {
         ErrorActivity.showError("I:" + t.getClass().getSimpleName(), t.getLocalizedMessage());
+        throw new RuntimeException(t);
     }
 
     default void onError(@NonNull Call<T> call, @NonNull Response<T> response, U requestData) {

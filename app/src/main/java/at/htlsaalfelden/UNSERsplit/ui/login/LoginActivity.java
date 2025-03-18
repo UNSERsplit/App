@@ -77,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                         public void onSucess(@Nullable LoginResponse response) {
                             if(response != null ){
                                 API.setToken(ctx, response.getToken());
+                                API.userID = response.getUserid();
 
                                 Intent myIntent = new Intent(ctx, HomeActivity.class);
                                 startActivity(myIntent);
