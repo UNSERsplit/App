@@ -1,11 +1,16 @@
 package at.htlsaalfelden.UNSERsplit.ui.settings;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.Slide;
 import android.util.DisplayMetrics;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Space;
@@ -169,12 +174,14 @@ public class SettingsActivity extends AppCompatActivity {
 
         findViewById(R.id.navHome).setOnClickListener(v -> {
             Intent myIntent = new Intent(this, HomeActivity.class);
-            startActivity(myIntent);
+            startActivity(myIntent,
+                    ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         });
 
         findViewById(R.id.btnZurück).setOnClickListener(v -> {
             Intent myIntent = new Intent(this, HomeActivity.class);
-            startActivity(myIntent);
+            startActivity(myIntent,
+                    ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         });
 
         findViewById(R.id.btnSpeichern).setOnClickListener(v -> {

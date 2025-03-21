@@ -1,8 +1,10 @@
 package at.htlsaalfelden.UNSERsplit.ui.login;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.transition.Explode;
 import android.transition.Fade;
 import android.widget.EditText;
 
@@ -34,24 +36,12 @@ public class LoginActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
 
-        Fade fade = new Fade();
-        fade.excludeTarget(R.id.bottomNavigationView, true);
-
-        getWindow().setEnterTransition(fade);
-        getWindow().setExitTransition(fade);
-        getWindow().setReenterTransition(fade);
-        getWindow().setReturnTransition(fade);
-        getWindow().setSharedElementEnterTransition(null);
-        getWindow().setSharedElementExitTransition(null);
-        getWindow().setSharedElementReenterTransition(null);
-        getWindow().setSharedElementReturnTransition(null);
-
-
         var ctx = this;
 
         findViewById(R.id.btnregister).setOnClickListener(v -> {
             Intent myIntent = new Intent(this, RegisterActivity.class);
-            startActivity(myIntent);
+            startActivity(myIntent,
+                    ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         });
 
 
