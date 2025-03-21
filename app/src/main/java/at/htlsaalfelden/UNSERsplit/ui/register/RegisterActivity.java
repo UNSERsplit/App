@@ -1,8 +1,12 @@
 package at.htlsaalfelden.UNSERsplit.ui.register;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.transition.Explode;
 import android.transition.Fade;
+import android.transition.Slide;
+import android.view.Window;
 import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
@@ -36,18 +40,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         var ctx = this;
 
-        Fade fade = new Fade();
-        fade.excludeTarget(R.id.bottomNavigationView, true);
-
-        getWindow().setEnterTransition(fade);
-        getWindow().setExitTransition(fade);
-        getWindow().setReenterTransition(fade);
-        getWindow().setReturnTransition(fade);
-        getWindow().setSharedElementEnterTransition(null);
-        getWindow().setSharedElementExitTransition(null);
-        getWindow().setSharedElementReenterTransition(null);
-        getWindow().setSharedElementReturnTransition(null);
-
         findViewById(R.id.btnRegistrieren).setOnClickListener(v -> {
             UserCreateRequest request = new UserCreateRequest(
                     ((EditText) findViewById(R.id.txtInputVorname)).getText().toString(),
@@ -73,7 +65,8 @@ public class RegisterActivity extends AppCompatActivity {
                         public void onSucess(@Nullable User response) {
                             if(response != null ){
                                 Intent myIntent = new Intent(ctx, LoginActivity.class);
-                                startActivity(myIntent);
+                                startActivity(myIntent,
+                                        ActivityOptions.makeSceneTransitionAnimation(ctx).toBundle());
                             }
 
                         }

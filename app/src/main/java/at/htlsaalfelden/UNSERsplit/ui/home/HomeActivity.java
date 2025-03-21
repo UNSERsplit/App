@@ -1,10 +1,14 @@
 package at.htlsaalfelden.UNSERsplit.ui.home;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.transition.Explode;
 import android.transition.Fade;
+import android.transition.Slide;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
@@ -38,31 +42,22 @@ public class HomeActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home);
 
-        Fade fade = new Fade();
-        fade.excludeTarget(R.id.bottomNavigationView, true);
-
-        getWindow().setEnterTransition(fade);
-        getWindow().setExitTransition(fade);
-        getWindow().setReenterTransition(fade);
-        getWindow().setReturnTransition(fade);
-        getWindow().setSharedElementEnterTransition(null);
-        getWindow().setSharedElementExitTransition(null);
-        getWindow().setSharedElementReenterTransition(null);
-        getWindow().setSharedElementReturnTransition(null);
-
         findViewById(R.id.navHome).setOnClickListener(v -> {
             Intent myIntent = new Intent(this, HomeActivity.class);
-            startActivity(myIntent);
+            startActivity(myIntent,
+                    ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         });
 
         findViewById(R.id.navAdd).setOnClickListener(v -> {
             Intent myIntent = new Intent(this, TransactionActivity.class);
-            startActivity(myIntent);
+            startActivity(myIntent,
+                    ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         });
 
         findViewById(R.id.navSettings).setOnClickListener(v -> {
             Intent myIntent = new Intent(this, SettingsActivity.class);
-            startActivity(myIntent);
+            startActivity(myIntent,
+                    ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         });
 
         ListView groupsView = findViewById(R.id.listVgruppenPersonen);

@@ -33,17 +33,7 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        Fade fade = new Fade();
-        fade.excludeTarget(R.id.bottomNavigationView, true);
-
-        getWindow().setEnterTransition(fade);
-        getWindow().setExitTransition(fade);
-        getWindow().setReenterTransition(fade);
-        getWindow().setReturnTransition(fade);
-        getWindow().setSharedElementEnterTransition(null);
-        getWindow().setSharedElementExitTransition(null);
-        getWindow().setSharedElementReenterTransition(null);
-        getWindow().setSharedElementReturnTransition(null);
+        overridePendingTransition(0,0);
 
         var ctx = this;
 
