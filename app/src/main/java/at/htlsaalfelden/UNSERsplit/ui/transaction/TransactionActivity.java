@@ -4,7 +4,9 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.opengl.Visibility;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -55,6 +57,22 @@ public class TransactionActivity extends AppCompatActivity {
             EditText b = findViewById(R.id.editTextNumber);
             b.setVisibility(View.VISIBLE);
         });
+
+
+        //Dynamic Iban
+        /*ConstraintLayout layout = findViewById(R.id.addContainer);
+        ViewGroup.LayoutParams params = layout.getLayoutParams();
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height =  (int)(displayMetrics.heightPixels * 0.4);
+        int width = (int) (displayMetrics.widthPixels * 0.75);
+
+        displayMetrics.
+
+        params.height = height;
+        params.width = width;
+        layout.setLayoutParams(params);*/
 
         }
 
