@@ -36,14 +36,44 @@
                 android:textSize="24sp" />
 
 
-            <TextView
-                android:id="@+id/textViewBetrag"
-                android:layout_width="wrap_content"
+            <Space
+                android:layout_width="10dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="56dp"
-                android:gravity="center"
-                android:text="###"
-                android:textSize="28sp" />
+                android:layout_weight="1" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/splitValueContainer"
+                android:layout_width="59dp"
+                android:layout_height="48dp">
+
+                <TextView
+                    android:id="@+id/textViewBetrag"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="###"
+                    android:textSize="28sp"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/editTextNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:hint="@string/betrag"
+                    android:inputType="number"
+                    android:minWidth="48dp"
+                    android:minHeight="48dp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toTopOf="@+id/textViewBetrag"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageView
                 android:id="@+id/euro"

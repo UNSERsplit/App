@@ -13,4 +13,17 @@
     <string name="title_activity_settings">title_activity_settings</string>
     <string name="title_activity_register">title_activity_register\n</string>
     <string name="title_activity_transaction">title_activity_transaction\n</string>
+    <string name="addbetrag">AddBetrag</string>
+    <string name="betrag">Betrag</string>
+    <string-array name="splitVariant">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
+
 </resources>
