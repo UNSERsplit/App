@@ -3,9 +3,12 @@ package at.htlsaalfelden.UNSERsplit.api;
 import java.util.List;
 
 import at.htlsaalfelden.UNSERsplit.api.model.Group;
+import at.htlsaalfelden.UNSERsplit.api.model.GroupCreateRequest;
+import at.htlsaalfelden.UNSERsplit.api.model.GroupMembers;
 import at.htlsaalfelden.UNSERsplit.api.model.LoginResponse;
 import at.htlsaalfelden.UNSERsplit.api.model.PublicUserData;
 import at.htlsaalfelden.UNSERsplit.api.model.Transaction;
+import at.htlsaalfelden.UNSERsplit.api.model.TransactionCreateRequest;
 import at.htlsaalfelden.UNSERsplit.api.model.User;
 import at.htlsaalfelden.UNSERsplit.api.model.UserCreateRequest;
 import retrofit2.Call;
@@ -17,6 +20,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiService {
     @FormUrlEncoded
@@ -50,10 +54,34 @@ public interface ApiService {
     @GET("transactions/to/{userid}")
     Call<List<Transaction>> getTransactions(@Path("userid") int userid);
 
+    @POST("transactions/")
+    Call<Transaction> createTRansaction(@Body TransactionCreateRequest request);
+
 
     @GET("group/")
     Call<List<Group>> getGroups();
 
+    @POST("group/")
+    Call<Group> createGroup(@Body GroupCreateRequest request);
+
+    @GET("group/{groupid}")
+    Call<Group> getGroup(@Path("groupid") int groupid);
+
+    @PUT("group/{groupid}")
+    Call<Group> updateGroup(@Path("groupid") int groupid, GroupCreateRequest request);
+
+    @DELETE("group/{groupid}")
+    Call<Group> deleteGroup(@Path("groupid") int groupid);
+
+    @POST("group/{groupid}/users")
+    Call<GroupMembers> addUser(@Path("groupid") int groupid, @Query("userid") int userid);
+
     @GET("group/{groupid}/users")
     Call<List<PublicUserData>> getUsers(@Path("groupid") int groupid);
+
+    @POST("group/{groupid}/users/{userid}/invite")
+    Call<GroupMembers> inviteUser(@Path("groupid") int groupid, @Path("userid") int userid);
+
+    @DELETE("group/{groupid}/users/{userid}")
+    Call<GroupMembers> removeUser(@Path("groupid") int groupid, @Path("userid") int userid);
 }
