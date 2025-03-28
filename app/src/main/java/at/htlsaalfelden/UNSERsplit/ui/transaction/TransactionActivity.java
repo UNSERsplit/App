@@ -5,10 +5,14 @@ import android.content.Intent;
 import android.opengl.Visibility;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.google.android.material.textfield.TextInputEditText;
 
 import at.htlsaalfelden.UNSERsplit.R;
 import at.htlsaalfelden.UNSERsplit.ui.home.HomeActivity;
@@ -39,17 +43,17 @@ public class TransactionActivity extends AppCompatActivity {
         });
 
         findViewById(R.id.textViewbtnHalf).setOnClickListener(v -> {
-            ConstraintLayout a = findViewById(R.id.costumSlpitContainer);
-            a.setVisibility(View.GONE);
-            a = findViewById(R.id.halfSlpitContainer);
+            TextView a = findViewById(R.id.textViewBetrag);
             a.setVisibility(View.VISIBLE);
+            EditText b = findViewById(R.id.editTextNumber);
+            b.setVisibility(View.GONE);
         });
 
         findViewById(R.id.textViewbtnCostum).setOnClickListener(v -> {
-            ConstraintLayout a = findViewById(R.id.halfSlpitContainer);
+            TextView a = findViewById(R.id.textViewBetrag);
             a.setVisibility(View.GONE);
-            a = findViewById(R.id.costumSlpitContainer);
-            a.setVisibility(View.VISIBLE);
+            EditText b = findViewById(R.id.editTextNumber);
+            b.setVisibility(View.VISIBLE);
         });
 
         }
