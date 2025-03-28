@@ -198,7 +198,7 @@ public class SettingsActivity extends AppCompatActivity {
             });
         });
 
-        findViewById(R.id.btnSettingVornameChange).setOnClickListener(v -> {
+        findViewById(R.id.txtViewSettingVornameData).setOnClickListener(v -> {
             EditText editText = findViewById(R.id.txtViewSettingVornameData);
             editText.setInputType(InputType.TYPE_CLASS_TEXT);
         });
