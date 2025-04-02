@@ -18,22 +18,30 @@ import retrofit2.Response;
 public interface DefaultCallback<T> extends FailableCallback<T, Object> {
     @Override
     default void onError(@NonNull Call<T> call, @NonNull Response<T> response, Object requestData) {
-        String detail = "";
-
         try {
-            detail = response.errorBody().string();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            String detail = "";
+
+            try {
+                detail = response.errorBody().string();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            System.out.println(detail);
+
+            if (response.errorBody().contentType().equals(MediaType.get("application/json"))) {
+                try {
+                    Gson gson = new Gson();
+                    detail = gson.fromJson(detail, ErrorResponse.class).detail.toString();
+                } catch (NullPointerException e) {
+
+                }
+            }
+
+            ErrorActivity.showError(response.code() + "-" + response.message(), detail);
+        } catch (Exception e) {
+            onFailure(call, e);
         }
-
-        System.out.println(detail);
-
-        if(response.errorBody().contentType().equals(MediaType.get("application/json"))) {
-            Gson gson = new Gson();
-            detail = gson.fromJson(detail, ErrorResponse.class).detail.toString();
-        }
-
-        ErrorActivity.showError(response.code() + "-" + response.message(), detail);
     }
 
     @Override

@@ -47,6 +47,9 @@ public interface ApiService {
     @DELETE("user/me")
     Call<User> deleteUser();
 
+    @GET("user/search")
+    Call<List<PublicUserData>> searchUser(@Query("query") String name);
+
 
     @GET("transactions/me")
     Call<List<Transaction>> getTransactions();

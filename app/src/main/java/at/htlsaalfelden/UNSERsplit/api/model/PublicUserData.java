@@ -5,6 +5,8 @@ public class PublicUserData {
     private String lastname;
     private String iban;
 
+    private int userid;
+
     public PublicUserData(String firstname, String lastname, String iban) {
         this.firstname = firstname;
         this.lastname = lastname;
@@ -21,5 +23,9 @@ public class PublicUserData {
 
     public String getIban() {
         return iban;
+    }
+
+    public int getUserid() {
+        return userid;
     }
 }
