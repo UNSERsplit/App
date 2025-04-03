@@ -26,6 +26,7 @@ public class API {
             Request newRequest  = chain.request().newBuilder()
                     .addHeader("Authorization", "Bearer " + getToken())
                     .build();
+            System.out.println(newRequest.url() + " " + newRequest.isHttps());
             return chain.proceed(newRequest);
         }).build();
 
