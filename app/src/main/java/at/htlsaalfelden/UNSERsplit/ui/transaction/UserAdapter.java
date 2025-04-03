@@ -66,7 +66,7 @@ public class UserAdapter extends BaseAdapter {
 
         TextView username = view.findViewById(R.id.txtViewBenutzername);
         TextView betrag = view.findViewById(R.id.textViewBetrag);
-        EditText betragEdit = view.findViewById(R.id.editTextBetrag);
+        EditText betragEdit = view.findViewById(R.id.editTextNumber);
 
         username.setText(item.getUserData().getFirstname() + " " + item.getUserData().getLastname());
         betrag.setText(item.getBalance() + "");
