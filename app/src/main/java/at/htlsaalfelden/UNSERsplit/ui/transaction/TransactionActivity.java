@@ -2,21 +2,17 @@ package at.htlsaalfelden.UNSERsplit.ui.transaction;
 
 import android.annotation.SuppressLint;
 import android.app.SearchManager;
-import android.app.SearchableInfo;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.MatrixCursor;
-import android.opengl.Visibility;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.SearchView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -24,12 +20,11 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
-import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import at.htlsaalfelden.UNSERsplit.R;
 import at.htlsaalfelden.UNSERsplit.api.API;
@@ -47,6 +42,8 @@ public class TransactionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_transaction);
+
+        AtomicBoolean isSplitEven = new AtomicBoolean(true);
 
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
@@ -73,6 +70,7 @@ public class TransactionActivity extends AppCompatActivity {
             a.setVisibility(View.VISIBLE);
             EditText b = findViewById(R.id.editTextNumber);
             b.setVisibility(View.GONE);
+            isSplitEven.set(true);
         });
 
         findViewById(R.id.textViewbtnCostum).setOnClickListener(v -> {
@@ -80,6 +78,32 @@ public class TransactionActivity extends AppCompatActivity {
             a.setVisibility(View.GONE);
             EditText b = findViewById(R.id.editTextNumber);
             b.setVisibility(View.VISIBLE);
+            isSplitEven.set(false);
+        });
+
+        List<CombinedUser> users = new ArrayList<>();
+        UserAdapter adapter = new UserAdapter(this, users);
+
+        ListView listView = findViewById(R.id.scrollView2);
+        listView.setAdapter(adapter);
+
+        SearchView searchView = findViewById(R.id.searchViewAddPersonen);
+
+        EditText editTextBetrag = findViewById(R.id.editTextBetrag);
+
+        final double[] sum = {0};
+
+        editTextBetrag.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                sum[0] = Double.parseDouble(editTextBetrag.getText().toString());
+                modifyBalances(isSplitEven, users, adapter, sum[0]);
+            }
         });
 
 
@@ -98,22 +122,9 @@ public class TransactionActivity extends AppCompatActivity {
         params.width = width;
         layout.setLayoutParams(params);*/
 
-        List<CombinedUser> users = new ArrayList<>();
-        UserAdapter adapter = new UserAdapter(this, users);
-
-        ListView listView = findViewById(R.id.scrollView2);
-        listView.setAdapter(adapter);
-
-        SearchView searchView = findViewById(R.id.searchViewAddPersonen);
 
 
 
-        searchView.setOnSearchClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
 
         SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(this, R.layout.layout_transaction_userlist_half, null, new String[] {SearchManager.SUGGEST_COLUMN_TEXT_1}, new int[] {R.id.txtViewBenutzername}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
@@ -146,5 +157,45 @@ public class TransactionActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        searchView.setOnSuggestionListener(new SearchView.OnSuggestionListener() {
+            @Override
+            public boolean onSuggestionSelect(int position) {
+                return false;
+            }
+
+            @Override
+            public boolean onSuggestionClick(int position) {
+                Cursor cursor = (Cursor) searchView.getSuggestionsAdapter().getItem(position);
+                @SuppressLint("Range") String selection = cursor.getString(cursor.getColumnIndex(SearchManager.SUGGEST_COLUMN_TEXT_1));
+                @SuppressLint("Range") int userid = cursor.getInt(cursor.getColumnIndex("_id"));
+
+                searchView.setQuery("", false);
+
+                API.service.getUser(userid).enqueue(new DefaultCallback<PublicUserData>() {
+                    @Override
+                    public void onSucess(@Nullable PublicUserData response) {
+                        CombinedUser user = new CombinedUser(response, 1);
+                        user.setAdapter(adapter);
+                        users.add(user);
+
+                        modifyBalances(isSplitEven, users, adapter, sum[0]);
+                    }
+                });
+
+                return true;
+            }
+        });
+    }
+
+    private void modifyBalances(AtomicBoolean isSplitEven, List<CombinedUser> users, BaseAdapter userAdapter, double sum) {
+        if(isSplitEven.get()) {
+            double per_user = Math.ceil((sum / users.size()) * 100) / 100; // maximal 2 Nachkommastellen
+            for(CombinedUser combinedUser : users) {
+                combinedUser.setBalance(per_user);
+            }
+
+            userAdapter.notifyDataSetChanged();
+        }
     }
 }

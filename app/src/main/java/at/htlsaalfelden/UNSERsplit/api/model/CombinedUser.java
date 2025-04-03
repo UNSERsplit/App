@@ -5,9 +5,9 @@ import android.widget.BaseAdapter;
 public class CombinedUser {
     private PublicUserData userData;
     private BaseAdapter adapter;
-    private int balance;
+    private double balance;
 
-    public CombinedUser(PublicUserData userData, int balance) {
+    public CombinedUser(PublicUserData userData, double balance) {
         this.userData = userData;
         this.balance = balance;
     }
@@ -22,11 +22,11 @@ public class CombinedUser {
         this.adapter.notifyDataSetChanged();
     }
 
-    public int getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
 
         this.adapter.notifyDataSetChanged();
