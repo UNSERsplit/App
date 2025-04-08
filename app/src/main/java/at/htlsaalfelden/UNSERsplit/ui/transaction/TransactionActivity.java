@@ -1,5 +1,9 @@
 package at.htlsaalfelden.UNSERsplit.ui.transaction;
 
+import static at.htlsaalfelden.UNSERsplit.ReflectionUtils.call;
+import static at.htlsaalfelden.UNSERsplit.ReflectionUtils.get;
+import static at.htlsaalfelden.UNSERsplit.ReflectionUtils.showMembers;
+
 import android.annotation.SuppressLint;
 import android.app.SearchManager;
 import android.content.Intent;
@@ -139,6 +143,9 @@ public class TransactionActivity extends AppCompatActivity {
         searchView.setSuggestionsAdapter(cursorAdapter);
         searchView.onActionViewExpanded();
 
+        getSearchAutoComplete(searchView).setThreshold(2); // Bei 1 Funktioniert der Divider nicht
+
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -222,36 +229,9 @@ public class TransactionActivity extends AppCompatActivity {
         return get(popupWindow, "mDropDownList");
     }
 
-    private static <T> T get(Object o, String name) {
-        return get(o,name,o.getClass());
-    }
+    private static AutoCompleteTextView getSearchAutoComplete(SearchView searchView) {
+        AutoCompleteTextView searchAutoComplete = get(searchView, "mSearchSrcTextView");
 
-    private static <T> T get(Object o, String name, Class<?> c) {
-        try {
-            Field field = c.getDeclaredField(name);
-            field.setAccessible(true);
-            return (T) field.get(o);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private static void showMembers(Class<?> c) {
-        System.out.println("Logging for Class '" + c.getSimpleName() + "'");
-        System.out.println("Fields: ");
-        for(Field field : c.getDeclaredFields()) {
-            System.out.println("\t" + field.getName() + " : " + field.getType().getSimpleName());
-        }
-        System.out.println("Methods: ");
-        for(Method m : c.getDeclaredMethods()) {
-            System.out.println("\t" + m.getName() + " : " + m.getReturnType().getSimpleName());
-        }
-        if(c.getSuperclass() != null && !Objects.equals(c.getSuperclass(), Object.class)) {
-            showMembers(c.getSuperclass());
-        }
-    }
-
-    private static void showMembers(Object o) {
-        showMembers(o.getClass());
+        return searchAutoComplete;
     }
 }
