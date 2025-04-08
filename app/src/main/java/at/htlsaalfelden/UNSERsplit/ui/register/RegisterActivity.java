@@ -22,6 +22,7 @@ import at.htlsaalfelden.UNSERsplit.api.API;
 import at.htlsaalfelden.UNSERsplit.api.FailableCallback;
 import at.htlsaalfelden.UNSERsplit.api.model.User;
 import at.htlsaalfelden.UNSERsplit.api.model.UserCreateRequest;
+import at.htlsaalfelden.UNSERsplit.ui.NavigationUtils;
 import at.htlsaalfelden.UNSERsplit.ui.error.ErrorActivity;
 import at.htlsaalfelden.UNSERsplit.ui.login.LoginActivity;
 import retrofit2.Call;
@@ -35,10 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register);
 
-        View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN);
+        NavigationUtils.initScreen(this);
 
         var ctx = this;
 

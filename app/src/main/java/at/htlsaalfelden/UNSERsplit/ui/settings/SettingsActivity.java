@@ -26,6 +26,7 @@ import at.htlsaalfelden.UNSERsplit.api.API;
 import at.htlsaalfelden.UNSERsplit.api.DefaultCallback;
 import at.htlsaalfelden.UNSERsplit.api.model.User;
 import at.htlsaalfelden.UNSERsplit.api.model.UserCreateRequest;
+import at.htlsaalfelden.UNSERsplit.ui.NavigationUtils;
 import at.htlsaalfelden.UNSERsplit.ui.home.HomeActivity;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -37,10 +38,8 @@ public class SettingsActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_settings);
 
-        View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN);
+        NavigationUtils.initNavbar(this);
+
 
         ConstraintLayout layout = findViewById(R.id.contentLayout);
         ViewGroup.LayoutParams params = layout.getLayoutParams();
@@ -177,12 +176,6 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
 
-
-        findViewById(R.id.navHome).setOnClickListener(v -> {
-            Intent myIntent = new Intent(this, HomeActivity.class);
-            startActivity(myIntent,
-                    ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-        });
 
         findViewById(R.id.btnZurück).setOnClickListener(v -> {
             Intent myIntent = new Intent(this, HomeActivity.class);

@@ -37,6 +37,7 @@ import at.htlsaalfelden.UNSERsplit.api.API;
 import at.htlsaalfelden.UNSERsplit.api.DefaultCallback;
 import at.htlsaalfelden.UNSERsplit.api.model.CombinedUser;
 import at.htlsaalfelden.UNSERsplit.api.model.PublicUserData;
+import at.htlsaalfelden.UNSERsplit.ui.NavigationUtils;
 import at.htlsaalfelden.UNSERsplit.ui.home.HomeActivity;
 import at.htlsaalfelden.UNSERsplit.ui.settings.SettingsActivity;
 
@@ -55,6 +56,8 @@ public class TransactionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_transaction);
+
+        NavigationUtils.initNavbar(this);
 
         isSplitEven = new Observable<>(true);
         totalSum = new Observable<>(0.0);

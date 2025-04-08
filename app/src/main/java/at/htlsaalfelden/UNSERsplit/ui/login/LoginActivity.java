@@ -20,6 +20,7 @@ import at.htlsaalfelden.UNSERsplit.api.API;
 import at.htlsaalfelden.UNSERsplit.api.DefaultCallback;
 import at.htlsaalfelden.UNSERsplit.api.FailableCallback;
 import at.htlsaalfelden.UNSERsplit.api.model.LoginResponse;
+import at.htlsaalfelden.UNSERsplit.ui.NavigationUtils;
 import at.htlsaalfelden.UNSERsplit.ui.home.HomeActivity;
 import okhttp3.Request;
 import at.htlsaalfelden.UNSERsplit.ui.register.RegisterActivity;
@@ -37,10 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
 
-        View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN);
+        NavigationUtils.initScreen(this );
 
         var ctx = this;
 

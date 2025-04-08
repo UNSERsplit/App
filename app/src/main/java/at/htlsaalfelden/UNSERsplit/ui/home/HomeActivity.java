@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.transition.Explode;
 import android.transition.Fade;
 import android.transition.Slide;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
@@ -16,6 +17,9 @@ import android.widget.ListView;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +33,7 @@ import at.htlsaalfelden.UNSERsplit.api.model.CombinedGroup;
 import at.htlsaalfelden.UNSERsplit.api.model.Group;
 import at.htlsaalfelden.UNSERsplit.api.model.PublicUserData;
 import at.htlsaalfelden.UNSERsplit.api.model.Transaction;
+import at.htlsaalfelden.UNSERsplit.ui.NavigationUtils;
 import at.htlsaalfelden.UNSERsplit.ui.settings.SettingsActivity;
 import at.htlsaalfelden.UNSERsplit.ui.transaction.TransactionActivity;
 
@@ -41,30 +46,8 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home);
+        NavigationUtils.initNavbar(this);
 
-        View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN);
-
-
-        findViewById(R.id.navHome).setOnClickListener(v -> {
-            Intent myIntent = new Intent(this, HomeActivity.class);
-            startActivity(myIntent,
-                    ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-        });
-
-        findViewById(R.id.navAdd).setOnClickListener(v -> {
-            Intent myIntent = new Intent(this, TransactionActivity.class);
-            startActivity(myIntent,
-                    ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-        });
-
-        findViewById(R.id.navSettings).setOnClickListener(v -> {
-            Intent myIntent = new Intent(this, SettingsActivity.class);
-            startActivity(myIntent,
-                    ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-        });
 
         ListView groupsView = findViewById(R.id.listVgruppenPersonen);
         //groups.setAdapter(new ArrayAdapter<String>(this, R.layout.layout_group, R.id.txtViewGroupName, new String[]{"a","b","c","d","" +
