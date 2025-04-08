@@ -1,9 +1,8 @@
-package at.htlsaalfelden.UNSERsplit;
+package at.htlsaalfelden.UNSERsplit.NoLib;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.StringJoiner;
 

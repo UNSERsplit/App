@@ -1,8 +1,8 @@
 package at.htlsaalfelden.UNSERsplit.ui.transaction;
 
-import static at.htlsaalfelden.UNSERsplit.ReflectionUtils.call;
-import static at.htlsaalfelden.UNSERsplit.ReflectionUtils.get;
-import static at.htlsaalfelden.UNSERsplit.ReflectionUtils.showMembers;
+import static at.htlsaalfelden.UNSERsplit.NoLib.ReflectionUtils.call;
+import static at.htlsaalfelden.UNSERsplit.NoLib.ReflectionUtils.get;
+import static at.htlsaalfelden.UNSERsplit.NoLib.ReflectionUtils.showMembers;
 
 import android.annotation.SuppressLint;
 import android.app.SearchManager;
@@ -22,21 +22,16 @@ import android.widget.ListPopupWindow;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
 
+import at.htlsaalfelden.UNSERsplit.NoLib.Observable;
 import at.htlsaalfelden.UNSERsplit.R;
 import at.htlsaalfelden.UNSERsplit.api.API;
 import at.htlsaalfelden.UNSERsplit.api.DefaultCallback;
@@ -47,6 +42,13 @@ import at.htlsaalfelden.UNSERsplit.ui.settings.SettingsActivity;
 
 
 public class TransactionActivity extends AppCompatActivity {
+
+    public Observable<Boolean> isSplitEven;
+    public Observable<Double> totalSum;
+
+    private List<CombinedUser> users;
+    private UserAdapter userAdapter;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +56,8 @@ public class TransactionActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_transaction);
 
-        AtomicBoolean isSplitEven = new AtomicBoolean(true);
+        isSplitEven = new Observable<>(true);
+        totalSum = new Observable<>(0.0);
 
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
@@ -77,32 +80,40 @@ public class TransactionActivity extends AppCompatActivity {
         });
 
         findViewById(R.id.textViewbtnHalf).setOnClickListener(v -> {
-            TextView a = findViewById(R.id.textViewBetrag);
-            a.setVisibility(View.VISIBLE);
-            EditText b = findViewById(R.id.editTextNumber);
-            b.setVisibility(View.GONE);
             isSplitEven.set(true);
         });
 
         findViewById(R.id.textViewbtnCostum).setOnClickListener(v -> {
-            TextView a = findViewById(R.id.textViewBetrag);
-            a.setVisibility(View.GONE);
-            EditText b = findViewById(R.id.editTextNumber);
-            b.setVisibility(View.VISIBLE);
             isSplitEven.set(false);
         });
 
-        List<CombinedUser> users = new ArrayList<>();
-        UserAdapter adapter = new UserAdapter(this, users);
+        users = new ArrayList<>();
+        userAdapter = new UserAdapter(this, users);
 
         ListView listView = findViewById(R.id.scrollView2);
-        listView.setAdapter(adapter);
+        listView.setAdapter(userAdapter);
 
         SearchView searchView = findViewById(R.id.searchViewAddPersonen);
 
         EditText editTextBetrag = findViewById(R.id.editTextBetrag);
 
-        final double[] sum = {0};
+        totalSum.addListener((o,v) -> {
+            if(this.isSplitEven.get()) {
+                double per_user = Math.ceil((totalSum.get() / users.size()) * 100) / 100;
+                for(CombinedUser u : this.users) {
+                    u.setBalance(per_user);
+                }
+            }
+        });
+
+        isSplitEven.addListener((o,v) -> {
+            if(v) {
+                double per_user = Math.ceil((totalSum.get() / users.size()) * 100) / 100;
+                for (CombinedUser u : this.users) {
+                    u.setBalance(per_user);
+                }
+            }
+        });
 
         editTextBetrag.addTextChangedListener(new TextWatcher() {
             @Override
@@ -112,8 +123,14 @@ public class TransactionActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                sum[0] = Double.parseDouble(editTextBetrag.getText().toString());
-                modifyBalances(isSplitEven, users, adapter, sum[0]);
+                try {
+                    Double.parseDouble(editTextBetrag.getText().toString());
+                } catch (NumberFormatException e) {
+                    totalSum.set(0.0);
+                    return;
+                }
+
+                totalSum.set(Double.parseDouble(editTextBetrag.getText().toString()));
             }
         });
 
@@ -197,27 +214,16 @@ public class TransactionActivity extends AppCompatActivity {
                     @Override
                     public void onSucess(@Nullable PublicUserData response) {
                         CombinedUser user = new CombinedUser(response, 1);
-                        user.setAdapter(adapter);
+                        user.setAdapter(userAdapter);
                         users.add(user);
 
-                        modifyBalances(isSplitEven, users, adapter, sum[0]);
+                        onUserAdd(user);
                     }
                 });
 
                 return true;
             }
         });
-    }
-
-    private void modifyBalances(AtomicBoolean isSplitEven, List<CombinedUser> users, BaseAdapter userAdapter, double sum) {
-        if(isSplitEven.get()) {
-            double per_user = Math.ceil((sum / users.size()) * 100) / 100; // maximal 2 Nachkommastellen
-            for(CombinedUser combinedUser : users) {
-                combinedUser.setBalance(per_user);
-            }
-
-            userAdapter.notifyDataSetChanged();
-        }
     }
 
     private static ListView getListViewUnsafe(SearchView searchView) {
@@ -233,5 +239,25 @@ public class TransactionActivity extends AppCompatActivity {
         AutoCompleteTextView searchAutoComplete = get(searchView, "mSearchSrcTextView");
 
         return searchAutoComplete;
+    }
+
+    private void onUserAdd(CombinedUser user) {
+        if(this.isSplitEven.get()) {
+            double per_user = Math.ceil((totalSum.get() / users.size()) * 100) / 100;
+            for(CombinedUser u : this.users) {
+                u.setBalance(per_user);
+            }
+        } else {
+            double combined = 0;
+            for(CombinedUser u : this.users) {
+                combined += u.getBalance();
+            }
+
+            if(combined < this.totalSum.get()) {
+                user.setBalance(this.totalSum.get() - combined);
+            }
+        }
+
+        this.userAdapter.notifyDataSetChanged();
     }
 }

@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 
+import at.htlsaalfelden.UNSERsplit.NoLib.ReflectionUtils;
 import at.htlsaalfelden.UNSERsplit.ui.error.ErrorActivity;
 import okhttp3.MediaType;
 import okhttp3.Request;
@@ -16,7 +17,7 @@ import retrofit2.Invocation;
 import retrofit2.Response;
 
 public interface FailableCallback<T, U> extends Callback<T> {
-    static <T> void showError(@NonNull Response<T> response) {
+    static <T> void showError(@NonNull Response<T> response, Call<T> call) {
         String detail = "";
 
         try {
@@ -30,6 +31,12 @@ public interface FailableCallback<T, U> extends Callback<T> {
         if(response.errorBody().contentType().equals(MediaType.get("application/json"))) {
             Gson gson = new Gson();
             detail = gson.fromJson(detail, DefaultCallback.ErrorResponse.class).detail.toString();
+        }
+
+        System.err.println("Error when calling URL: " + call.request().method() + " " + call.request().url());
+
+        for (StackTraceElement ste : Thread.currentThread().getStackTrace()) {
+            System.err.println(ste);
         }
 
         ErrorActivity.showError(response.code() + "-" + response.message(), detail);
@@ -58,7 +65,7 @@ public interface FailableCallback<T, U> extends Callback<T> {
             } else if(response.code() >= 400 && response.code() < 500 && response.code() != 422) {
                 on400(call, response, (U) o);
             } else if (response.code() == 422) {
-                showError(response);
+                showError(response, call);
             } else if(response.code() >= 500 && response.code() < 600) {
                 on500(call, response, (U) o);
             }
@@ -78,13 +85,13 @@ public interface FailableCallback<T, U> extends Callback<T> {
     }
 
     default void on300(@NonNull Call<T> call, @NonNull Response<T> response, U requestData) {
-        showError(response);
+        showError(response, call);
     }
     default void on400(@NonNull Call<T> call, @NonNull Response<T> response, U requestData) {
-        showError(response);
+        showError(response, call);
     }
     default void on500(@NonNull Call<T> call, @NonNull Response<T> response, U requestData) {
-        showError(response);
+        showError(response, call);
     }
 
     void onSucess(@Nullable T response);

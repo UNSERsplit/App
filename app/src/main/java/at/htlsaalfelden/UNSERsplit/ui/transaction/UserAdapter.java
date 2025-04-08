@@ -20,13 +20,13 @@ import at.htlsaalfelden.UNSERsplit.api.model.CombinedUser;
 
 public class UserAdapter extends BaseAdapter {
 
-    private Context context;
+    private TransactionActivity context;
     private List<CombinedUser> users;
 
     private LayoutInflater layoutInflater;
 
 
-    public UserAdapter(@NonNull Context context, @NonNull List<CombinedUser> groups) {
+    public UserAdapter(@NonNull TransactionActivity context, @NonNull List<CombinedUser> groups) {
         this.context = context;
         this.users = groups;
         this.layoutInflater = LayoutInflater.from(context);
@@ -70,7 +70,25 @@ public class UserAdapter extends BaseAdapter {
 
         username.setText(item.getUserData().getFirstname() + " " + item.getUserData().getLastname());
         betrag.setText(item.getBalance() + "");
-        betragEdit.setText("");
+        betragEdit.setText(item.getBalance() + "");
+
+        context.isSplitEven.addListener((o,v) -> {
+            if(v) {
+                betrag.setVisibility(View.VISIBLE);
+                betragEdit.setVisibility(View.GONE);
+            } else {
+                betrag.setVisibility(View.GONE);
+                betragEdit.setVisibility(View.VISIBLE);
+            }
+        });
+
+        if(context.isSplitEven.get()) {
+            betrag.setVisibility(View.VISIBLE);
+            betragEdit.setVisibility(View.GONE);
+        } else {
+            betrag.setVisibility(View.GONE);
+            betragEdit.setVisibility(View.VISIBLE);
+        }
 
         return view;
     }
