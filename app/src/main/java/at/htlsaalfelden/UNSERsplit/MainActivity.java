@@ -5,7 +5,6 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.transition.Fade;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -15,13 +14,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.logging.Logger;
+
 import at.htlsaalfelden.UNSERsplit.api.API;
 import at.htlsaalfelden.UNSERsplit.api.FailableCallback;
 import at.htlsaalfelden.UNSERsplit.api.model.User;
+import at.htlsaalfelden.UNSERsplit.ui.error.ErrorActivity;
 import at.htlsaalfelden.UNSERsplit.ui.home.HomeActivity;
 import at.htlsaalfelden.UNSERsplit.ui.login.LoginActivity;
-import at.htlsaalfelden.UNSERsplit.ui.register.RegisterActivity;
-import at.htlsaalfelden.UNSERsplit.ui.settings.SettingsActivity;
 import retrofit2.Call;
 import retrofit2.Response;
 

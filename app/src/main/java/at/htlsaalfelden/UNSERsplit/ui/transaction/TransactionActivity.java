@@ -5,13 +5,16 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.MatrixCursor;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.BaseAdapter;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
+import android.widget.ListPopupWindow;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SimpleCursorAdapter;
@@ -21,8 +24,12 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -127,7 +134,7 @@ public class TransactionActivity extends AppCompatActivity {
 
 
 
-        SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(this, R.layout.layout_transaction_userlist_half, null, new String[] {SearchManager.SUGGEST_COLUMN_TEXT_1}, new int[] {R.id.txtViewBenutzername}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(this, R.layout.layout_username, null, new String[] {SearchManager.SUGGEST_COLUMN_TEXT_1}, new int[] {R.id.txtViewUsername}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
 
         searchView.setSuggestionsAdapter(cursorAdapter);
         searchView.onActionViewExpanded();
@@ -151,6 +158,13 @@ public class TransactionActivity extends AppCompatActivity {
 
                         cursorAdapter.changeCursor(cursor);
                         cursorAdapter.notifyDataSetChanged();
+
+                        ListView suggestionsView = getListViewUnsafe(searchView);
+
+                        if(suggestionsView != null) {
+                            suggestionsView.setDivider(new ColorDrawable(0xff828282));
+                            suggestionsView.setDividerHeight(7);
+                        }
                     }
                 });
 
@@ -197,5 +211,47 @@ public class TransactionActivity extends AppCompatActivity {
 
             userAdapter.notifyDataSetChanged();
         }
+    }
+
+    private static ListView getListViewUnsafe(SearchView searchView) {
+        Object searchAutoComplete = get(searchView, "mSearchSrcTextView");
+
+        //showMembers(searchAutoComplete);
+
+        ListPopupWindow popupWindow = get(searchAutoComplete, "mPopup", AutoCompleteTextView.class);
+        return get(popupWindow, "mDropDownList");
+    }
+
+    private static <T> T get(Object o, String name) {
+        return get(o,name,o.getClass());
+    }
+
+    private static <T> T get(Object o, String name, Class<?> c) {
+        try {
+            Field field = c.getDeclaredField(name);
+            field.setAccessible(true);
+            return (T) field.get(o);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static void showMembers(Class<?> c) {
+        System.out.println("Logging for Class '" + c.getSimpleName() + "'");
+        System.out.println("Fields: ");
+        for(Field field : c.getDeclaredFields()) {
+            System.out.println("\t" + field.getName() + " : " + field.getType().getSimpleName());
+        }
+        System.out.println("Methods: ");
+        for(Method m : c.getDeclaredMethods()) {
+            System.out.println("\t" + m.getName() + " : " + m.getReturnType().getSimpleName());
+        }
+        if(c.getSuperclass() != null && !Objects.equals(c.getSuperclass(), Object.class)) {
+            showMembers(c.getSuperclass());
+        }
+    }
+
+    private static void showMembers(Object o) {
+        showMembers(o.getClass());
     }
 }

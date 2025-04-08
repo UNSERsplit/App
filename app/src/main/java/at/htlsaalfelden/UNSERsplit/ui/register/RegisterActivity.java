@@ -17,16 +17,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.IOException;
 
-import at.htlsaalfelden.UNSERsplit.MainActivity;
 import at.htlsaalfelden.UNSERsplit.R;
 import at.htlsaalfelden.UNSERsplit.api.API;
-import at.htlsaalfelden.UNSERsplit.api.DefaultCallback;
 import at.htlsaalfelden.UNSERsplit.api.FailableCallback;
-import at.htlsaalfelden.UNSERsplit.api.model.LoginResponse;
 import at.htlsaalfelden.UNSERsplit.api.model.User;
 import at.htlsaalfelden.UNSERsplit.api.model.UserCreateRequest;
 import at.htlsaalfelden.UNSERsplit.ui.error.ErrorActivity;
-import at.htlsaalfelden.UNSERsplit.ui.home.HomeActivity;
 import at.htlsaalfelden.UNSERsplit.ui.login.LoginActivity;
 import retrofit2.Call;
 import retrofit2.Response;

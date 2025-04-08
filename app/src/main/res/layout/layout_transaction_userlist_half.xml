@@ -6,13 +6,13 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="377dp"
-        android:layout_height="146dp"
+        android:id="@+id/userContainer"
+        android:layout_width="328dp"
 
+        android:layout_height="57dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/background_lightblue_transparent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
@@ -22,25 +22,24 @@
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0">
 
+
             <TextView
                 android:id="@+id/txtViewBenutzername"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="19dp"
+                android:layout_width="178dp"
+                android:layout_height="66dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
                 android:gravity="center"
                 android:text="Benutzername"
-                android:textSize="24sp" />
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="56dp"
-                android:layout_height="match_parent">
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/splitValueContainer"
