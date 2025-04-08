@@ -115,7 +115,7 @@
             android:ems="10"
             android:gravity="center"
             android:hint="Betrag"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:minWidth="48dp"
             android:minHeight="48dp"
             app:layout_constraintEnd_toEndOf="parent"

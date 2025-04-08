@@ -65,7 +65,7 @@
                     android:layout_height="match_parent"
                     android:ems="10"
                     android:hint="@string/betrag"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:minWidth="48dp"
                     android:minHeight="48dp"
                     android:visibility="invisible"

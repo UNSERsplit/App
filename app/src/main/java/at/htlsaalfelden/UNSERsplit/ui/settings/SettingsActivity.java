@@ -164,7 +164,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         final User[] currentUser = {null};
 
-        /*API.service.getUser().enqueue(new DefaultCallback<User>() {
+        API.service.getUser().enqueue(new DefaultCallback<User>() {
             @Override
             public void onSucess(@Nullable User response) {
                 vorname.setText(response.getFirstname());
@@ -174,7 +174,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                 currentUser[0] = response;
             }
-        });*/
+        });
 
 
 
