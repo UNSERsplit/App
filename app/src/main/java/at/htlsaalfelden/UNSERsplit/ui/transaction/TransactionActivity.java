@@ -46,6 +46,7 @@ public class TransactionActivity extends AppCompatActivity {
 
     public Observable<Boolean> isSplitEven;
     public Observable<Double> totalSum;
+    public Observable<Boolean> deleteMode;
 
     private List<CombinedUser> users;
     private UserAdapter userAdapter;
@@ -61,26 +62,12 @@ public class TransactionActivity extends AppCompatActivity {
 
         isSplitEven = new Observable<>(true);
         totalSum = new Observable<>(0.0);
+        deleteMode = new Observable<>(false);
 
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN);
-
-        findViewById(R.id.navHome).setOnClickListener(v -> {
-            Intent myIntent = new Intent(this, HomeActivity.class);
-            startActivity(myIntent);
-        });
-
-        findViewById(R.id.navAdd).setOnClickListener(v -> {
-            Intent myIntent = new Intent(this, TransactionActivity.class);
-            startActivity(myIntent);
-        });
-
-        findViewById(R.id.navSettings).setOnClickListener(v -> {
-            Intent myIntent = new Intent(this, SettingsActivity.class);
-            startActivity(myIntent);
-        });
 
         findViewById(R.id.textViewbtnHalf).setOnClickListener(v -> {
             isSplitEven.set(true);
