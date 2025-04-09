@@ -21,7 +21,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="horizontal"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -44,9 +44,15 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/splitValueContainer"
-                android:layout_width="59dp"
-                android:layout_height="48dp">
+                android:id="@+id/spaceHolder"
+                android:layout_width="65dp"
+                android:layout_height="match_parent">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/textViewBetrag"
@@ -55,52 +61,39 @@
                     android:gravity="center"
                     android:text="###"
                     android:textSize="28sp"
-                    android:visibility="visible"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:visibility="visible" />
 
                 <EditText
                     android:id="@+id/editTextNumber"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="@string/betrag"
-                    android:inputType="numberDecimal"
-                    android:minWidth="48dp"
+                    android:inputType="text"
                     android:minHeight="48dp"
+                    android:text="Name"
+                    android:textSize="28dp"
                     android:visibility="invisible"
-                    app:layout_constraintBottom_toTopOf="@+id/textViewBetrag"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="€"
-                android:textSize="24sp" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="20dp"
+                android:layout_height="match_parent">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearLayout_deleting"
+            android:id="@+id/linearLayout_delete"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="horizontal"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
-
+            android:visibility="invisible"
+            tools:layout_editor_absoluteX="328dp">
 
             <TextView
                 android:id="@+id/txtViewBenutzername2"
@@ -108,6 +101,7 @@
                 android:layout_height="66dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:text="Benutzername"
                 android:textSize="24sp"
@@ -116,43 +110,26 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="59dp"
-                android:layout_height="48dp"
-                android:visibility="invisible">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="###"
-                    android:textSize="28sp"
-                    android:visibility="visible"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                android:layout_width="68dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="€"
-                android:textSize="24sp"
-                android:visibility="invisible" />
-
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/buttonDelete"
+                android:id="@+id/floatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:clickable="true"
-                android:contentDescription="bearbeiten"
-                android:visibility="visible"
-                tools:srcCompat="@tools:sample/avatars" />
 
+                android:clickable="true"
+                android:contentDescription="löschen"
+                app:srcCompat="@android:drawable/ic_delete" />
+
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

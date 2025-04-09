@@ -75,9 +75,9 @@ public class UserAdapter extends BaseAdapter {
         context.isSplitEven.addListener((o,v) -> {
             if(v) {
                 betrag.setVisibility(View.VISIBLE);
-                betragEdit.setVisibility(View.GONE);
+                betragEdit.setVisibility(View.INVISIBLE);
             } else {
-                betrag.setVisibility(View.GONE);
+                betrag.setVisibility(View.INVISIBLE);
                 betragEdit.setVisibility(View.VISIBLE);
             }
         });
