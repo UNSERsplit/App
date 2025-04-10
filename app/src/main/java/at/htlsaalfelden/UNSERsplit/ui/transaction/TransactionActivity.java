@@ -16,12 +16,14 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ListPopupWindow;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
@@ -51,6 +53,8 @@ public class TransactionActivity extends AppCompatActivity {
     private List<CombinedUser> users;
     private UserAdapter userAdapter;
 
+    private Observable<Double> userSum;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +67,7 @@ public class TransactionActivity extends AppCompatActivity {
         isSplitEven = new Observable<>(true);
         totalSum = new Observable<>(0.0);
         deleteMode = new Observable<>(false);
+        userSum = new Observable<>(0.0);
 
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
@@ -77,6 +82,10 @@ public class TransactionActivity extends AppCompatActivity {
             isSplitEven.set(false);
         });
 
+        findViewById(R.id.btnLoeschen).setOnClickListener(v -> {
+            deleteMode.set(!deleteMode.get());
+        });
+
         users = new ArrayList<>();
         userAdapter = new UserAdapter(this, users);
 
@@ -87,6 +96,8 @@ public class TransactionActivity extends AppCompatActivity {
 
         EditText editTextBetrag = findViewById(R.id.editTextBetrag);
 
+        checkSum();
+
         totalSum.addListener((o,v) -> {
             if(this.isSplitEven.get()) {
                 double per_user = Math.ceil((totalSum.get() / users.size()) * 100) / 100;
@@ -94,6 +105,12 @@ public class TransactionActivity extends AppCompatActivity {
                     u.setBalance(per_user);
                 }
             }
+
+            checkSum();
+        });
+
+        userSum.addListener((o,v) -> {
+            checkSum();
         });
 
         isSplitEven.addListener((o,v) -> {
@@ -102,6 +119,16 @@ public class TransactionActivity extends AppCompatActivity {
                 for (CombinedUser u : this.users) {
                     u.setBalance(per_user);
                 }
+            }
+        });
+
+        deleteMode.addListener((o,v) -> {
+            Button btn = findViewById(R.id.btnLoeschen);
+
+            if(v) {
+                btn.setText("Zurück");
+            } else {
+                btn.setText("Löschen");
             }
         });
 
@@ -233,10 +260,7 @@ public class TransactionActivity extends AppCompatActivity {
 
     private void onUserAdd(CombinedUser user) {
         if(this.isSplitEven.get()) {
-            double per_user = Math.ceil((totalSum.get() / users.size()) * 100) / 100;
-            for(CombinedUser u : this.users) {
-                u.setBalance(per_user);
-            }
+            onUserChange();
         } else {
             double combined = 0;
             for(CombinedUser u : this.users) {
@@ -249,5 +273,31 @@ public class TransactionActivity extends AppCompatActivity {
         }
 
         this.userAdapter.notifyDataSetChanged();
+    }
+
+    public void onUserChange() {
+        if(this.isSplitEven.get()) {
+            double per_user = Math.ceil((totalSum.get() / users.size()) * 100) / 100;
+            for(CombinedUser u : this.users) {
+                u.setBalance(per_user);
+            }
+        }
+
+        double sum = 0.0;
+        for(CombinedUser u : this.users) {
+            sum += u.getBalance();
+        }
+
+        this.userSum.set(sum);
+    }
+
+    private void checkSum() {
+        TextView betragDifference = findViewById(R.id.betragChange);
+        if(Math.abs(this.totalSum.get() - this.userSum.get()) < 0.01) {
+            betragDifference.setVisibility(View.INVISIBLE);
+        } else {
+            betragDifference.setText(Math.floor((this.totalSum.get() - this.userSum.get()) * 100) / 100 + "");
+            betragDifference.setVisibility(View.VISIBLE);
+        }
     }
 }

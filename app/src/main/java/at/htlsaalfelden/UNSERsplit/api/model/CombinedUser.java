@@ -32,6 +32,10 @@ public class CombinedUser {
         this.adapter.notifyDataSetChanged();
     }
 
+    public void setBalanceNoNotify(double balance) {
+        this.balance = balance;
+    }
+
     public void setAdapter(BaseAdapter adapter) {
         this.adapter = adapter;
     }
