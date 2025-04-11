@@ -32,6 +32,11 @@ public class Observable<T> {
         this.listeners.add(listener);
     }
 
+    public void addInstantListener(Listener<T> listener) {
+        this.listeners.add(listener);
+        listener.onChange(this.value, this.value);
+    }
+
     protected void onChange(T oldValue, T newValue) {
         this.isUpdating = true;
         for (Listener<T> l : this.listeners) {

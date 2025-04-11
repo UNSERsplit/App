@@ -1,6 +1,8 @@
 package at.htlsaalfelden.UNSERsplit.ui.transaction;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,14 +67,18 @@ public class UserAdapter extends BaseAdapter {
         final CombinedUser item = getItem(position);
 
         TextView username = view.findViewById(R.id.txtViewBenutzername);
+        TextView username2 = view.findViewById(R.id.txtViewBenutzername2);
         TextView betrag = view.findViewById(R.id.textViewBetrag);
         EditText betragEdit = view.findViewById(R.id.editTextNumber);
 
         username.setText(item.getUserData().getFirstname() + " " + item.getUserData().getLastname());
+        username2.setText(item.getUserData().getFirstname() + " " + item.getUserData().getLastname());
         betrag.setText(item.getBalance() + "");
-        betragEdit.setText(item.getBalance() + "");
+        if(!betragEdit.getText().toString().equals(item.getBalance() + "")) {
+            betragEdit.setText(item.getBalance() + "");
+        }
 
-        context.isSplitEven.addListener((o,v) -> {
+        context.isSplitEven.addInstantListener((o,v) -> {
             if(v) {
                 betrag.setVisibility(View.VISIBLE);
                 betragEdit.setVisibility(View.INVISIBLE);
@@ -82,13 +88,42 @@ public class UserAdapter extends BaseAdapter {
             }
         });
 
-        if(context.isSplitEven.get()) {
-            betrag.setVisibility(View.VISIBLE);
-            betragEdit.setVisibility(View.GONE);
-        } else {
-            betrag.setVisibility(View.GONE);
-            betragEdit.setVisibility(View.VISIBLE);
-        }
+        context.deleteMode.addInstantListener((o,v)-> {
+            if(v) {
+                view.findViewById(R.id.linearLayout_default).setVisibility(View.GONE);
+                view.findViewById(R.id.linearLayout_delete).setVisibility(View.VISIBLE);
+            } else {
+                view.findViewById(R.id.linearLayout_default).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.linearLayout_delete).setVisibility(View.GONE);
+            }
+        });
+
+        view.findViewById(R.id.floatingActionButton).setOnClickListener(v -> {
+            this.users.remove(item);
+            context.onUserChange();
+            this.notifyDataSetChanged();
+        });
+
+        betragEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    Double.parseDouble(betragEdit.getText().toString());
+                } catch (NumberFormatException e) {
+                    item.setBalanceNoNotify(0);
+                    context.onUserChange();
+                    return;
+                }
+                item.setBalanceNoNotify(Math.ceil(Double.parseDouble(betragEdit.getText().toString()) * 100) / 100);
+                context.onUserChange();
+            }
+        });
 
         return view;
     }
