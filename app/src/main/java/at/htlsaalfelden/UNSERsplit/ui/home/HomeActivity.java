@@ -34,6 +34,8 @@ import at.htlsaalfelden.UNSERsplit.api.model.Group;
 import at.htlsaalfelden.UNSERsplit.api.model.PublicUserData;
 import at.htlsaalfelden.UNSERsplit.api.model.Transaction;
 import at.htlsaalfelden.UNSERsplit.ui.NavigationUtils;
+import at.htlsaalfelden.UNSERsplit.ui.groups.GroupOverviewActivity;
+import at.htlsaalfelden.UNSERsplit.ui.register.RegisterActivity;
 import at.htlsaalfelden.UNSERsplit.ui.settings.SettingsActivity;
 import at.htlsaalfelden.UNSERsplit.ui.transaction.TransactionActivity;
 
@@ -99,6 +101,12 @@ public class HomeActivity extends AppCompatActivity {
                 });
             }
 
+        });
+
+        findViewById(R.id.btnSwicth).setOnClickListener(v -> {
+            Intent myIntent = new Intent(this, GroupOverviewActivity.class);
+            startActivity(myIntent);
+            //ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         });
 
 
