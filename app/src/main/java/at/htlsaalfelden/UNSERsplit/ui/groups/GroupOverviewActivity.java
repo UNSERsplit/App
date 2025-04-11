@@ -20,7 +20,7 @@ public class GroupOverviewActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_group_overview);
 
-        NavigationUtils.initScreen(this );
+        NavigationUtils.initNavbar(this );
 
         var ctx = this;
 
