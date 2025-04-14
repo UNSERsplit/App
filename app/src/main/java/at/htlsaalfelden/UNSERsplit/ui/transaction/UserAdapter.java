@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
 
@@ -22,16 +23,25 @@ import at.htlsaalfelden.UNSERsplit.api.model.CombinedUser;
 
 public class UserAdapter extends BaseAdapter {
 
-    private TransactionActivity context;
+    private IUserAdapterAware context;
     private List<CombinedUser> users;
 
     private LayoutInflater layoutInflater;
 
 
-    public UserAdapter(@NonNull TransactionActivity context, @NonNull List<CombinedUser> groups) {
+    public UserAdapter(@NonNull IUserAdapterAware context, @NonNull List<CombinedUser> groups) {
+        if(!(context instanceof AppCompatActivity)) {
+            throw new RuntimeException("context is not a valid android AppCompatActivity");
+        }
         this.context = context;
         this.users = groups;
-        this.layoutInflater = LayoutInflater.from(context);
+        this.layoutInflater = LayoutInflater.from((AppCompatActivity) context);
+    }
+
+    public UserAdapter(@NonNull IUserAdapterAware userContext, @NonNull List<CombinedUser> groups, @NonNull AppCompatActivity activity) {
+        this.context = userContext;
+        this.users = groups;
+        this.layoutInflater = LayoutInflater.from(activity);
     }
 
     @Override
@@ -78,7 +88,7 @@ public class UserAdapter extends BaseAdapter {
             betragEdit.setText(item.getBalance() + "");
         }
 
-        context.isSplitEven.addInstantListener((o,v) -> {
+        context.getIsSplitEven().addInstantListener((o,v) -> {
             if(v) {
                 betrag.setVisibility(View.VISIBLE);
                 betragEdit.setVisibility(View.INVISIBLE);
@@ -88,7 +98,7 @@ public class UserAdapter extends BaseAdapter {
             }
         });
 
-        context.deleteMode.addInstantListener((o,v)-> {
+        context.getDeleteMode().addInstantListener((o,v)-> {
             if(v) {
                 view.findViewById(R.id.linearLayout_default).setVisibility(View.GONE);
                 view.findViewById(R.id.linearLayout_delete).setVisibility(View.VISIBLE);

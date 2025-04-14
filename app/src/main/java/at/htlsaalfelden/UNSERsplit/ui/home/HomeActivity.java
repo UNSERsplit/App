@@ -103,12 +103,6 @@ public class HomeActivity extends AppCompatActivity {
 
         });
 
-        findViewById(R.id.btnSwicth).setOnClickListener(v -> {
-            Intent myIntent = new Intent(this, GroupOverviewActivity.class);
-            startActivity(myIntent);
-            //ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-        });
-
 
         /*ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.home), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

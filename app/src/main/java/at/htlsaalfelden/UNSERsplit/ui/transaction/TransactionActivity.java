@@ -39,7 +39,7 @@ import at.htlsaalfelden.UNSERsplit.api.model.PublicUserData;
 import at.htlsaalfelden.UNSERsplit.ui.NavigationUtils;
 
 
-public class TransactionActivity extends AppCompatActivity {
+public class TransactionActivity extends AppCompatActivity implements IUserAdapterAware {
 
     public Observable<Boolean> isSplitEven;
     public Observable<Double> totalSum;
@@ -268,6 +268,16 @@ public class TransactionActivity extends AppCompatActivity {
         }
 
         this.userAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public Observable<Boolean> getIsSplitEven() {
+        return this.isSplitEven;
+    }
+
+    @Override
+    public Observable<Boolean> getDeleteMode() {
+        return this.deleteMode;
     }
 
     public void onUserChange() {

@@ -2,6 +2,7 @@ package at.htlsaalfelden.UNSERsplit.ui.home;
 
 import androidx.annotation.Nullable;
 import android.content.Context;
+import android.content.Intent;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import java.util.List;
 import at.htlsaalfelden.UNSERsplit.R;
 import at.htlsaalfelden.UNSERsplit.api.model.CombinedGroup;
 import at.htlsaalfelden.UNSERsplit.api.model.Group;
+import at.htlsaalfelden.UNSERsplit.ui.groups.GroupOverviewActivity;
 
 public class GroupAdapter extends BaseAdapter {
 
@@ -78,8 +80,9 @@ public class GroupAdapter extends BaseAdapter {
         groupUsers.setText(item.getMembers().size() + " Mitglieder");
 
         view.setOnClickListener(v -> {
-            Toast toast = Toast.makeText(v.getContext(), item.getGroup().getName(), Toast.LENGTH_SHORT);
-            toast.show();
+            Intent myIntent = new Intent(this.context, GroupOverviewActivity.class);
+            myIntent.putExtra("GROUP", item.getGroup().getGroupid());
+            this.context.startActivity(myIntent);
         });
 
         return view;
