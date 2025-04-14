@@ -30,6 +30,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import at.htlsaalfelden.UNSERsplit.NoLib.Observable;
 import at.htlsaalfelden.UNSERsplit.R;
@@ -38,6 +39,8 @@ import at.htlsaalfelden.UNSERsplit.api.DefaultCallback;
 import at.htlsaalfelden.UNSERsplit.api.model.CombinedGroup;
 import at.htlsaalfelden.UNSERsplit.api.model.CombinedUser;
 import at.htlsaalfelden.UNSERsplit.api.model.Group;
+import at.htlsaalfelden.UNSERsplit.api.model.GroupCreateRequest;
+import at.htlsaalfelden.UNSERsplit.api.model.GroupMembers;
 import at.htlsaalfelden.UNSERsplit.api.model.PublicUserData;
 import at.htlsaalfelden.UNSERsplit.api.model.User;
 import at.htlsaalfelden.UNSERsplit.ui.NavigationUtils;
@@ -97,6 +100,7 @@ public class GroupOverviewActivity extends AppCompatActivity {
         mitgliederContainer.setLayoutParams(params2);
 
         List<CombinedUser> users = new ArrayList<>();
+        final List<PublicUserData>[] originalUsers = new List[]{null};
         StaticAwareContext context = new StaticAwareContext(false, true);
         UserAdapter settingsUserAdapter = new UserAdapter(context, users, this);
 
@@ -122,6 +126,8 @@ public class GroupOverviewActivity extends AppCompatActivity {
                 groupInfo.setText("Mitglieder: " + response.size());
 
                 settingsUserAdapter.notifyDataSetChanged();
+
+                originalUsers[0] = response;
             }
         });
 
@@ -134,6 +140,60 @@ public class GroupOverviewActivity extends AppCompatActivity {
         findViewById(R.id.textViewSettings).setOnClickListener(v -> {
             mitgliederContainer.setVisibility(View.INVISIBLE);
             gruppenSettingsContainer.setVisibility(View.VISIBLE);
+        });
+
+        findViewById(R.id.btnSpeichern).setOnClickListener(v -> {
+            AtomicInteger a = new AtomicInteger(0);
+            List<CombinedUser> usersToAdd = new ArrayList<>(users);
+            List<PublicUserData> usersToRemove = new ArrayList<>(originalUsers[0]);
+
+            for(PublicUserData user : originalUsers[0]) {
+                usersToAdd.removeIf((u) -> u.getUserData().getUserid() == user.getUserid());
+            }
+
+            for(CombinedUser user : users) {
+                usersToRemove.removeIf((u) -> u.getUserid() == user.getUserData().getUserid());
+            }
+
+            int t = usersToRemove.size() + usersToAdd.size() + 1;
+
+            API.service.updateGroup(groupId, new GroupCreateRequest(groupNameEdit.getText().toString())).enqueue(new DefaultCallback<Group>() {
+                @Override
+                public void onSucess(@Nullable Group response) {
+                    if(a.addAndGet(1) == t) {
+                        NavigationUtils.reloadSelf(ctx);
+                    }
+                }
+            });
+
+
+
+            for(CombinedUser user : usersToAdd) {
+                API.service.inviteUser(groupId, user.getUserData().getUserid()).enqueue(new DefaultCallback<GroupMembers>() {
+                    @Override
+                    public void onSucess(@Nullable GroupMembers response) {
+                        API.service.addUser(groupId, user.getUserData().getUserid()).enqueue(new DefaultCallback<GroupMembers>() {
+                            @Override
+                            public void onSucess(@Nullable GroupMembers response) {
+                                if(a.addAndGet(1) == t) {
+                                    NavigationUtils.reloadSelf(ctx);
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+
+            for(PublicUserData user : usersToRemove) {
+                API.service.removeUser(groupId, user.getUserid()).enqueue(new DefaultCallback<GroupMembers>() {
+                    @Override
+                    public void onSucess(@Nullable GroupMembers response) {
+                        if(a.addAndGet(1) == t) {
+                            NavigationUtils.reloadSelf(ctx);
+                        }
+                    }
+                });
+            }
         });
 
 

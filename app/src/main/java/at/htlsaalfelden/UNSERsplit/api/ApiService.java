@@ -71,7 +71,7 @@ public interface ApiService {
     Call<Group> getGroup(@Path("groupid") int groupid);
 
     @PUT("group/{groupid}")
-    Call<Group> updateGroup(@Path("groupid") int groupid, GroupCreateRequest request);
+    Call<Group> updateGroup(@Path("groupid") int groupid, @Body GroupCreateRequest request);
 
     @DELETE("group/{groupid}")
     Call<Group> deleteGroup(@Path("groupid") int groupid);

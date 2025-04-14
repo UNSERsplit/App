@@ -1,11 +1,13 @@
 package at.htlsaalfelden.UNSERsplit.ui;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -61,5 +63,14 @@ public abstract class NavigationUtils {
         decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN);
+    }
+
+    public static void reloadSelf(AppCompatActivity activity) {
+        Bundle extras = activity.getIntent().getExtras();
+
+        Intent myIntent = new Intent(activity, activity.getClass());
+        myIntent.replaceExtras(extras);
+        myIntent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
+        activity.startActivity(myIntent);
     }
 }
