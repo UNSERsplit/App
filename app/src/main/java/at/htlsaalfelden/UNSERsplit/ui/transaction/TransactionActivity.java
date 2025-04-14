@@ -6,7 +6,6 @@ import static at.htlsaalfelden.UNSERsplit.NoLib.ReflectionUtils.showMembers;
 
 import android.annotation.SuppressLint;
 import android.app.SearchManager;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.graphics.drawable.ColorDrawable;
@@ -15,7 +14,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
@@ -31,7 +29,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import at.htlsaalfelden.UNSERsplit.NoLib.Observable;
 import at.htlsaalfelden.UNSERsplit.R;
@@ -40,8 +37,6 @@ import at.htlsaalfelden.UNSERsplit.api.DefaultCallback;
 import at.htlsaalfelden.UNSERsplit.api.model.CombinedUser;
 import at.htlsaalfelden.UNSERsplit.api.model.PublicUserData;
 import at.htlsaalfelden.UNSERsplit.ui.NavigationUtils;
-import at.htlsaalfelden.UNSERsplit.ui.home.HomeActivity;
-import at.htlsaalfelden.UNSERsplit.ui.settings.SettingsActivity;
 
 
 public class TransactionActivity extends AppCompatActivity {

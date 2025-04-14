@@ -59,15 +59,12 @@
         android:layout_height="487dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout3"
             android:layout_width="382dp"
             android:layout_height="97dp"
-            android:layout_marginStart="1dp"
-            android:layout_marginEnd="1dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -78,6 +75,7 @@
                 android:layout_height="51dp"
                 android:layout_weight="1"
                 android:background="@drawable/background_lightblue_transparent"
+                android:clickable="true"
                 android:gravity="center"
                 android:text="Einstellungen"
                 android:textSize="20sp"
@@ -104,6 +102,7 @@
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:background="@drawable/background_lightblue_transparent"
+                android:clickable="true"
                 android:gravity="center"
                 android:text="Mitglieder"
                 android:textSize="20sp"
@@ -127,9 +126,11 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="394dp"
+            android:id="@+id/mitgliederContainer"
+            android:layout_width="match_parent"
             android:layout_height="388dp"
             android:layout_marginTop="4dp"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -145,5 +146,161 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/gruppenSettingsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="388dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/contentLayout"
+                android:layout_width="match_parent"
+                android:layout_height="471dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.16000003">
+
+                    <LinearLayout
+
+                        android:id="@+id/gruppenNameContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/VornameInnerContainer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/textViewSettingVorname"
+                                android:layout_width="wrap_content"
+                                android:layout_height="25dp"
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Gruppenname:"
+                                android:textSize="18sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <EditText
+                                android:id="@+id/txtViewSettingVornameData"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto_medium"
+                                android:hint="Saubärn..."
+                                android:minWidth="48dp"
+                                android:minHeight="48dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textViewSettingVorname" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/btnSettingVornameChange"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="1dp"
+                            android:clickable="true"
+                            android:contentDescription="bearbeiten"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/pen" />
+
+                    </LinearLayout>
+
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="10dp" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Personen hinzufügen:"
+                        android:textSize="18sp" />
+
+                    <SearchView
+                        android:id="@+id/searchViewAddPersonToGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Löschen:"
+                        android:textSize="18sp">
+
+                    </TextView>
+
+                    <ListView
+                        android:id="@+id/mitgliederListe"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <Button
+                        android:id="@+id/btnZurück"
+                        android:layout_width="123dp"
+                        android:layout_height="55dp"
+                        android:backgroundTint="#DBB12B"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Zurück"
+                        app:cornerRadius="5dp" />
+
+                    <Space
+                        android:id="@+id/spaceBtn"
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <Button
+                        android:id="@+id/btnSpeichern"
+                        android:layout_width="123dp"
+                        android:layout_height="55dp"
+                        android:backgroundTint="#2E971E"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Speichern"
+                        app:cornerRadius="5dp" />
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
