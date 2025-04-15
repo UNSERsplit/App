@@ -112,7 +112,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout4"
+                android:id="@+id/ausgewähltLinieMitglieder"
                 android:layout_width="125dp"
                 android:layout_height="4dp"
                 android:layout_marginTop="2dp"
@@ -120,6 +120,19 @@
                 app:layout_constraintEnd_toEndOf="@+id/textViewMitglieder"
                 app:layout_constraintStart_toStartOf="@+id/textViewMitglieder"
                 app:layout_constraintTop_toBottomOf="@+id/textViewMitglieder">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ausgewähltLinieEinstellung"
+                android:layout_width="140dp"
+                android:layout_height="4dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/linie"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@+id/textViewSettings"
+                app:layout_constraintStart_toStartOf="@+id/textViewSettings"
+                app:layout_constraintTop_toBottomOf="@+id/textViewSettings">
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

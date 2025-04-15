@@ -27,6 +27,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,7 @@ import at.htlsaalfelden.UNSERsplit.api.model.GroupMembers;
 import at.htlsaalfelden.UNSERsplit.api.model.PublicUserData;
 import at.htlsaalfelden.UNSERsplit.api.model.User;
 import at.htlsaalfelden.UNSERsplit.ui.NavigationUtils;
+import at.htlsaalfelden.UNSERsplit.ui.home.HomeActivity;
 import at.htlsaalfelden.UNSERsplit.ui.register.RegisterActivity;
 import at.htlsaalfelden.UNSERsplit.ui.transaction.IUserAdapterAware;
 import at.htlsaalfelden.UNSERsplit.ui.transaction.UserAdapter;
@@ -99,6 +101,7 @@ public class GroupOverviewActivity extends AppCompatActivity {
 
         mitgliederContainer.setLayoutParams(params2);
 
+
         List<CombinedUser> users = new ArrayList<>();
         final List<PublicUserData>[] originalUsers = new List[]{null};
         StaticAwareContext context = new StaticAwareContext(false, true);
@@ -135,11 +138,24 @@ public class GroupOverviewActivity extends AppCompatActivity {
         findViewById(R.id.textViewMitglieder).setOnClickListener(v -> {
                 mitgliederContainer.setVisibility(View.VISIBLE);
                 gruppenSettingsContainer.setVisibility(View.INVISIBLE);
+                findViewById(R.id.ausgewähltLinieEinstellung).setVisibility(View.INVISIBLE);
+                findViewById(R.id.ausgewähltLinieMitglieder).setVisibility(View.VISIBLE);
+
+
         });
 
         findViewById(R.id.textViewSettings).setOnClickListener(v -> {
             mitgliederContainer.setVisibility(View.INVISIBLE);
             gruppenSettingsContainer.setVisibility(View.VISIBLE);
+            findViewById(R.id.ausgewähltLinieEinstellung).setVisibility(View.VISIBLE);
+            findViewById(R.id.ausgewähltLinieMitglieder).setVisibility(View.INVISIBLE);
+
+        });
+
+        findViewById(R.id.btnZurück).setOnClickListener(v ->{
+            Intent myIntent = new Intent(this, HomeActivity.class);
+            startActivity(myIntent,
+                    ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         });
 
         findViewById(R.id.btnSpeichern).setOnClickListener(v -> {
@@ -319,4 +335,6 @@ public class GroupOverviewActivity extends AppCompatActivity {
 
         }
     }
+
+
 }
