@@ -31,6 +31,7 @@ import androidx.constraintlayout.widget.ConstraintSet;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import at.htlsaalfelden.UNSERsplit.NoLib.Observable;
@@ -43,6 +44,7 @@ import at.htlsaalfelden.UNSERsplit.api.model.Group;
 import at.htlsaalfelden.UNSERsplit.api.model.GroupCreateRequest;
 import at.htlsaalfelden.UNSERsplit.api.model.GroupMembers;
 import at.htlsaalfelden.UNSERsplit.api.model.PublicUserData;
+import at.htlsaalfelden.UNSERsplit.api.model.Transaction;
 import at.htlsaalfelden.UNSERsplit.api.model.User;
 import at.htlsaalfelden.UNSERsplit.ui.NavigationUtils;
 import at.htlsaalfelden.UNSERsplit.ui.home.HomeActivity;
@@ -91,21 +93,28 @@ public class GroupOverviewActivity extends AppCompatActivity {
 
         //Dynamic mitgliederContainer
         ConstraintLayout mitgliederContainer = findViewById(R.id.mitgliederContainer);
-        ViewGroup.LayoutParams params3 = gruppenSettingsContainer.getLayoutParams();
+        ViewGroup.LayoutParams params3 = mitgliederContainer.getLayoutParams();
         DisplayMetrics displayMetrics3 = new DisplayMetrics();
 
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics3);
         height =  (int)(displayMetrics3.heightPixels * 0.57);
 
-        params2.height = height;
+        params3.height = height;
 
-        mitgliederContainer.setLayoutParams(params2);
+        mitgliederContainer.setLayoutParams(params3);
+
+        ListView mitgliederList = findViewById(R.id.mitgliederList);
 
 
         List<CombinedUser> users = new ArrayList<>();
         final List<PublicUserData>[] originalUsers = new List[]{null};
         StaticAwareContext context = new StaticAwareContext(false, true);
         UserAdapter settingsUserAdapter = new UserAdapter(context, users, this);
+
+        StaticAwareContext normalContext = new StaticAwareContext(true, false);
+        UserAdapter normalUserAdapter = new UserAdapter(normalContext, users, this);
+
+        mitgliederList.setAdapter(normalUserAdapter);
 
         TextView groupName = findViewById(R.id.textViewGruppenName);
         EditText groupNameEdit = findViewById(R.id.txtViewSettingVornameData);
@@ -123,12 +132,33 @@ public class GroupOverviewActivity extends AppCompatActivity {
             @Override
             public void onSucess(@Nullable List<PublicUserData> response) {
                 for(PublicUserData userData : response) {
-                    users.add(new CombinedUser(userData, 0));
+                    API.service.getTransactions(userData.getUserid()).enqueue(new DefaultCallback<List<Transaction>>() {
+                        @Override
+                        public void onSucess(@Nullable List<Transaction> response) {
+                            int balance = 0;
+
+                            assert response != null;
+                            for (Transaction transaction : response) {
+                                if(transaction.getGroupid() != groupId) {
+                                    continue;
+                                }
+
+                                if(transaction.getFromuserid() == API.userID) {
+                                    balance -= transaction.getAmount();
+                                } else if(transaction.getTouserid() == API.userID) {
+                                    balance += transaction.getAmount();
+                                }
+                            }
+
+                            users.add(new CombinedUser(userData, balance));
+
+                            normalUserAdapter.notifyDataSetChanged();
+                            settingsUserAdapter.notifyDataSetChanged();
+                        }
+                    });
                 }
 
                 groupInfo.setText("Mitglieder: " + response.size());
-
-                settingsUserAdapter.notifyDataSetChanged();
 
                 originalUsers[0] = response;
             }
