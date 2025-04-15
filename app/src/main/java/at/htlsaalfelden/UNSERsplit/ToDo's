@@ -1,18 +1,3 @@
-*Noah: bei der ListView in activity_group_overview -> contentContainer -> gruppenSettingsContainer -> contentLayout -> LinearLayout -> Mitgliederliste
-        miasn de User wie in Transactions eine oba nua de sicht zum Löschen: is de layout_transaction_userliste_half.xml
+*Transaktion hinzufügen
 
-        ~ Erledigt
-
-*   Mia miasn no de Visibility bei de gruppenSettingsContainer & mitgliederListe setzen, I hätt in GroupOverviewActivity scho wos vorbereitet
-    oba woas nid genau wia du des mochen wüst.
-
-        ~ Erledigt
-
-* Speichern der Änderungen bei Gruppen & Bilanzansicht fpr jeden Benutzer (UserAdapter mit StaticAwareContext(false, false))
-
-*   ERLEDIGT:
-        Die Zwoa Views bei den Gruppen, Design/Layout - nua mea switchen und Funktionalität
-        Bei Beschwerden, Anregungen oder Wünsche bitte unter +43 660 8172620 Melden!
-
-
-*Tim is wieda nua im Urlaub )=   (Gauner)
+*Logout
