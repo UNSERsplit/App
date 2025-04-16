@@ -20,6 +20,7 @@ import java.util.List;
 import at.htlsaalfelden.UNSERsplit.R;
 import at.htlsaalfelden.UNSERsplit.api.model.CombinedGroup;
 import at.htlsaalfelden.UNSERsplit.api.model.Group;
+import at.htlsaalfelden.UNSERsplit.fcm.FCMService;
 import at.htlsaalfelden.UNSERsplit.ui.groups.GroupOverviewActivity;
 
 public class GroupAdapter extends BaseAdapter {
@@ -80,9 +81,10 @@ public class GroupAdapter extends BaseAdapter {
         groupUsers.setText(item.getMembers().size() + " Mitglieder");
 
         view.setOnClickListener(v -> {
-            Intent myIntent = new Intent(this.context, GroupOverviewActivity.class);
-            myIntent.putExtra("GROUP", item.getGroup().getGroupid());
-            this.context.startActivity(myIntent);
+            FCMService.showNotification("Test", "this is a test", context);
+            //Intent myIntent = new Intent(this.context, GroupOverviewActivity.class);
+            //myIntent.putExtra("GROUP", item.getGroup().getGroupid());
+            //this.context.startActivity(myIntent);
         });
 
         return view;

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "52584973744",
+    "project_id": "unsersplit",
+    "storage_bucket": "unsersplit.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52584973744:android:3825d81defb8b7a1eec275",
+        "android_client_info": {
+          "package_name": "at.htlsaalfelden.UNSERsplit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUi5VlKzZe1RLsq1G8aHzOarH-axjj1I4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

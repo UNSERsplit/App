@@ -1,5 +1,5 @@
 GroupOverview:
-    Mitgliederliste
+    -DONE- Mitgliederliste
     Einstellungen bei nicht-Admin verstecken
 
 Home:
@@ -9,4 +9,4 @@ Home:
 Transaktionen:
     Funktionalität
 
-Notifications?
+-DONE- Notifications
