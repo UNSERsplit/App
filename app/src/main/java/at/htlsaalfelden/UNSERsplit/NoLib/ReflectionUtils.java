@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Objects;
+import java.util.Random;
 import java.util.StringJoiner;
 
 public abstract class ReflectionUtils {
@@ -83,4 +84,6 @@ public abstract class ReflectionUtils {
     public static void showMembers(Object o) {
         showMembers(o.getClass());
     }
+
+    public static Random random = new Random();
 }

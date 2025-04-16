@@ -22,17 +22,19 @@ import com.google.firebase.messaging.RemoteMessage;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Random;
 
+import at.htlsaalfelden.UNSERsplit.NoLib.ReflectionUtils;
 import at.htlsaalfelden.UNSERsplit.R;
 
 public class FCMService extends FirebaseMessagingService {
 
     private static final String CHANNEL = "UNSERSPLIT";
 
-    private void showNotification(String title, String content) {
-        showNotification(title, content, this);
+    private void showNotification(String title, String content, int id) {
+        showNotification(title, content, id,this);
     }
-    public static void showNotification(String title, String content, Context context) {
+    public static void showNotification(String title, String content, int id, Context context) {
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
             //throw new RuntimeException("User did not grant permissions");
             return;
@@ -51,7 +53,7 @@ public class FCMService extends FirebaseMessagingService {
 
         compat.createNotificationChannel(channelCompat);
 
-        compat.notify(0, notification);
+        compat.notify(id, notification);
     }
 
     @Override
@@ -60,7 +62,7 @@ public class FCMService extends FirebaseMessagingService {
 
         Map<String, String> extra = message.getData();
 
-        showNotification(extra.getOrDefault("title","No Title"), extra.getOrDefault("text", "No Text"));
+        showNotification(extra.getOrDefault("title","No Title"), extra.getOrDefault("text", "No Text"), ReflectionUtils.random.nextInt());
     }
 
     @Override

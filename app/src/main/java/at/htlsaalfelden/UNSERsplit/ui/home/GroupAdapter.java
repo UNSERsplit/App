@@ -81,10 +81,9 @@ public class GroupAdapter extends BaseAdapter {
         groupUsers.setText(item.getMembers().size() + " Mitglieder");
 
         view.setOnClickListener(v -> {
-            FCMService.showNotification("Test", "this is a test", context);
-            //Intent myIntent = new Intent(this.context, GroupOverviewActivity.class);
-            //myIntent.putExtra("GROUP", item.getGroup().getGroupid());
-            //this.context.startActivity(myIntent);
+            Intent myIntent = new Intent(this.context, GroupOverviewActivity.class);
+            myIntent.putExtra("GROUP", item.getGroup().getGroupid());
+            this.context.startActivity(myIntent);
         });
 
         return view;
