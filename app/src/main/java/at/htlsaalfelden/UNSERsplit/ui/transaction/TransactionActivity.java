@@ -29,6 +29,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import at.htlsaalfelden.UNSERsplit.NoLib.Observable;
 import at.htlsaalfelden.UNSERsplit.R;
@@ -36,6 +37,8 @@ import at.htlsaalfelden.UNSERsplit.api.API;
 import at.htlsaalfelden.UNSERsplit.api.DefaultCallback;
 import at.htlsaalfelden.UNSERsplit.api.model.CombinedUser;
 import at.htlsaalfelden.UNSERsplit.api.model.PublicUserData;
+import at.htlsaalfelden.UNSERsplit.api.model.Transaction;
+import at.htlsaalfelden.UNSERsplit.api.model.TransactionCreateRequest;
 import at.htlsaalfelden.UNSERsplit.ui.NavigationUtils;
 
 
@@ -101,6 +104,8 @@ public class TransactionActivity extends AppCompatActivity implements IUserAdapt
                 }
             }
 
+            onUserChange();
+
             checkSum();
         });
 
@@ -115,6 +120,10 @@ public class TransactionActivity extends AppCompatActivity implements IUserAdapt
                     u.setBalance(per_user);
                 }
             }
+
+            onUserChange();
+
+            checkSum();
         });
 
         deleteMode.addListener((o,v) -> {
@@ -234,6 +243,28 @@ public class TransactionActivity extends AppCompatActivity implements IUserAdapt
                 });
 
                 return true;
+            }
+        });
+
+        var ctx = this;
+
+
+        findViewById(R.id.btnFertig).setOnClickListener((v) -> {
+            if(findViewById(R.id.betragChange).getVisibility() == View.VISIBLE) {
+                return;
+            }
+
+            AtomicInteger i = new AtomicInteger(0);
+
+            for (CombinedUser user : users) {
+                API.service.createTRansaction(new TransactionCreateRequest(user.getUserData().getUserid(), user.getBalance(), 1)).enqueue(new DefaultCallback<Transaction>() {
+                    @Override
+                    public void onSucess(@Nullable Transaction response) {
+                        if(i.addAndGet(1) == users.size()) {
+                            NavigationUtils.reloadSelf(ctx);
+                        }
+                    }
+                });
             }
         });
     }

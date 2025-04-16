@@ -26,6 +26,7 @@ import java.util.Random;
 
 import at.htlsaalfelden.UNSERsplit.NoLib.ReflectionUtils;
 import at.htlsaalfelden.UNSERsplit.R;
+import at.htlsaalfelden.UNSERsplit.api.API;
 
 public class FCMService extends FirebaseMessagingService {
 
@@ -69,6 +70,6 @@ public class FCMService extends FirebaseMessagingService {
     public void onNewToken(@NonNull String token) {
         super.onNewToken(token);
 
-        System.out.println(token);
+        API.service.setDeviceToken(token);
     }
 }

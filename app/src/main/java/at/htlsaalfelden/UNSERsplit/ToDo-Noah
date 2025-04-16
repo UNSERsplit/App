@@ -1,12 +1,12 @@
 GroupOverview:
     -DONE- Mitgliederliste
-    Einstellungen bei nicht-Admin verstecken
+    -DONE- Einstellungen bei nicht-Admin verstecken
 
 Home:
     Gesamtbilanz
     GroupAdapter für User und Gruppen Auslegen
 
 Transaktionen:
-    Funktionalität
+    -DONE- Funktionalität
 
 -DONE- Notifications

@@ -20,6 +20,7 @@ import java.util.List;
 import at.htlsaalfelden.UNSERsplit.R;
 import at.htlsaalfelden.UNSERsplit.api.model.CombinedGroup;
 import at.htlsaalfelden.UNSERsplit.api.model.CombinedUser;
+import at.htlsaalfelden.UNSERsplit.ui.groups.GroupOverviewActivity;
 
 public class UserAdapter extends BaseAdapter {
 
@@ -84,9 +85,7 @@ public class UserAdapter extends BaseAdapter {
         username.setText(item.getUserData().getFirstname() + " " + item.getUserData().getLastname());
         username2.setText(item.getUserData().getFirstname() + " " + item.getUserData().getLastname());
         betrag.setText(item.getBalance() + "");
-        if(!betragEdit.getText().toString().equals(item.getBalance() + "")) {
-            betragEdit.setText(item.getBalance() + "");
-        }
+        betragEdit.setText(item.getBalance() + "");
 
         context.getIsSplitEven().addInstantListener((o,v) -> {
             if(v) {
@@ -114,27 +113,44 @@ public class UserAdapter extends BaseAdapter {
             this.notifyDataSetChanged();
         });
 
-        betragEdit.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                try {
-                    Double.parseDouble(betragEdit.getText().toString());
-                } catch (NumberFormatException e) {
-                    item.setBalanceNoNotify(0);
-                    context.onUserChange();
-                    return;
-                }
-                item.setBalanceNoNotify(Math.ceil(Double.parseDouble(betragEdit.getText().toString()) * 100) / 100);
-                context.onUserChange();
-            }
-        });
+        if(!(context instanceof GroupOverviewActivity.StaticAwareContext)) {
+            betragEdit.addTextChangedListener(new CustomWatcher(item, betragEdit)); // TODO: find out why this behaves weird without if
+        }
 
         return view;
+    }
+
+    private class CustomWatcher implements TextWatcher {
+        private CombinedUser combinedUser;
+        private EditText text;
+        public CustomWatcher(CombinedUser user, EditText text) {
+            combinedUser = user;
+            this.text = text;
+        }
+
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            System.out.println(combinedUser.getUserData().getFirstname() + " CHANGE: " + text.getText().toString() + " " + combinedUser.getBalance());
+            try {
+                Double.parseDouble(text.getText().toString());
+            } catch (NumberFormatException e) {
+                combinedUser.setBalanceNoNotify(0);
+                context.onUserChange();
+                return;
+            }
+            combinedUser.setBalanceNoNotify(Math.ceil(Double.parseDouble(text.getText().toString()) * 100) / 100);
+            context.onUserChange();
+        }
     }
 }

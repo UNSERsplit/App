@@ -108,11 +108,9 @@ public class GroupOverviewActivity extends AppCompatActivity {
 
         List<CombinedUser> users = new ArrayList<>();
         final List<PublicUserData>[] originalUsers = new List[]{null};
-        StaticAwareContext context = new StaticAwareContext(false, true);
-        UserAdapter settingsUserAdapter = new UserAdapter(context, users, this);
 
-        StaticAwareContext normalContext = new StaticAwareContext(true, false);
-        UserAdapter normalUserAdapter = new UserAdapter(normalContext, users, this);
+        UserAdapter settingsUserAdapter = new UserAdapter(new StaticAwareContext(false, true), users, this);
+        UserAdapter normalUserAdapter = new UserAdapter(new StaticAwareContext(true, false), users, this);
 
         mitgliederList.setAdapter(normalUserAdapter);
 
@@ -125,20 +123,25 @@ public class GroupOverviewActivity extends AppCompatActivity {
             public void onSucess(@Nullable Group response) {
                 groupName.setText(response.getName());
                 groupNameEdit.setText(response.getName());
+
+                if(response.getAdminuser_userid() != API.userID) {
+                    findViewById(R.id.constraintLayout3).setVisibility(View.INVISIBLE);
+                }
             }
         });
 
         API.service.getUsers(groupId).enqueue(new DefaultCallback<List<PublicUserData>>() {
             @Override
             public void onSucess(@Nullable List<PublicUserData> response) {
+                AtomicInteger i = new AtomicInteger(0);
                 for(PublicUserData userData : response) {
                     API.service.getTransactions(userData.getUserid()).enqueue(new DefaultCallback<List<Transaction>>() {
                         @Override
-                        public void onSucess(@Nullable List<Transaction> response) {
+                        public void onSucess(@Nullable List<Transaction> response2) {
                             int balance = 0;
 
-                            assert response != null;
-                            for (Transaction transaction : response) {
+                            assert response2 != null;
+                            for (Transaction transaction : response2) {
                                 if(transaction.getGroupid() != groupId) {
                                     continue;
                                 }
@@ -150,10 +153,13 @@ public class GroupOverviewActivity extends AppCompatActivity {
                                 }
                             }
 
+                            System.out.println(userData.getUserid() + ":" + balance);
                             users.add(new CombinedUser(userData, balance));
 
-                            normalUserAdapter.notifyDataSetChanged();
-                            settingsUserAdapter.notifyDataSetChanged();
+                            if(i.addAndGet(1) == response.size()) {
+                                normalUserAdapter.notifyDataSetChanged();
+                                settingsUserAdapter.notifyDataSetChanged();
+                            }
                         }
                     });
                 }
@@ -342,7 +348,7 @@ public class GroupOverviewActivity extends AppCompatActivity {
 
 
 
-    private static class StaticAwareContext implements IUserAdapterAware {
+    public static class StaticAwareContext implements IUserAdapterAware {
         private Observable<Boolean> even;
         private Observable<Boolean> delete;
 

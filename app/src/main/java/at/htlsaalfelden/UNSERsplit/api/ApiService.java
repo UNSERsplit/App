@@ -41,6 +41,9 @@ public interface ApiService {
     @PUT("user/me")
     Call<User> updateUser(@Body UserCreateRequest request);
 
+    @POST("user/device_token")
+    Call<User> setDeviceToken(@Query("device_token") String device_token);
+
     @GET("user/me")
     Call<User> getUser();
 

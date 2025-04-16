@@ -24,6 +24,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import java.util.logging.Logger;
 
 import at.htlsaalfelden.UNSERsplit.api.API;
+import at.htlsaalfelden.UNSERsplit.api.DefaultCallback;
 import at.htlsaalfelden.UNSERsplit.api.FailableCallback;
 import at.htlsaalfelden.UNSERsplit.api.model.User;
 import at.htlsaalfelden.UNSERsplit.ui.error.ErrorActivity;
@@ -60,7 +61,13 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 String token = task.getResult();
-                System.out.println(token);
+
+                API.service.setDeviceToken(token).enqueue(new DefaultCallback<User>() {
+                    @Override
+                    public void onSucess(@Nullable User response) {
+
+                    }
+                });
             }
         });
 
