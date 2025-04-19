@@ -4,51 +4,38 @@ import static at.htlsaalfelden.UNSERsplit.NoLib.ReflectionUtils.get;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
-import android.app.SearchManager;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.MatrixCursor;
-import android.graphics.drawable.ColorDrawable;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AutoCompleteTextView;
-import android.widget.CursorAdapter;
 import android.widget.EditText;
-import android.widget.ListPopupWindow;
 import android.widget.ListView;
-import android.widget.SearchView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import at.htlsaalfelden.UNSERsplit.NoLib.Observable;
+import at.htlsaalfelden.UNSERsplit.NoLib.ui.SimpleAPISearchView;
+import at.htlsaalfelden.UNSERsplit.NoLib.ui.UserSearchView;
 import at.htlsaalfelden.UNSERsplit.R;
 import at.htlsaalfelden.UNSERsplit.api.API;
 import at.htlsaalfelden.UNSERsplit.api.DefaultCallback;
-import at.htlsaalfelden.UNSERsplit.api.model.CombinedGroup;
 import at.htlsaalfelden.UNSERsplit.api.model.CombinedUser;
 import at.htlsaalfelden.UNSERsplit.api.model.Group;
 import at.htlsaalfelden.UNSERsplit.api.model.GroupCreateRequest;
 import at.htlsaalfelden.UNSERsplit.api.model.GroupMembers;
 import at.htlsaalfelden.UNSERsplit.api.model.PublicUserData;
 import at.htlsaalfelden.UNSERsplit.api.model.Transaction;
-import at.htlsaalfelden.UNSERsplit.api.model.User;
 import at.htlsaalfelden.UNSERsplit.ui.NavigationUtils;
 import at.htlsaalfelden.UNSERsplit.ui.home.HomeActivity;
-import at.htlsaalfelden.UNSERsplit.ui.register.RegisterActivity;
 import at.htlsaalfelden.UNSERsplit.ui.transaction.IUserAdapterAware;
 import at.htlsaalfelden.UNSERsplit.ui.transaction.UserAdapter;
 
@@ -252,94 +239,17 @@ public class GroupOverviewActivity extends AppCompatActivity {
         ListView listView = findViewById(R.id.mitgliederListe);
         listView.setAdapter(settingsUserAdapter);
 
-        SearchView searchView = findViewById(R.id.searchViewAddPersonToGroup);
+        UserSearchView searchView = findViewById(R.id.searchViewAddPersonToGroup);
 
-        SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(this, R.layout.layout_username, null, new String[] {SearchManager.SUGGEST_COLUMN_TEXT_1}, new int[] {R.id.txtViewUsername}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        searchView.setOnEntrySelect(publicUserData -> {
+            searchView.setQuery("", false);
 
-        searchView.setSuggestionsAdapter(cursorAdapter);
-        searchView.onActionViewExpanded();
+            CombinedUser user = new CombinedUser(publicUserData, 1);
+            user.setAdapter(normalUserAdapter);
+            users.add(user);
 
-        getSearchAutoComplete(searchView).setThreshold(2); // Bei 1 Funktioniert der Divider nicht
-
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                MatrixCursor cursor = new MatrixCursor(new String[]{"_id", SearchManager.SUGGEST_COLUMN_TEXT_1});
-
-                API.service.searchUser(newText).enqueue(new DefaultCallback<List<PublicUserData>>() {
-                    @Override
-                    public void onSucess(@Nullable List<PublicUserData> response) {
-                        for(PublicUserData publicUserData : response) {
-                            cursor.addRow(new Object[] {publicUserData.getUserid(), publicUserData.getFirstname() + " " + publicUserData.getLastname()});
-                        }
-
-                        cursorAdapter.changeCursor(cursor);
-                        cursorAdapter.notifyDataSetChanged();
-
-                        ListView suggestionsView = getListViewUnsafe(searchView);
-
-                        if(suggestionsView != null) {
-                            suggestionsView.setDivider(new ColorDrawable(0xff828282));
-                            suggestionsView.setDividerHeight(7);
-                        }
-                    }
-                });
-
-                return true;
-            }
+            onUserAdd(user);
         });
-
-        searchView.setOnSuggestionListener(new SearchView.OnSuggestionListener() {
-            @Override
-            public boolean onSuggestionSelect(int position) {
-                return false;
-            }
-
-            @Override
-            public boolean onSuggestionClick(int position) {
-                Cursor cursor = (Cursor) searchView.getSuggestionsAdapter().getItem(position);
-                @SuppressLint("Range") String selection = cursor.getString(cursor.getColumnIndex(SearchManager.SUGGEST_COLUMN_TEXT_1));
-                @SuppressLint("Range") int userid = cursor.getInt(cursor.getColumnIndex("_id"));
-
-                searchView.setQuery("", false);
-
-                API.service.getUser(userid).enqueue(new DefaultCallback<PublicUserData>() {
-                    @Override
-                    public void onSucess(@Nullable PublicUserData response) {
-                        CombinedUser user = new CombinedUser(response, 1);
-                        user.setAdapter(settingsUserAdapter);
-                        users.add(user);
-
-                        onUserAdd(user);
-
-                        settingsUserAdapter.notifyDataSetChanged();
-                    }
-                });
-
-                return true;
-            }
-        });
-    }
-
-    private static ListView getListViewUnsafe(SearchView searchView) {
-        Object searchAutoComplete = get(searchView, "mSearchSrcTextView");
-
-        //showMembers(searchAutoComplete);
-
-        ListPopupWindow popupWindow = get(searchAutoComplete, "mPopup", AutoCompleteTextView.class);
-        return get(popupWindow, "mDropDownList");
-    }
-
-    private static AutoCompleteTextView getSearchAutoComplete(SearchView searchView) {
-        AutoCompleteTextView searchAutoComplete = get(searchView, "mSearchSrcTextView");
-
-        return searchAutoComplete;
     }
 
     private void onUserAdd(CombinedUser user) {

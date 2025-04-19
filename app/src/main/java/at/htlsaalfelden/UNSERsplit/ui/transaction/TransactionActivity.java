@@ -5,22 +5,16 @@ import static at.htlsaalfelden.UNSERsplit.NoLib.ReflectionUtils.get;
 import static at.htlsaalfelden.UNSERsplit.NoLib.ReflectionUtils.showMembers;
 
 import android.annotation.SuppressLint;
-import android.app.SearchManager;
-import android.database.Cursor;
-import android.database.MatrixCursor;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ListPopupWindow;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -30,15 +24,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Consumer;
 
 import at.htlsaalfelden.UNSERsplit.NoLib.Observable;
+import at.htlsaalfelden.UNSERsplit.NoLib.ui.SimpleAPISearchView;
 import at.htlsaalfelden.UNSERsplit.NoLib.ui.UserSearchView;
 import at.htlsaalfelden.UNSERsplit.R;
 import at.htlsaalfelden.UNSERsplit.api.API;
 import at.htlsaalfelden.UNSERsplit.api.DefaultCallback;
 import at.htlsaalfelden.UNSERsplit.api.model.CombinedUser;
-import at.htlsaalfelden.UNSERsplit.api.model.PublicUserData;
 import at.htlsaalfelden.UNSERsplit.api.model.Transaction;
 import at.htlsaalfelden.UNSERsplit.api.model.TransactionCreateRequest;
 import at.htlsaalfelden.UNSERsplit.ui.NavigationUtils;
@@ -174,7 +167,7 @@ public class TransactionActivity extends AppCompatActivity implements IUserAdapt
 
         UserSearchView userSearchView = findViewById(R.id.searchViewAddPersonen);
 
-        userSearchView.setOnUserSelect(publicUserData -> {
+        userSearchView.setOnEntrySelect(publicUserData -> {
             userSearchView.setQuery("", false);
 
             CombinedUser user = new CombinedUser(publicUserData, 1);
