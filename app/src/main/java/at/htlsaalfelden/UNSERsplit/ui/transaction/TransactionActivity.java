@@ -30,8 +30,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
 
 import at.htlsaalfelden.UNSERsplit.NoLib.Observable;
+import at.htlsaalfelden.UNSERsplit.NoLib.ui.UserSearchView;
 import at.htlsaalfelden.UNSERsplit.R;
 import at.htlsaalfelden.UNSERsplit.api.API;
 import at.htlsaalfelden.UNSERsplit.api.DefaultCallback;
@@ -89,8 +91,6 @@ public class TransactionActivity extends AppCompatActivity implements IUserAdapt
 
         ListView listView = findViewById(R.id.scrollView2);
         listView.setAdapter(userAdapter);
-
-        SearchView searchView = findViewById(R.id.searchViewAddPersonen);
 
         EditText editTextBetrag = findViewById(R.id.editTextBetrag);
 
@@ -172,79 +172,18 @@ public class TransactionActivity extends AppCompatActivity implements IUserAdapt
         layout.setLayoutParams(params);*/
 
 
+        UserSearchView userSearchView = findViewById(R.id.searchViewAddPersonen);
 
+        userSearchView.setOnUserSelect(publicUserData -> {
+            userSearchView.setQuery("", false);
 
+            CombinedUser user = new CombinedUser(publicUserData, 1);
+            user.setAdapter(userAdapter);
+            users.add(user);
 
-
-        SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(this, R.layout.layout_username, null, new String[] {SearchManager.SUGGEST_COLUMN_TEXT_1}, new int[] {R.id.txtViewUsername}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
-
-        searchView.setSuggestionsAdapter(cursorAdapter);
-        searchView.onActionViewExpanded();
-
-        getSearchAutoComplete(searchView).setThreshold(2); // Bei 1 Funktioniert der Divider nicht
-
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                MatrixCursor cursor = new MatrixCursor(new String[]{"_id", SearchManager.SUGGEST_COLUMN_TEXT_1});
-
-                API.service.searchUser(newText).enqueue(new DefaultCallback<List<PublicUserData>>() {
-                    @Override
-                    public void onSucess(@Nullable List<PublicUserData> response) {
-                        for(PublicUserData publicUserData : response) {
-                            cursor.addRow(new Object[] {publicUserData.getUserid(), publicUserData.getFirstname() + " " + publicUserData.getLastname()});
-                        }
-
-                        cursorAdapter.changeCursor(cursor);
-                        cursorAdapter.notifyDataSetChanged();
-
-                        ListView suggestionsView = getListViewUnsafe(searchView);
-
-                        if(suggestionsView != null) {
-                            suggestionsView.setDivider(new ColorDrawable(0xff828282));
-                            suggestionsView.setDividerHeight(7);
-                        }
-                    }
-                });
-
-                return true;
-            }
+            onUserAdd(user);
         });
 
-        searchView.setOnSuggestionListener(new SearchView.OnSuggestionListener() {
-            @Override
-            public boolean onSuggestionSelect(int position) {
-                return false;
-            }
-
-            @Override
-            public boolean onSuggestionClick(int position) {
-                Cursor cursor = (Cursor) searchView.getSuggestionsAdapter().getItem(position);
-                @SuppressLint("Range") String selection = cursor.getString(cursor.getColumnIndex(SearchManager.SUGGEST_COLUMN_TEXT_1));
-                @SuppressLint("Range") int userid = cursor.getInt(cursor.getColumnIndex("_id"));
-
-                searchView.setQuery("", false);
-
-                API.service.getUser(userid).enqueue(new DefaultCallback<PublicUserData>() {
-                    @Override
-                    public void onSucess(@Nullable PublicUserData response) {
-                        CombinedUser user = new CombinedUser(response, 1);
-                        user.setAdapter(userAdapter);
-                        users.add(user);
-
-                        onUserAdd(user);
-                    }
-                });
-
-                return true;
-            }
-        });
 
         var ctx = this;
 

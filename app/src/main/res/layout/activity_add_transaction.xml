@@ -171,7 +171,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <SearchView
+        <at.htlsaalfelden.UNSERsplit.NoLib.ui.UserSearchView
             android:id="@+id/searchViewAddPersonen"
             android:layout_width="240dp"
             android:layout_height="48dp"
@@ -184,7 +184,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextBetrag">
 
-        </SearchView>
+        </at.htlsaalfelden.UNSERsplit.NoLib.ui.UserSearchView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

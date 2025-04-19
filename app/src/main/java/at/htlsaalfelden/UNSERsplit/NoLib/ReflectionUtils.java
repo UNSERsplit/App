@@ -1,5 +1,9 @@
 package at.htlsaalfelden.UNSERsplit.NoLib;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.ContextWrapper;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -83,6 +87,16 @@ public abstract class ReflectionUtils {
 
     public static void showMembers(Object o) {
         showMembers(o.getClass());
+    }
+
+    public static Activity getActivity(Context context) {
+        while (context instanceof ContextWrapper) {
+            if (context instanceof Activity) {
+                return (Activity)context;
+            }
+            context = ((ContextWrapper)context).getBaseContext();
+        }
+        return null;
     }
 
     public static Random random = new Random();
