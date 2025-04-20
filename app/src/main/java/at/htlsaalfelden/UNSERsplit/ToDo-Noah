@@ -1,12 +1,15 @@
 GroupOverview:
     -DONE- Mitgliederliste
     -DONE- Einstellungen bei nicht-Admin verstecken
+    Iban kopierbar machen
 
 Home:
-    Gesamtbilanz
+    -DONE- Gesamtbilanz
     GroupAdapter für User und Gruppen Auslegen
 
 Transaktionen:
     -DONE- Funktionalität
+    Gruppenauswahl
 
 -DONE- Notifications
+Layout am Handy

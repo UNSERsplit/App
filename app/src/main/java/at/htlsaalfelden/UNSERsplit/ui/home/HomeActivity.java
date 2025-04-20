@@ -13,6 +13,7 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
@@ -50,6 +51,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         NavigationUtils.initNavbar(this);
 
+        setBalance(0);
 
         ListView groupsView = findViewById(R.id.listVgruppenPersonen);
         //groups.setAdapter(new ArrayAdapter<String>(this, R.layout.layout_group, R.id.txtViewGroupName, new String[]{"a","b","c","d","" +
@@ -96,6 +98,7 @@ public class HomeActivity extends AppCompatActivity {
                             balance += transaction.getAmount();
                         }
                     }
+                    changeBalance(balance);
                     combinedGroup.setBalance(balance);
                     adapter.notifyDataSetChanged();
                 });
@@ -109,5 +112,33 @@ public class HomeActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });*/
+    }
+
+    private double getBalance() {
+        TextView amount = findViewById(R.id.txtVkontostand);
+        TextView sign = findViewById(R.id.txtVPlusMinus);
+
+        double balance = Double.parseDouble(amount.getText().toString());
+        if(sign.getText().toString().equals("-")) {
+            balance *= -1;
+        }
+
+        return balance;
+    }
+
+    private void setBalance(double newValue) {
+        TextView amount = findViewById(R.id.txtVkontostand);
+        TextView sign = findViewById(R.id.txtVPlusMinus);
+
+        if(newValue < 0) {
+            sign.setText("-");
+            newValue *= -1;
+        }
+
+        amount.setText(Math.floor(newValue * 100) / 100 + "");
+    }
+
+    private void changeBalance(double delta) {
+        setBalance(getBalance() + delta);
     }
 }
