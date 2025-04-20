@@ -52,25 +52,6 @@ public class MainActivity extends AppCompatActivity {
 
         API.loadToken(this);
 
-        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
-            @Override
-            public void onComplete(@NonNull Task<String> task) {
-                if(!task.isSuccessful()) {
-                    System.err.println(task.getException());
-                    return;
-                }
-
-                String token = task.getResult();
-
-                API.service.setDeviceToken(token).enqueue(new DefaultCallback<User>() {
-                    @Override
-                    public void onSucess(@Nullable User response) {
-
-                    }
-                });
-            }
-        });
-
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{"android.permission.POST_NOTIFICATIONS"}, 0);
         } else {
@@ -101,9 +82,32 @@ public class MainActivity extends AppCompatActivity {
             public void onSucess(@Nullable User response) {
                 API.userID = response.getUserid();
 
+                fcmInit();
+
                 Intent myIntent = new Intent(ctx, HomeActivity.class);
                 myIntent.setFlags(FLAG_ACTIVITY_CLEAR_TASK | FLAG_ACTIVITY_NEW_TASK);
                 startActivity(myIntent);
+            }
+        });
+    }
+
+    public static void fcmInit() {
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if(!task.isSuccessful()) {
+                    System.err.println(task.getException());
+                    return;
+                }
+
+                String token = task.getResult();
+
+                API.service.setDeviceToken(token).enqueue(new DefaultCallback<User>() {
+                    @Override
+                    public void onSucess(@Nullable User response) {
+
+                    }
+                });
             }
         });
     }

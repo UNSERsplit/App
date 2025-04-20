@@ -73,6 +73,8 @@ public class LoginActivity extends AppCompatActivity {
                                 API.setToken(ctx, response.getToken());
                                 API.userID = response.getUserid();
 
+                                MainActivity.fcmInit();
+
                                 Intent myIntent = new Intent(ctx, HomeActivity.class);
                                 startActivity(myIntent);
                             }
