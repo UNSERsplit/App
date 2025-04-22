@@ -4,6 +4,7 @@ import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.IntentSanitizer;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -78,13 +80,23 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
+            @SuppressLint("UnsafeIntentLaunch")
             @Override
             public void onSucess(@Nullable User response) {
                 API.userID = response.getUserid();
 
                 fcmInit();
 
-                Intent myIntent = new Intent(ctx, HomeActivity.class);
+                Intent callingIntent = getIntent();
+
+                Intent myIntent;
+                if(callingIntent.hasExtra("redirect")) {
+                    myIntent = callingIntent.getParcelableExtra("redirect");
+                } else {
+                    myIntent = new Intent(ctx, HomeActivity.class);;
+                }
+
+
                 myIntent.setFlags(FLAG_ACTIVITY_CLEAR_TASK | FLAG_ACTIVITY_NEW_TASK);
                 startActivity(myIntent);
             }
