@@ -15,6 +15,7 @@ import java.util.List;
 
 import at.htlsaalfelden.UNSERsplit.api.model.CombinedUser;
 import at.htlsaalfelden.UNSERsplit.api.model.PublicUserData;
+import at.htlsaalfelden.UNSERsplit.ui.IBANutils;
 import at.htlsaalfelden.UNSERsplit.ui.transaction.IUserAdapterAware;
 import at.htlsaalfelden.UNSERsplit.ui.transaction.UserAdapter;
 
@@ -36,6 +37,14 @@ public class NormalUserAdapter extends UserAdapter {
 
         o.setOnClickListener((v) -> {
             String iban = data.getUserData().getIban();
+
+            if(!IBANutils.isValidIban(iban)) {
+                Toast toast = new Toast(this.activity);
+                toast.setText("no valid IBAN found");
+                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.show();
+                return;
+            }
 
             ClipboardManager clipboard = (ClipboardManager) this.activity.getSystemService(Context.CLIPBOARD_SERVICE);
             ClipData clip = ClipData.newPlainText(iban, iban);
