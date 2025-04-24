@@ -24,11 +24,11 @@ import at.htlsaalfelden.UNSERsplit.ui.groups.GroupOverviewActivity;
 
 public class UserAdapter extends BaseAdapter {
 
-    private IUserAdapterAware context;
-    private List<CombinedUser> users;
+    protected IUserAdapterAware context;
+    protected List<CombinedUser> users;
 
-    private LayoutInflater layoutInflater;
-
+    protected LayoutInflater layoutInflater;
+    protected AppCompatActivity activity;
 
     public UserAdapter(@NonNull IUserAdapterAware context, @NonNull List<CombinedUser> groups) {
         if(!(context instanceof AppCompatActivity)) {
@@ -37,12 +37,14 @@ public class UserAdapter extends BaseAdapter {
         this.context = context;
         this.users = groups;
         this.layoutInflater = LayoutInflater.from((AppCompatActivity) context);
+        this.activity = (AppCompatActivity) context;
     }
 
     public UserAdapter(@NonNull IUserAdapterAware userContext, @NonNull List<CombinedUser> groups, @NonNull AppCompatActivity activity) {
         this.context = userContext;
         this.users = groups;
         this.layoutInflater = LayoutInflater.from(activity);
+        this.activity = activity;
     }
 
     @Override

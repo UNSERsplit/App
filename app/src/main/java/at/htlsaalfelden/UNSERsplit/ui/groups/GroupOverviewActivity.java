@@ -97,7 +97,7 @@ public class GroupOverviewActivity extends AppCompatActivity {
         final List<PublicUserData>[] originalUsers = new List[]{null};
 
         UserAdapter settingsUserAdapter = new UserAdapter(new StaticAwareContext(false, true), users, this);
-        UserAdapter normalUserAdapter = new UserAdapter(new StaticAwareContext(true, false), users, this);
+        UserAdapter normalUserAdapter = new NormalUserAdapter(new StaticAwareContext(true, false), users, this);
 
         mitgliederList.setAdapter(normalUserAdapter);
 

@@ -1,7 +1,10 @@
 GroupOverview:
     -DONE- Mitgliederliste
     -DONE- Einstellungen bei nicht-Admin verstecken
-    Iban kopierbar machen
+    -DONE- Iban kopierbar machen
+
+PersonenÜbersicht:
+    alles
 
 Home:
     -DONE- Gesamtbilanz
@@ -13,3 +16,7 @@ Transaktionen:
 
 -DONE- Notifications
 Layout am Handy
+
+Custom components:
+    Hamburger Menu erstellen
+    View Selector
