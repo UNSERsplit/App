@@ -31,6 +31,8 @@ public interface ApiService {
     Call<String> test();
 
 
+    @GET("user/")
+    Call<List<PublicUserData>> getAllUsers();
 
     @POST("user/")
     Call<User> register(@Body UserCreateRequest request);

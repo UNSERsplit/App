@@ -1,11 +1,16 @@
 package at.htlsaalfelden.UNSERsplit.api.model;
 
+import android.content.Context;
+import android.content.Intent;
+
 import java.util.List;
 
-public class CombinedGroup {
+import at.htlsaalfelden.UNSERsplit.ui.groups.GroupOverviewActivity;
+
+public class CombinedGroup implements CombinedData{
     private Group group;
     private List<PublicUserData> members;
-    private int balance;
+    private double balance;
 
     public CombinedGroup(Group group, List<PublicUserData> members, int balance) {
         this.group = group;
@@ -29,11 +34,28 @@ public class CombinedGroup {
         this.members = members;
     }
 
-    public int getBalance() {
+    @Override
+    public String getName() {
+        return getGroup().getName();
+    }
+
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
+    @Override
+    public String getExtra() {
+        return getMembers().size() + " Mitglieder";
+    }
+
+    @Override
+    public Intent getClickIntent(Context ctx) {
+        Intent myIntent = new Intent(ctx, GroupOverviewActivity.class);
+        myIntent.putExtra("GROUP", getGroup().getGroupid());
+        return myIntent;
+    }
+
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 }

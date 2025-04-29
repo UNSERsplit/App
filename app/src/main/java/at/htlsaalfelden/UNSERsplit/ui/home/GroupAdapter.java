@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import java.util.List;
 
 import at.htlsaalfelden.UNSERsplit.R;
+import at.htlsaalfelden.UNSERsplit.api.model.CombinedData;
 import at.htlsaalfelden.UNSERsplit.api.model.CombinedGroup;
 import at.htlsaalfelden.UNSERsplit.api.model.Group;
 import at.htlsaalfelden.UNSERsplit.fcm.FCMService;
@@ -26,11 +27,11 @@ import at.htlsaalfelden.UNSERsplit.ui.groups.GroupOverviewActivity;
 public class GroupAdapter extends BaseAdapter {
 
     private Context context;
-    private List<CombinedGroup> groups;
+    private List<? extends CombinedData> groups;
 
     private LayoutInflater layoutInflater;
 
-    public GroupAdapter(@NonNull Context context, @NonNull List<CombinedGroup> groups) {
+    public GroupAdapter(@NonNull Context context, @NonNull List<? extends CombinedData> groups) {
         this.context = context;
         this.groups = groups;
         this.layoutInflater = LayoutInflater.from(context);
@@ -42,7 +43,7 @@ public class GroupAdapter extends BaseAdapter {
     }
 
     @Override
-    public CombinedGroup getItem(int position) {
+    public CombinedData getItem(int position) {
         return groups.get(position);
     }
 
@@ -70,20 +71,18 @@ public class GroupAdapter extends BaseAdapter {
         TextView groupBalance = view.findViewById(R.id.txtViewGroupBalance);
         TextView groupUsers = view.findViewById(R.id.txtViewGroupMembers);
 
-        final CombinedGroup item = getItem(position);
-        groupName.setText(item.getGroup().getName());
+        final CombinedData item = getItem(position);
+        groupName.setText(item.getName());
+        groupBalance.setText(item.getBalance() + "");
+        groupUsers.setText(item.getExtra());
 
         if (groupName.getText().length() > 10){
             groupName.setText(groupName.getText().subSequence(0, 10) + "...");
         }
 
-        groupBalance.setText(item.getBalance() + "");
-        groupUsers.setText(item.getMembers().size() + " Mitglieder");
-
         view.setOnClickListener(v -> {
-            Intent myIntent = new Intent(this.context, GroupOverviewActivity.class);
-            myIntent.putExtra("GROUP", item.getGroup().getGroupid());
-            this.context.startActivity(myIntent);
+            Intent intent = item.getClickIntent(this.context);
+            this.context.startActivity(intent);
         });
 
         return view;

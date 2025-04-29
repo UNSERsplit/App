@@ -2,7 +2,7 @@ package at.htlsaalfelden.UNSERsplit.api.model;
 
 public class Transaction {
     private int touserid;
-    private int amount;
+    private double amount;
     private Integer groupid;
     private int transactionid;
     private int fromuserid;
@@ -12,7 +12,7 @@ public class Transaction {
         return touserid;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 

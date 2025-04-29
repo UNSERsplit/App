@@ -1,8 +1,10 @@
 package at.htlsaalfelden.UNSERsplit.api.model;
 
+import android.content.Context;
+import android.content.Intent;
 import android.widget.BaseAdapter;
 
-public class CombinedUser {
+public class CombinedUser implements CombinedData{
     private PublicUserData userData;
     private BaseAdapter adapter;
     private double balance;
@@ -22,8 +24,23 @@ public class CombinedUser {
         this.adapter.notifyDataSetChanged();
     }
 
+    @Override
+    public String getName() {
+        return getUserData().getFirstname() + " " + getUserData().getLastname();
+    }
+
     public double getBalance() {
         return balance;
+    }
+
+    @Override
+    public String getExtra() {
+        return "Person";
+    }
+
+    @Override
+    public Intent getClickIntent(Context ctx) {
+        return null;
     }
 
     public void setBalance(double balance) {

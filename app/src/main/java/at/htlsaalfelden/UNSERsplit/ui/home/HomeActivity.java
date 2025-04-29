@@ -30,10 +30,13 @@ import java.util.logging.Logger;
 import at.htlsaalfelden.UNSERsplit.R;
 import at.htlsaalfelden.UNSERsplit.api.API;
 import at.htlsaalfelden.UNSERsplit.api.DefaultCallback;
+import at.htlsaalfelden.UNSERsplit.api.model.CombinedData;
 import at.htlsaalfelden.UNSERsplit.api.model.CombinedGroup;
+import at.htlsaalfelden.UNSERsplit.api.model.CombinedUser;
 import at.htlsaalfelden.UNSERsplit.api.model.Group;
 import at.htlsaalfelden.UNSERsplit.api.model.PublicUserData;
 import at.htlsaalfelden.UNSERsplit.api.model.Transaction;
+import at.htlsaalfelden.UNSERsplit.api.model.User;
 import at.htlsaalfelden.UNSERsplit.ui.NavigationUtils;
 import at.htlsaalfelden.UNSERsplit.ui.groups.GroupOverviewActivity;
 import at.htlsaalfelden.UNSERsplit.ui.register.RegisterActivity;
@@ -57,7 +60,7 @@ public class HomeActivity extends AppCompatActivity {
         //groups.setAdapter(new ArrayAdapter<String>(this, R.layout.layout_group, R.id.txtViewGroupName, new String[]{"a","b","c","d","" +
         //        "e","f","g","h","i","j","k","l","m","n"}));
 
-        List<CombinedGroup> combinedGroups = new ArrayList<>();
+        List<CombinedData> combinedGroups = new ArrayList<>();
 
         BaseAdapter adapter = new GroupAdapter(this, combinedGroups);
 
@@ -84,7 +87,7 @@ public class HomeActivity extends AppCompatActivity {
 
                 API.service.getTransactions().enqueue((DefaultCallback<List<Transaction>>) transactions -> {
                     Logger.getLogger("UNSERSPLIT").info("transactions in group " + group.getGroupid());
-                    int balance = 0;
+                    double balance = 0;
 
                     assert transactions != null;
                     for (Transaction transaction : transactions) {
@@ -104,6 +107,36 @@ public class HomeActivity extends AppCompatActivity {
                 });
             }
 
+        });
+
+        API.service.getAllUsers().enqueue(new DefaultCallback<List<PublicUserData>>() {
+            @Override
+            public void onSucess(@Nullable List<PublicUserData> response) {
+                System.out.println(response);
+                for(PublicUserData user : response) {
+                    CombinedUser combinedUser = new CombinedUser(user, 0);
+                    combinedGroups.add(combinedUser);
+                    adapter.notifyDataSetChanged();
+
+                    API.service.getTransactions(user.getUserid()).enqueue(new DefaultCallback<List<Transaction>>() {
+                        @Override
+                        public void onSucess(@Nullable List<Transaction> response) {
+                            double balance = 0;
+
+                            for(Transaction transaction : response) {
+                                if(transaction.getFromuserid() == API.userID) {
+                                    balance -= transaction.getAmount();
+                                } else if(transaction.getTouserid() == API.userID) {
+                                    balance += transaction.getAmount();
+                                }
+                            }
+                            changeBalance(balance);
+                            combinedUser.setBalanceNoNotify(balance);
+                            adapter.notifyDataSetChanged();
+                        }
+                    });
+                }
+            }
         });
 
 
