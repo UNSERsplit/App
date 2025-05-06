@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.transition.Explode;
 import android.transition.Fade;
 import android.transition.Slide;
+import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -38,6 +41,7 @@ import at.htlsaalfelden.UNSERsplit.api.model.PublicUserData;
 import at.htlsaalfelden.UNSERsplit.api.model.Transaction;
 import at.htlsaalfelden.UNSERsplit.api.model.User;
 import at.htlsaalfelden.UNSERsplit.ui.NavigationUtils;
+import at.htlsaalfelden.UNSERsplit.ui.friends.AddFriendActivity;
 import at.htlsaalfelden.UNSERsplit.ui.groups.GroupOverviewActivity;
 import at.htlsaalfelden.UNSERsplit.ui.register.RegisterActivity;
 import at.htlsaalfelden.UNSERsplit.ui.settings.SettingsActivity;
@@ -140,35 +144,61 @@ public class HomeActivity extends AppCompatActivity {
         });
 
 
-        /*ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.home), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });*/
+        ConstraintLayout layout = findViewById(R.id.constraintLayout7);
+        ViewGroup.LayoutParams params = layout.getLayoutParams();
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height =  (int)(displayMetrics.heightPixels * 0.54);
+        int width = (int) (displayMetrics.widthPixels * 0.8);
+
+        params.height = height;
+        params.width = width;
+        layout.setLayoutParams(params);
+
+
+
+        /*ConstraintLayout sumContainer = findViewById(R.id.sumContainer);
+        ViewGroup.LayoutParams params2 = sumContainer.getLayoutParams();
+        DisplayMetrics displayMetrics2 = new DisplayMetrics();
+
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics2);
+        int height2 =  (int)(displayMetrics2.heightPixels * 0.1);
+
+        params2.height = height2;
+        sumContainer.setLayoutParams(params2);*/
+
+        findViewById(R.id.addFriends).setOnClickListener(v ->{
+            Intent myIntent = new Intent(this, AddFriendActivity.class);
+            startActivity(myIntent,
+                    ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+
+        });
     }
 
     private double getBalance() {
         TextView amount = findViewById(R.id.txtVkontostand);
-        TextView sign = findViewById(R.id.txtVPlusMinus);
 
-        double balance = Double.parseDouble(amount.getText().toString());
-        if(sign.getText().toString().equals("-")) {
-            balance *= -1;
+        String b = (String) amount.getText();
+        if(b.charAt(0) =='+') {
+            return Double.parseDouble(b.substring(1));
+        } else if (b.charAt(0) == '-') {
+            return Double.parseDouble(b.substring(1)) * -1;
         }
-
-        return balance;
+        return 0;
     }
 
     private void setBalance(double newValue) {
         TextView amount = findViewById(R.id.txtVkontostand);
-        TextView sign = findViewById(R.id.txtVPlusMinus);
 
-        if(newValue < 0) {
-            sign.setText("-");
-            newValue *= -1;
+        String rtn = null;
+        if (newValue < 0) {
+            rtn = "" + newValue;
+            amount.setText((CharSequence) rtn);
+        }else {
+            rtn = "+" + newValue;
+            amount.setText((CharSequence) rtn);
         }
-
-        amount.setText(Math.floor(newValue * 100) / 100 + "");
     }
 
     private void changeBalance(double delta) {
