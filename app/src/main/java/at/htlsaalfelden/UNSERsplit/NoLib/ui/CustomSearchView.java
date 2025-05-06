@@ -164,6 +164,24 @@ public class CustomSearchView<T> extends SearchView {
 
             MatrixCursor cursor = new MatrixCursor(names);
 
+            ListView suggestionsView = getListViewUnsafe(CustomSearchView.this);
+
+            int change = 0;
+
+            if(suggestionsView != null) {
+                suggestionsView.setDivider(new ColorDrawable(0xff828282));
+                suggestionsView.setDividerHeight(7);
+
+                ListPopupWindow popupWindow = getListPopupWindowUnsafe(CustomSearchView.this);
+
+                change = suggestionsView.getLayoutParams().width - getLayoutParams().width;
+
+                suggestionsView.getLayoutParams().width = getLayoutParams().width;
+                popupWindow.setWidth(getLayoutParams().width);
+                popupWindow.setHorizontalOffset(-change);
+            }
+
+            int finalChange = change;
             SearchContext<T> searchContext = new SearchContext<>() {
                 @Override
                 public void setValue(T rawData, int id, Object... contents) {
@@ -189,6 +207,11 @@ public class CustomSearchView<T> extends SearchView {
                     if(suggestionsView != null) {
                         suggestionsView.setDivider(new ColorDrawable(0xff828282));
                         suggestionsView.setDividerHeight(7);
+
+                        ListPopupWindow popupWindow = getListPopupWindowUnsafe(CustomSearchView.this);
+                        suggestionsView.getLayoutParams().width = getLayoutParams().width;
+                        popupWindow.setWidth(getLayoutParams().width);
+                        popupWindow.setHorizontalOffset(-finalChange);
                     }
                 }
             };
@@ -251,5 +274,13 @@ public class CustomSearchView<T> extends SearchView {
 
         ListPopupWindow popupWindow = get(searchAutoComplete, "mPopup", AutoCompleteTextView.class);
         return get(popupWindow, "mDropDownList");
+    }
+
+    private static ListPopupWindow getListPopupWindowUnsafe(SearchView searchView) {
+        Object searchAutoComplete = get(searchView, "mSearchSrcTextView", SearchView.class);
+
+        //showMembers(searchAutoComplete);
+
+        return get(searchAutoComplete, "mPopup", AutoCompleteTextView.class);
     }
 }
