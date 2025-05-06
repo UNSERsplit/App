@@ -41,6 +41,7 @@ import at.htlsaalfelden.UNSERsplit.api.model.PublicUserData;
 import at.htlsaalfelden.UNSERsplit.api.model.Transaction;
 import at.htlsaalfelden.UNSERsplit.api.model.User;
 import at.htlsaalfelden.UNSERsplit.ui.NavigationUtils;
+import at.htlsaalfelden.UNSERsplit.ui.friends.AddFriendActivity;
 import at.htlsaalfelden.UNSERsplit.ui.groups.GroupOverviewActivity;
 import at.htlsaalfelden.UNSERsplit.ui.register.RegisterActivity;
 import at.htlsaalfelden.UNSERsplit.ui.settings.SettingsActivity;
@@ -167,31 +168,37 @@ public class HomeActivity extends AppCompatActivity {
         params2.height = height2;
         sumContainer.setLayoutParams(params2);*/
 
+        findViewById(R.id.addFriends).setOnClickListener(v ->{
+            Intent myIntent = new Intent(this, AddFriendActivity.class);
+            startActivity(myIntent,
+                    ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
 
+        });
     }
 
     private double getBalance() {
         TextView amount = findViewById(R.id.txtVkontostand);
-        TextView sign = findViewById(R.id.txtVPlusMinus);
 
-        double balance = Double.parseDouble(amount.getText().toString());
-        if(sign.getText().toString().equals("-")) {
-            balance *= -1;
+        String b = (String) amount.getText();
+        if(b.charAt(0) =='+') {
+            return Double.parseDouble(b.substring(1));
+        } else if (b.charAt(0) == '-') {
+            return Double.parseDouble(b.substring(1)) * -1;
         }
-
-        return balance;
+        return 0;
     }
 
     private void setBalance(double newValue) {
         TextView amount = findViewById(R.id.txtVkontostand);
-        TextView sign = findViewById(R.id.txtVPlusMinus);
 
-        if(newValue < 0) {
-            sign.setText("-");
-            newValue *= -1;
+        String rtn = null;
+        if (newValue < 0) {
+            rtn = "" + newValue;
+            amount.setText((CharSequence) rtn);
+        }else {
+            rtn = "+" + newValue;
+            amount.setText((CharSequence) rtn);
         }
-
-        amount.setText(Math.floor(newValue * 100) / 100 + "");
     }
 
     private void changeBalance(double delta) {
