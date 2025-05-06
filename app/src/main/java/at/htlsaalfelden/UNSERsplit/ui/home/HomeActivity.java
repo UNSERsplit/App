@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.transition.Explode;
 import android.transition.Fade;
 import android.transition.Slide;
+import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -140,11 +143,31 @@ public class HomeActivity extends AppCompatActivity {
         });
 
 
-        /*ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.home), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });*/
+        ConstraintLayout layout = findViewById(R.id.constraintLayout7);
+        ViewGroup.LayoutParams params = layout.getLayoutParams();
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height =  (int)(displayMetrics.heightPixels * 0.54);
+        int width = (int) (displayMetrics.widthPixels * 0.8);
+
+        params.height = height;
+        params.width = width;
+        layout.setLayoutParams(params);
+
+
+
+        /*ConstraintLayout sumContainer = findViewById(R.id.sumContainer);
+        ViewGroup.LayoutParams params2 = sumContainer.getLayoutParams();
+        DisplayMetrics displayMetrics2 = new DisplayMetrics();
+
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics2);
+        int height2 =  (int)(displayMetrics2.heightPixels * 0.1);
+
+        params2.height = height2;
+        sumContainer.setLayoutParams(params2);*/
+
+
     }
 
     private double getBalance() {
