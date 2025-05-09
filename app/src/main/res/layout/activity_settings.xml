@@ -177,12 +177,12 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_medium"
                         android:hint="Hans Obermaier"
+                        android:inputType="text"
                         android:minWidth="48dp"
                         android:minHeight="48dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/txtViewSettingIban"
-                        />
+                        app:layout_constraintTop_toBottomOf="@+id/txtViewSettingIban" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -262,12 +262,12 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
             <Button
-                android:id="@+id/btnZurück"
+                android:id="@+id/btnLoeschen"
                 android:layout_width="123dp"
                 android:layout_height="55dp"
-                android:backgroundTint="#DBB12B"
+                android:backgroundTint="#CC2B21"
                 android:fontFamily="@font/roboto_medium"
-                android:text="Zurück"
+                android:text="Löschen"
                 app:cornerRadius="5dp" />
 
             <Space

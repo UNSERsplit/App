@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import at.htlsaalfelden.UNSERsplit.NoLib.Observable;
-import at.htlsaalfelden.UNSERsplit.NoLib.ui.SimpleAPISearchView;
 import at.htlsaalfelden.UNSERsplit.NoLib.ui.UserSearchView;
 import at.htlsaalfelden.UNSERsplit.R;
 import at.htlsaalfelden.UNSERsplit.api.API;
@@ -175,7 +174,7 @@ public class GroupOverviewActivity extends AppCompatActivity {
 
         });
 
-        findViewById(R.id.btnZurück).setOnClickListener(v ->{
+        findViewById(R.id.btnLoeschen).setOnClickListener(v ->{
             Intent myIntent = new Intent(this, HomeActivity.class);
             startActivity(myIntent,
                     ActivityOptions.makeSceneTransitionAnimation(this).toBundle());

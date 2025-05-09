@@ -289,7 +289,7 @@
                     app:layout_constraintStart_toStartOf="parent">
 
                     <Button
-                        android:id="@+id/btnZurück"
+                        android:id="@+id/btnLoeschen"
                         android:layout_width="123dp"
                         android:layout_height="55dp"
                         android:backgroundTint="#DBB12B"

@@ -108,8 +108,8 @@ public class SettingsActivity extends AppCompatActivity {
 
 
         //Dynamic Buttons
-        Button btnZurueck = findViewById(R.id.btnZurück);
-        params = btnZurueck.getLayoutParams();
+        Button btnLoeschen = findViewById(R.id.btnLoeschen);
+        params = btnLoeschen.getLayoutParams();
         displayMetrics = new DisplayMetrics();
 
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -118,7 +118,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         params.height = height;
         params.width = width;
-        btnZurueck.setLayoutParams(params);
+        btnLoeschen.setLayoutParams(params);
 
 
         //Dynamic Buttons
@@ -177,10 +177,8 @@ public class SettingsActivity extends AppCompatActivity {
 
 
 
-        findViewById(R.id.btnZurück).setOnClickListener(v -> {
-            Intent myIntent = new Intent(this, HomeActivity.class);
-            startActivity(myIntent,
-                    ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        findViewById(R.id.btnLoeschen).setOnClickListener(v -> {
+            //Todo User löschen implementieren
         });
 
         findViewById(R.id.btnSpeichern).setOnClickListener(v -> {
