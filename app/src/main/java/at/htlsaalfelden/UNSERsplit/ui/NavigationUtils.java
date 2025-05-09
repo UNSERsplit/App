@@ -8,9 +8,11 @@ import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,7 +25,7 @@ import at.htlsaalfelden.UNSERsplit.ui.home.HomeActivity;
 import at.htlsaalfelden.UNSERsplit.ui.settings.SettingsActivity;
 import at.htlsaalfelden.UNSERsplit.ui.transaction.TransactionActivity;
 
-public abstract class NavigationUtils {
+public abstract class NavigationUtils extends AppCompatActivity {
     private NavigationUtils() {}
 
     private static final Class<?>[] navigationTargets = new Class[] {
@@ -53,8 +55,14 @@ public abstract class NavigationUtils {
                 item.setChecked(true);
             }
         }
+        ViewGroup.LayoutParams params1 = navigationView.getLayoutParams();
+        DisplayMetrics displayMetrics1 = new DisplayMetrics();
 
+        activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics1);
+        int height =  (int)(displayMetrics1.heightPixels * 0.08);
 
+        params1.height = height;
+        navigationView.setLayoutParams(params1);
 
         initScreen(activity);
     }
