@@ -34,7 +34,6 @@ public abstract class NavigationUtils {
 
     public static void initNavbar(AppCompatActivity activity) {
         BottomNavigationView navigationView = activity.findViewById(R.id.bottomNavigationView);
-
         Menu menu = navigationView.getMenu();
 
         for (int i = 0; i < navigationTargets.length; i++) {

@@ -7,7 +7,7 @@
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationView"
-            android:layout_width="405dp"
+            android:layout_width="418dp"
             android:layout_height="57dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -28,18 +28,18 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/switchContainer"
-                    android:layout_width="331dp"
-                    android:layout_height="96dp"
+                    android:layout_width="324dp"
+                    android:layout_height="80dp"
                     android:layout_marginBottom="16dp"
                     app:layout_constraintBottom_toTopOf="@+id/searchContainer"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
 
                         <TextView
-                            android:id="@+id/textView4"
+                            android:id="@+id/txtViewAddFriend"
                             android:layout_width="108dp"
                             android:layout_height="61dp"
-                            android:background="@drawable/background_lightblue"
+                            android:background="@drawable/background_white3"
                             android:fontFamily="@font/roboto_medium"
                             android:gravity="center"
                             android:text="Freund Hinzufügen"
@@ -61,10 +61,10 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <TextView
-                            android:id="@+id/textView7"
+                            android:id="@+id/textViewAnfrage"
                             android:layout_width="118dp"
                             android:layout_height="54dp"
-                            android:background="@drawable/background_lightblue"
+                            android:background="@drawable/background_white4"
                             android:fontFamily="@font/roboto_medium"
                             android:gravity="center"
                             android:text="Anfragen"
@@ -116,7 +116,11 @@
 
                                 <ListView
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent" />
+                                    android:layout_height="match_parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout

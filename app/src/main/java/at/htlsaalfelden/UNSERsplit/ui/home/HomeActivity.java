@@ -62,7 +62,7 @@ public class HomeActivity extends AppCompatActivity {
 
         ListView groupsView = findViewById(R.id.listVgruppenPersonen);
         //groups.setAdapter(new ArrayAdapter<String>(this, R.layout.layout_group, R.id.txtViewGroupName, new String[]{"a","b","c","d","" +
-        //        "e","f","g","h","i","j","k","l","m","n"}));
+        //"e","f","g","h","i","j","k","l","m","n"}));
 
         List<CombinedData> combinedGroups = new ArrayList<>();
 
