@@ -31,12 +31,13 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/switchContainer"
                     android:layout_width="331dp"
-                    android:layout_height="96dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     app:layout_constraintBottom_toTopOf="@+id/searchContainer"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.62">
 
                         <TextView
                             android:id="@+id/txtViewAddFriend"
@@ -53,8 +54,8 @@
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/constraintLayout4"
-                            android:layout_width="4dp"
-                            android:layout_height="match_parent"
+                            android:layout_width="3dp"
+                            android:layout_height="0dp"
                             android:background="@drawable/strich15"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -65,8 +66,8 @@
 
                         <TextView
                             android:id="@+id/textViewAnfrage"
-                            android:layout_width="118dp"
-                            android:layout_height="54dp"
+                            android:layout_width="108dp"
+                            android:layout_height="61dp"
                             android:background="@drawable/background_white4"
                             android:fontFamily="@font/roboto_medium"
                             android:gravity="center"
@@ -99,13 +100,13 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/listContainer"
-                    android:layout_width="320dp"
-                    android:layout_height="200dp"
+                    android:layout_width="341dp"
+                    android:layout_height="477dp"
                     android:background="@drawable/background_white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toBottomOf="@+id/searchContainer">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/addList"
@@ -116,24 +117,6 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
-
-                                <androidx.constraintlayout.widget.ConstraintLayout
-                                    android:id="@+id/searchContainer"
-                                    android:layout_width="296dp"
-                                    android:layout_height="57dp"
-                                    android:background="@drawable/background_white2"
-                                    tools:layout_editor_absoluteX="12dp">
-
-                                        <at.htlsaalfelden.UNSERsplit.NoLib.ui.UserSearchView
-                                            android:layout_width="match_parent"
-                                            android:layout_height="match_parent"
-                                            app:layout_constraintBottom_toBottomOf="parent"
-                                            app:layout_constraintEnd_toEndOf="parent"
-                                            app:layout_constraintHorizontal_bias="0.0"
-                                            app:layout_constraintStart_toStartOf="parent"
-                                            app:layout_constraintTop_toTopOf="parent"
-                                            app:layout_constraintVertical_bias="0.0" />
-                                </androidx.constraintlayout.widget.ConstraintLayout>
 
                                 <ListView
                                     android:id="@+id/friendsList"
@@ -147,13 +130,14 @@
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/requestList"
-                            android:layout_width="320dp"
-                            android:layout_height="468dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:background="@drawable/background_white"
                             android:visibility="visible"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent">
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
 
                                 <ListView
                                     android:id="@+id/friendRequestList"

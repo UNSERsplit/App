@@ -64,6 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
                         @Override
                         public void onSucess(@Nullable User response) {
                             if(response != null ){
+                                // TODO toast
                                 Intent myIntent = new Intent(ctx, LoginActivity.class);
                                 startActivity(myIntent,
                                         ActivityOptions.makeSceneTransitionAnimation(ctx).toBundle());

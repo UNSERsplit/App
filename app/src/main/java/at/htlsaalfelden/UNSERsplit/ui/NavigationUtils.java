@@ -54,6 +54,8 @@ public abstract class NavigationUtils {
             }
         }
 
+
+
         initScreen(activity);
     }
 

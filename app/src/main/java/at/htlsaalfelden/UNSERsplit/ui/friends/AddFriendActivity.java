@@ -122,11 +122,11 @@ public class AddFriendActivity extends AppCompatActivity {
 
         TextView txtViewAddFriend = findViewById(R.id.txtViewAddFriend);
         TextView textViewAnfrage = findViewById(R.id.textViewAnfrage);
-        dynamicSize(txtViewAddFriend, 0.2,0.3);
-        dynamicSize(textViewAnfrage, 0.2,0.3);
+        dynamicSize(txtViewAddFriend, 0.08,0.31);
+        dynamicSize(textViewAnfrage, 0.08,0.31);
 
-
-
+        ConstraintLayout listContainer = findViewById(R.id.listContainer);
+        dynamicSize(listContainer, 0.6,0.77);
     }
 
     public void dynamicSize(View x, double heighta, double widtha){
