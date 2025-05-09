@@ -40,7 +40,7 @@ public class CombinedUser implements CombinedData{
 
     @Override
     public Intent getClickIntent(Context ctx) {
-        return null;
+        return null; //TODO create user overview
     }
 
     public void setBalance(double balance) {

@@ -115,11 +115,13 @@
                             app:layout_constraintTop_toTopOf="parent">
 
                                 <ListView
+                                    android:id="@+id/friendsList"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/requestList"
                             android:layout_width="320dp"
                             android:layout_height="468dp"
                             android:background="@drawable/background_white"

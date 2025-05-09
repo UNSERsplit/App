@@ -2,6 +2,7 @@ package at.htlsaalfelden.UNSERsplit.api;
 
 import java.util.List;
 
+import at.htlsaalfelden.UNSERsplit.api.model.FriendData;
 import at.htlsaalfelden.UNSERsplit.api.model.Group;
 import at.htlsaalfelden.UNSERsplit.api.model.GroupCreateRequest;
 import at.htlsaalfelden.UNSERsplit.api.model.GroupMembers;
@@ -92,4 +93,19 @@ public interface ApiService {
 
     @DELETE("group/{groupid}/users/{userid}")
     Call<GroupMembers> removeUser(@Path("groupid") int groupid, @Path("userid") int userid);
+
+    @GET("friends/")
+    Call<List<FriendData>> getActiveFriends();
+
+    @GET("friends/pending")
+    Call<List<FriendData>> getPendingFriends();
+
+    @POST("friends/")
+    Call<FriendData> sendFriendRequest(@Query("touserid") int userid);
+
+    @PUT("friends/")
+    Call<String> acceptFriendRequest(@Query("fromuserid") int fromUserId);
+
+    @DELETE("friends/")
+    Call<String> denyFriendRequest(@Query("fromuserid") int fromUserId);
 }
