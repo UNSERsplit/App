@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import at.htlsaalfelden.UNSERsplit.NoLib.Observable;
+import at.htlsaalfelden.UNSERsplit.NoLib.ui.UserSearchView;
 import at.htlsaalfelden.UNSERsplit.R;
 import at.htlsaalfelden.UNSERsplit.api.API;
 import at.htlsaalfelden.UNSERsplit.api.DefaultCallback;
@@ -117,6 +118,16 @@ public class AddFriendActivity extends AppCompatActivity {
                     });
                 }
             }
+        });
+
+        UserSearchView userSearchView = findViewById(R.id.addFriendSearch);
+        userSearchView.setOnEntrySelect(publicUserData -> {
+            API.service.sendFriendRequest(publicUserData.getUserid()).enqueue(new DefaultCallback<FriendData>() {
+                @Override
+                public void onSucess(@Nullable FriendData response) {
+                    
+                }
+            });
         });
 
 
