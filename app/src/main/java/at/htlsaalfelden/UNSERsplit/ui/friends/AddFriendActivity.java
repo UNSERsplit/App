@@ -46,6 +46,8 @@ public class AddFriendActivity extends AppCompatActivity {
 
         var ctx = this;
 
+        showPending.set(getIntent().getBooleanExtra("PENDING", false));
+
         ConstraintLayout addList = findViewById(R.id.addList);
         ConstraintLayout requestList = findViewById(R.id.requestList);
 

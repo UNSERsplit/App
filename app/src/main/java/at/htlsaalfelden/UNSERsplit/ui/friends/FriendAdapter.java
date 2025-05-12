@@ -19,6 +19,7 @@ import at.htlsaalfelden.UNSERsplit.api.API;
 import at.htlsaalfelden.UNSERsplit.api.DefaultCallback;
 import at.htlsaalfelden.UNSERsplit.api.model.CombinedFriend;
 import at.htlsaalfelden.UNSERsplit.api.model.CombinedUser;
+import at.htlsaalfelden.UNSERsplit.api.model.FriendData;
 import at.htlsaalfelden.UNSERsplit.ui.transaction.IUserAdapterAware;
 
 public class FriendAdapter extends BaseAdapter {
@@ -74,18 +75,18 @@ public class FriendAdapter extends BaseAdapter {
 
         if(this.pending) {
             buttonAccept.setOnClickListener((v)->{
-                API.service.acceptFriendRequest(item.getFriendData().getId()).enqueue(new DefaultCallback<String>() {
+                API.service.acceptFriendRequest(item.getFriendData().getId()).enqueue(new DefaultCallback<FriendData>() {
                     @Override
-                    public void onSucess(@Nullable String response) {
+                    public void onSucess(@Nullable FriendData response) {
                         friends.remove(position);
                         notifyDataSetChanged();
                     }
                 });
             });
             buttonDeny.setOnClickListener((v)->{
-                API.service.denyFriendRequest(item.getFriendData().getId()).enqueue(new DefaultCallback<String>() {
+                API.service.denyFriendRequest(item.getFriendData().getId()).enqueue(new DefaultCallback<FriendData>() {
                     @Override
-                    public void onSucess(@Nullable String response) {
+                    public void onSucess(@Nullable FriendData response) {
                         friends.remove(position);
                         notifyDataSetChanged();
                     }
@@ -94,7 +95,17 @@ public class FriendAdapter extends BaseAdapter {
         } else {
             buttonAccept.setVisibility(View.GONE);
             buttonDeny.setOnClickListener((v)->{
-                throw new RuntimeException("Not implemented");
+                int otherId = item.getFriendData().getInvited_userid();
+                if(otherId == API.userID) {
+                    otherId = item.getFriendData().getInviting_userid();
+                }
+                API.service.removeFriend(otherId).enqueue(new DefaultCallback<FriendData>() {
+                    @Override
+                    public void onSucess(@Nullable FriendData response) {
+                        friends.remove(position);
+                        notifyDataSetChanged();
+                    }
+                });
             });
             buttonDeny.setText("Entfernen");
         }

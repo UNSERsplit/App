@@ -31,6 +31,7 @@ import at.htlsaalfelden.UNSERsplit.MainActivity;
 import at.htlsaalfelden.UNSERsplit.NoLib.ReflectionUtils;
 import at.htlsaalfelden.UNSERsplit.R;
 import at.htlsaalfelden.UNSERsplit.api.API;
+import at.htlsaalfelden.UNSERsplit.ui.friends.AddFriendActivity;
 import at.htlsaalfelden.UNSERsplit.ui.groups.GroupOverviewActivity;
 
 public class FCMService extends FirebaseMessagingService {
@@ -93,6 +94,13 @@ public class FCMService extends FirebaseMessagingService {
 
             addIntent(builder, myIntent, context);
         }
+
+        if(Objects.equals(action, "showFriends")) {
+            Intent myIntent = new Intent(context, AddFriendActivity.class);
+            myIntent.putExtra("PENDING", Boolean.valueOf(extra.getOrDefault("showPending", "false")));
+
+            addIntent(builder, myIntent, context);
+        }
     }
 
     private static void addIntent(NotificationCompat.Builder builder, Intent innerIntent, Context context) {
@@ -100,7 +108,7 @@ public class FCMService extends FirebaseMessagingService {
         intent.putExtra("redirect", innerIntent);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
-                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         builder.setContentIntent(pendingIntent);
     }
