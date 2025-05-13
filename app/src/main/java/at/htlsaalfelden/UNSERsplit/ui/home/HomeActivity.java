@@ -101,7 +101,8 @@ public class HomeActivity extends AppCompatActivity {
 
                         if(transaction.getFromuserid() == API.userID) {
                             balance -= transaction.getAmount();
-                        } else if(transaction.getTouserid() == API.userID) {
+                        }
+                        if(transaction.getTouserid() == API.userID) {
                             balance += transaction.getAmount();
                         }
                     }
@@ -113,11 +114,15 @@ public class HomeActivity extends AppCompatActivity {
 
         });
 
-        API.service.getAllUsers().enqueue(new DefaultCallback<List<PublicUserData>>() {
+        API.service.getFriends().enqueue(new DefaultCallback<List<PublicUserData>>() {
             @Override
             public void onSucess(@Nullable List<PublicUserData> response) {
                 System.out.println(response);
                 for(PublicUserData user : response) {
+                    if(user.getUserid() == API.userID) {
+                        continue;
+                    }
+
                     CombinedUser combinedUser = new CombinedUser(user, 0);
                     combinedGroups.add(combinedUser);
                     adapter.notifyDataSetChanged();
@@ -126,15 +131,23 @@ public class HomeActivity extends AppCompatActivity {
                         @Override
                         public void onSucess(@Nullable List<Transaction> response) {
                             double balance = 0;
+                            double userBalance = 0;
 
                             for(Transaction transaction : response) {
                                 if(transaction.getFromuserid() == API.userID) {
                                     balance -= transaction.getAmount();
-                                } else if(transaction.getTouserid() == API.userID) {
+                                    if(transaction.getGroupid() == null) {
+                                        userBalance -= transaction.getAmount();
+                                    }
+                                }
+                                if(transaction.getTouserid() == API.userID) {
                                     balance += transaction.getAmount();
+                                    if(transaction.getGroupid() == null) {
+                                        userBalance += transaction.getAmount();
+                                    }
                                 }
                             }
-                            changeBalance(balance);
+                            changeBalance(userBalance);
                             combinedUser.setBalanceNoNotify(balance);
                             adapter.notifyDataSetChanged();
                         }

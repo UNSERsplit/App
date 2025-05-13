@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import java.util.Comparator;
 import java.util.List;
 
 import at.htlsaalfelden.UNSERsplit.R;
@@ -86,5 +87,17 @@ public class GroupAdapter extends BaseAdapter {
         });
 
         return view;
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        groups.sort(new Comparator<CombinedData>() {
+            @Override
+            public int compare(CombinedData o1, CombinedData o2) {
+                return Integer.compare(o1.getCombinedId(), o2.getCombinedId());
+            }
+        });
+
+        super.notifyDataSetChanged();
     }
 }

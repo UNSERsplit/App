@@ -100,6 +100,9 @@ public interface ApiService {
     @GET("friends/")
     Call<List<FriendData>> getActiveFriends();
 
+    @GET("friends/users")
+    Call<List<PublicUserData>> getFriends();
+
     @GET("friends/pending")
     Call<List<FriendData>> getPendingFriends();
 

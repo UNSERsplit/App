@@ -124,7 +124,7 @@ public class GroupOverviewActivity extends AppCompatActivity {
                     API.service.getTransactions(userData.getUserid()).enqueue(new DefaultCallback<List<Transaction>>() {
                         @Override
                         public void onSucess(@Nullable List<Transaction> response2) {
-                            int balance = 0;
+                            double balance = 0;
 
                             assert response2 != null;
                             for (Transaction transaction : response2) {
@@ -134,7 +134,8 @@ public class GroupOverviewActivity extends AppCompatActivity {
 
                                 if(transaction.getFromuserid() == API.userID) {
                                     balance -= transaction.getAmount();
-                                } else if(transaction.getTouserid() == API.userID) {
+                                }
+                                if(transaction.getTouserid() == API.userID) {
                                     balance += transaction.getAmount();
                                 }
                             }

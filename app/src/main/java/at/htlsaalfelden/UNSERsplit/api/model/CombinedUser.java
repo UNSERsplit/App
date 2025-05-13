@@ -73,4 +73,9 @@ public class CombinedUser implements CombinedData{
     public int hashCode() {
         return Objects.hashCode(userData.getUserid());
     }
+
+    @Override
+    public int getCombinedId() {
+        return getUserData().getUserid();
+    }
 }
