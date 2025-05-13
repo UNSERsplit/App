@@ -4,6 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.BaseAdapter;
 
+import androidx.annotation.Nullable;
+
+import java.util.Objects;
+
 public class CombinedUser implements CombinedData{
     private PublicUserData userData;
     private BaseAdapter adapter;
@@ -55,5 +59,18 @@ public class CombinedUser implements CombinedData{
 
     public void setAdapter(BaseAdapter adapter) {
         this.adapter = adapter;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CombinedUser that = (CombinedUser) o;
+        return Objects.equals(userData.getUserid(), that.userData.getUserid());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(userData.getUserid());
     }
 }

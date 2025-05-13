@@ -94,6 +94,9 @@ public interface ApiService {
     @DELETE("group/{groupid}/users/{userid}")
     Call<GroupMembers> removeUser(@Path("groupid") int groupid, @Path("userid") int userid);
 
+    @GET("group/search")
+    Call<List<Group>> searchGroup(@Query("query") String query);
+
     @GET("friends/")
     Call<List<FriendData>> getActiveFriends();
 
@@ -111,4 +114,7 @@ public interface ApiService {
 
     @DELETE("friends/{userid}")
     Call<FriendData> removeFriend(@Path("userid") int userid);
+
+    @GET("user/search")
+    Call<List<PublicUserData>> searchFriend(@Query("query") String query);
 }

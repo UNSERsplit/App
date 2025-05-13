@@ -27,11 +27,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import at.htlsaalfelden.UNSERsplit.NoLib.Observable;
 import at.htlsaalfelden.UNSERsplit.NoLib.ui.SimpleAPISearchView;
+import at.htlsaalfelden.UNSERsplit.NoLib.ui.UserAndGroupSearch;
 import at.htlsaalfelden.UNSERsplit.NoLib.ui.UserSearchView;
 import at.htlsaalfelden.UNSERsplit.R;
 import at.htlsaalfelden.UNSERsplit.api.API;
 import at.htlsaalfelden.UNSERsplit.api.DefaultCallback;
 import at.htlsaalfelden.UNSERsplit.api.model.CombinedUser;
+import at.htlsaalfelden.UNSERsplit.api.model.PublicUserData;
 import at.htlsaalfelden.UNSERsplit.api.model.Transaction;
 import at.htlsaalfelden.UNSERsplit.api.model.TransactionCreateRequest;
 import at.htlsaalfelden.UNSERsplit.ui.NavigationUtils;
@@ -47,6 +49,8 @@ public class TransactionActivity extends AppCompatActivity implements IUserAdapt
     private UserAdapter userAdapter;
 
     private Observable<Double> userSum;
+
+    public Observable<Integer> groupId = new Observable<>(null);;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -165,9 +169,11 @@ public class TransactionActivity extends AppCompatActivity implements IUserAdapt
         layout.setLayoutParams(params);*/
 
 
-        UserSearchView userSearchView = findViewById(R.id.searchViewAddPersonen);
+        UserAndGroupSearch userSearchView = findViewById(R.id.searchViewAddPersonen);
 
-        userSearchView.setOnEntrySelect(publicUserData -> {
+        userSearchView.setActivity(this);
+
+        userSearchView.setUserConsumer(publicUserData -> {
             userSearchView.setQuery("", false);
 
             CombinedUser user = new CombinedUser(publicUserData, 1);
@@ -175,6 +181,26 @@ public class TransactionActivity extends AppCompatActivity implements IUserAdapt
             users.add(user);
 
             onUserAdd(user);
+        });
+
+        userSearchView.setGroupConsumer(group -> {
+            API.service.getUsers(group.getGroupid()).enqueue(new DefaultCallback<List<PublicUserData>>() {
+                @Override
+                public void onSucess(@Nullable List<PublicUserData> response) {
+                    userSearchView.setQuery("", false);
+                    groupId.set(group.getGroupid());
+
+                    users.clear();
+
+                    for(PublicUserData userData : response) {
+                        CombinedUser user = new CombinedUser(userData, 1);
+                        user.setAdapter(userAdapter);
+                        users.add(user);
+
+                        onUserAdd(user);
+                    }
+                }
+            });
         });
 
 
@@ -189,7 +215,7 @@ public class TransactionActivity extends AppCompatActivity implements IUserAdapt
             AtomicInteger i = new AtomicInteger(0);
 
             for (CombinedUser user : users) {
-                API.service.createTRansaction(new TransactionCreateRequest(user.getUserData().getUserid(), user.getBalance(), 1)).enqueue(new DefaultCallback<Transaction>() {
+                API.service.createTRansaction(new TransactionCreateRequest(user.getUserData().getUserid(), user.getBalance(), groupId.get())).enqueue(new DefaultCallback<Transaction>() {
                     @Override
                     public void onSucess(@Nullable Transaction response) {
                         if(i.addAndGet(1) == users.size()) {
@@ -199,21 +225,6 @@ public class TransactionActivity extends AppCompatActivity implements IUserAdapt
                 });
             }
         });
-    }
-
-    private static ListView getListViewUnsafe(SearchView searchView) {
-        Object searchAutoComplete = get(searchView, "mSearchSrcTextView");
-
-        //showMembers(searchAutoComplete);
-
-        ListPopupWindow popupWindow = get(searchAutoComplete, "mPopup", AutoCompleteTextView.class);
-        return get(popupWindow, "mDropDownList");
-    }
-
-    private static AutoCompleteTextView getSearchAutoComplete(SearchView searchView) {
-        AutoCompleteTextView searchAutoComplete = get(searchView, "mSearchSrcTextView");
-
-        return searchAutoComplete;
     }
 
     private void onUserAdd(CombinedUser user) {
