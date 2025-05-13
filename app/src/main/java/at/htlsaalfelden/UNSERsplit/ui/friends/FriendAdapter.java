@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.List;
 
 import at.htlsaalfelden.UNSERsplit.R;
@@ -70,8 +72,8 @@ public class FriendAdapter extends BaseAdapter {
         TextView textViewFriendName = view.findViewById(R.id.txtViewFriendName);
         textViewFriendName.setText(item.getUserData().getFirstname() + " " + item.getUserData().getLastname());
 
-        Button buttonAccept = view.findViewById(R.id.buttonAccept);
-        Button buttonDeny = view.findViewById(R.id.buttonDeny);
+        FloatingActionButton buttonAccept = view.findViewById(R.id.buttonAccept);
+        FloatingActionButton buttonDeny = view.findViewById(R.id.buttonDeny);
 
         if(this.pending) {
             buttonAccept.setOnClickListener((v)->{
@@ -107,7 +109,7 @@ public class FriendAdapter extends BaseAdapter {
                     }
                 });
             });
-            buttonDeny.setText("Entfernen");
+            //buttonDeny.setText("Entfernen");
         }
 
         return view;
