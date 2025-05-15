@@ -44,6 +44,10 @@
             android:exported="false"
             android:label="title_activity_add_friend" />
         <activity
+            android:name=".ui.groups.AddGroupActivity"
+            android:exported="false"
+            android:label="title_activity_add_group" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
