@@ -22,6 +22,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
 
 import at.htlsaalfelden.UNSERsplit.NoLib.Observable;
 import at.htlsaalfelden.UNSERsplit.NoLib.ui.UserSearchView;
@@ -29,6 +30,7 @@ import at.htlsaalfelden.UNSERsplit.R;
 import at.htlsaalfelden.UNSERsplit.api.API;
 import at.htlsaalfelden.UNSERsplit.api.DefaultCallback;
 import at.htlsaalfelden.UNSERsplit.api.model.CombinedFriend;
+import at.htlsaalfelden.UNSERsplit.api.model.CombinedUser;
 import at.htlsaalfelden.UNSERsplit.api.model.FriendData;
 import at.htlsaalfelden.UNSERsplit.api.model.PublicUserData;
 import at.htlsaalfelden.UNSERsplit.ui.NavigationUtils;
@@ -36,6 +38,7 @@ import at.htlsaalfelden.UNSERsplit.ui.NavigationUtils;
 
 public class AddFriendActivity extends AppCompatActivity {
     private Observable<Boolean> showPending = new Observable<>(false);
+    public Consumer<CombinedFriend> onFriendConsumer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +83,14 @@ public class AddFriendActivity extends AppCompatActivity {
         List<CombinedFriend> activeFriends = new ArrayList<>();
         FriendAdapter friendListAdapter = new FriendAdapter(AddFriendActivity.this, activeFriends, false);
         friendsList.setAdapter(friendListAdapter);
+
+        onFriendConsumer = new Consumer<CombinedFriend>() {
+            @Override
+            public void accept(CombinedFriend friendData) {
+                activeFriends.add(friendData);
+                friendListAdapter.notifyDataSetChanged();
+            }
+        };
 
 
         API.service.getPendingFriends().enqueue(new DefaultCallback<List<FriendData>>() {
