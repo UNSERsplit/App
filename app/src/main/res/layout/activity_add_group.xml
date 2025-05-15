@@ -10,10 +10,11 @@
         android:id="@+id/groupNameContainer"
         android:layout_width="342dp"
         android:layout_height="102dp"
-        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.060000002">
 
         <EditText
             android:id="@+id/editTextText"
@@ -34,14 +35,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/suchContainer"
-        android:layout_width="304dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="281dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="24dp"
         android:background="@drawable/background_white2"
+        app:layout_constraintBottom_toTopOf="@+id/userListContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/groupNameContainer">
+        app:layout_constraintStart_toStartOf="parent">
 
         <at.htlsaalfelden.UNSERsplit.NoLib.ui.UserSearchView
             android:id="@+id/userSuche"
@@ -57,11 +58,12 @@
         android:id="@+id/userListContainer"
         android:layout_width="361dp"
         android:layout_height="439dp"
-        android:layout_marginTop="24dp"
         android:background="@drawable/background_white"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/suchContainer">
+        app:layout_constraintTop_toBottomOf="@+id/groupNameContainer"
+        app:layout_constraintVertical_bias="0.55">
 
         <ListView
             android:id="@+id/userList"
