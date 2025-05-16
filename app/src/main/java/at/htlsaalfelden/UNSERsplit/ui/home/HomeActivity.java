@@ -2,8 +2,11 @@ package at.htlsaalfelden.UNSERsplit.ui.home;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.transition.Explode;
 import android.transition.Fade;
 import android.transition.Slide;
@@ -14,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,7 +27,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.datepicker.MaterialTextInputPicker;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +44,7 @@ import at.htlsaalfelden.UNSERsplit.api.model.CombinedData;
 import at.htlsaalfelden.UNSERsplit.api.model.CombinedGroup;
 import at.htlsaalfelden.UNSERsplit.api.model.CombinedUser;
 import at.htlsaalfelden.UNSERsplit.api.model.Group;
+import at.htlsaalfelden.UNSERsplit.api.model.GroupCreateRequest;
 import at.htlsaalfelden.UNSERsplit.api.model.PublicUserData;
 import at.htlsaalfelden.UNSERsplit.api.model.Transaction;
 import at.htlsaalfelden.UNSERsplit.api.model.User;
@@ -186,6 +194,45 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(myIntent,
                     ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
 
+        });
+
+        findViewById(R.id.buttonAddGroups).setOnClickListener(v -> {
+            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
+            TextInputLayout layout1 = new TextInputLayout(this);
+
+
+            var input = new TextInputEditText(this);
+            input.setHint("Gruppenname");
+
+            layout1.addView(input);
+
+            input.setInputType(InputType.TYPE_CLASS_TEXT);
+            builder.setView(layout1);
+
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String groupName = input.getText().toString();
+
+                    API.service.createGroup(new GroupCreateRequest(groupName)).enqueue(new DefaultCallback<Group>() {
+                        @Override
+                        public void onSucess(@Nullable Group response) {
+                            Intent myIntent = new Intent(HomeActivity.this, GroupOverviewActivity.class);
+                            myIntent.putExtra("GROUP", response.getGroupid());
+                            myIntent.putExtra("EDITING", true);
+                            startActivity(myIntent);
+                        }
+                    });
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+
+            builder.show();
         });
     }
 

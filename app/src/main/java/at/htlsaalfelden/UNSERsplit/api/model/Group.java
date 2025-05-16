@@ -19,7 +19,7 @@ public class Group {
 
     public Group(String name) {
         this.name = name;
-        this.groupid = 0;
-        this.adminuser_userid = 0;
+        this.groupid = -1;
+        this.adminuser_userid = -1;
     }
 }

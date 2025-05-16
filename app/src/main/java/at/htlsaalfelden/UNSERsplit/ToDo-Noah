@@ -2,6 +2,7 @@ GroupOverview:
     -DONE- Mitgliederliste
     -DONE- Einstellungen bei nicht-Admin verstecken
     -DONE- Iban kopierbar machen
+    Gruppenname steht über bildschirm hinaus
 
 PersonenÜbersicht:
     alles
@@ -29,3 +30,7 @@ Freunde:
 Custom components:
     -DONE- Hamburger Menu erstellen
     View Selector
+
+Iban eingabe fixen
+alle aingaben auf material3 ändern
+strings extrahieren + internationalization
