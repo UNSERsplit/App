@@ -8,4 +8,6 @@ public interface CombinedData {
     double getBalance();
     String getExtra();
     Intent getClickIntent(Context ctx);
+
+    int getCombinedId();
 }

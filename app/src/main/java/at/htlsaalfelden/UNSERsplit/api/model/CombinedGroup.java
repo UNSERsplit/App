@@ -58,4 +58,9 @@ public class CombinedGroup implements CombinedData{
     public void setBalance(double balance) {
         this.balance = balance;
     }
+
+    @Override
+    public int getCombinedId() {
+        return -this.group.getGroupid();
+    }
 }

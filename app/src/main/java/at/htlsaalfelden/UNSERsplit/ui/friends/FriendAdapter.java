@@ -26,11 +26,11 @@ import at.htlsaalfelden.UNSERsplit.ui.transaction.IUserAdapterAware;
 
 public class FriendAdapter extends BaseAdapter {
     private List<CombinedFriend> friends;
-    private Context context;
+    private AddFriendActivity context;
     private LayoutInflater layoutInflater;
     private boolean pending;
 
-    public FriendAdapter(@NonNull Context context, @NonNull List<CombinedFriend> friends, boolean isPending) {
+    public FriendAdapter(@NonNull AddFriendActivity context, @NonNull List<CombinedFriend> friends, boolean isPending) {
         this.context = context;
         this.friends = friends;
         this.layoutInflater = LayoutInflater.from((AppCompatActivity) context);
@@ -82,6 +82,8 @@ public class FriendAdapter extends BaseAdapter {
                     public void onSucess(@Nullable FriendData response) {
                         friends.remove(position);
                         notifyDataSetChanged();
+
+                        context.onFriendConsumer.accept(item);
                     }
                 });
             });
