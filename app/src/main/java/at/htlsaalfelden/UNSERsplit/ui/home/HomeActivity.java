@@ -3,6 +3,7 @@ package at.htlsaalfelden.UNSERsplit.ui.home;
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.transition.Explode;
 import android.transition.Fade;
@@ -16,11 +17,19 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.graphics.drawable.DrawerArrowDrawable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -41,6 +50,7 @@ import at.htlsaalfelden.UNSERsplit.api.model.PublicUserData;
 import at.htlsaalfelden.UNSERsplit.api.model.Transaction;
 import at.htlsaalfelden.UNSERsplit.api.model.User;
 import at.htlsaalfelden.UNSERsplit.ui.NavigationUtils;
+import at.htlsaalfelden.UNSERsplit.ui.adads;
 import at.htlsaalfelden.UNSERsplit.ui.friends.AddFriendActivity;
 import at.htlsaalfelden.UNSERsplit.ui.groups.GroupOverviewActivity;
 import at.htlsaalfelden.UNSERsplit.ui.register.RegisterActivity;
@@ -49,6 +59,9 @@ import at.htlsaalfelden.UNSERsplit.ui.transaction.TransactionActivity;
 
 public class HomeActivity extends AppCompatActivity {
 
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private Toolbar toolbar;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -69,6 +82,12 @@ public class HomeActivity extends AppCompatActivity {
         BaseAdapter adapter = new GroupAdapter(this, combinedGroups);
 
         groupsView.setAdapter(adapter);
+
+        findViewById(R.id.buttonyxcyxcycy).setOnClickListener(v->{
+            Intent myIntent = new Intent(this, adads.class);
+            startActivity(myIntent,
+                    ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        });
 
         API.service.getGroups().enqueue((DefaultCallback<List<Group>>) groups -> {
             Logger.getLogger("UNSERSPLIT").info("groups");
@@ -187,6 +206,94 @@ public class HomeActivity extends AppCompatActivity {
                     ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
 
         });
+
+
+
+
+
+
+
+        //Side Navbar
+        // Initialize the DrawerLayout, Toolbar, and NavigationView
+        drawerLayout = findViewById(R.id.drawer_layout);
+        toolbar = findViewById(R.id.toolbar);
+        navigationView = findViewById(R.id.nav_view);
+
+
+
+
+        toolbar.setNavigationOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
+
+        // Create an ActionBarDrawerToggle to handle
+        // the drawer's open/close state
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawerLayout, toolbar, R.string.nav_open, R.string.nav_close);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+
+        // gleiche Animation behalten
+        toolbar.setNavigationOnClickListener(v -> {
+            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                drawerLayout.closeDrawer(GravityCompat.START);
+            } else {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+
+
+        // Add the toggle as a listener to the DrawerLayout
+        drawerLayout.addDrawerListener(toggle);
+        // Synchronize the toggle's state with the linked DrawerLayout
+        toggle.syncState();
+
+        // Set a listener for when an item in the NavigationView is selected
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
+            // Called when an item in the NavigationView is selected.
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                // Handle the selected item based on its ID
+                if (item.getItemId() == R.id.nav_account) {
+                    // Show a Toast message for the Account item
+                    Toast.makeText(HomeActivity.this,
+                            "Account Details", Toast.LENGTH_SHORT).show();
+                }
+
+                if (item.getItemId() == R.id.nav_settings) {
+                    // Show a Toast message for the Settings item
+                    Toast.makeText(HomeActivity.this,
+                            "Settings Opened", Toast.LENGTH_SHORT).show();
+                }
+
+                if (item.getItemId() == R.id.nav_logout) {
+                    // Show a Toast message for the Logout item
+                    Toast.makeText(HomeActivity.this,
+                            "You are Logged Out", Toast.LENGTH_SHORT).show();
+                }
+
+                // Close the drawer after selection
+                drawerLayout.closeDrawers();
+                // Indicate that the item selection has been handled
+                return true;
+            }
+        });
+
+        // Add a callback to handle the back button press
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            // Called when the back button is pressed.
+            @Override
+            public void handleOnBackPressed() {
+                // Check if the drawer is open
+                if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    // Close the drawer if it's open
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                } else {
+                    // Finish the activity if the drawer is closed
+                    finish();
+                }
+            }
+        });
     }
 
     private double getBalance() {
@@ -217,4 +324,6 @@ public class HomeActivity extends AppCompatActivity {
     private void changeBalance(double delta) {
         setBalance(getBalance() + delta);
     }
+
+
 }
