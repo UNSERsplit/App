@@ -38,9 +38,6 @@ public class BurgerMenu extends LinearLayout {
 
         inflate(context, R.layout.burger_menu, this);
 
-        content = new LinearLayout(context, attrs, defStyleAttr, defStyleRes);
-        content.setOrientation(VERTICAL);
-
     }
 
     @Override
@@ -51,10 +48,7 @@ public class BurgerMenu extends LinearLayout {
         open = new Observable<>(false);
         btnToggle = findViewById(R.id.open_menu);
 
-        LinearLayout a = (LinearLayout) getChildAt(0);
-
-        a.removeViewAt(1);
-        a.addView(content);
+        content = findViewById(R.id.inner);
 
         open.addInstantListener((o,v) -> {
             if(v) {
@@ -66,6 +60,7 @@ public class BurgerMenu extends LinearLayout {
 
         btnToggle.setOnClickListener((v)->{
             open.set(!open.get());
+            content.getChildAt(0).callOnClick();
         });
 
         while (getChildCount() > 1) {

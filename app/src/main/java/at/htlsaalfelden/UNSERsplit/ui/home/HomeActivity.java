@@ -2,19 +2,14 @@ package at.htlsaalfelden.UNSERsplit.ui.home;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.transition.Explode;
-import android.transition.Fade;
-import android.transition.Slide;
 import android.util.DisplayMetrics;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +19,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable;
 import androidx.appcompat.widget.Toolbar;
@@ -31,12 +27,11 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.logging.Logger;
 
 import at.htlsaalfelden.UNSERsplit.R;
@@ -46,16 +41,13 @@ import at.htlsaalfelden.UNSERsplit.api.model.CombinedData;
 import at.htlsaalfelden.UNSERsplit.api.model.CombinedGroup;
 import at.htlsaalfelden.UNSERsplit.api.model.CombinedUser;
 import at.htlsaalfelden.UNSERsplit.api.model.Group;
+import at.htlsaalfelden.UNSERsplit.api.model.GroupCreateRequest;
 import at.htlsaalfelden.UNSERsplit.api.model.PublicUserData;
 import at.htlsaalfelden.UNSERsplit.api.model.Transaction;
-import at.htlsaalfelden.UNSERsplit.api.model.User;
 import at.htlsaalfelden.UNSERsplit.ui.NavigationUtils;
 import at.htlsaalfelden.UNSERsplit.ui.adads;
 import at.htlsaalfelden.UNSERsplit.ui.friends.AddFriendActivity;
 import at.htlsaalfelden.UNSERsplit.ui.groups.GroupOverviewActivity;
-import at.htlsaalfelden.UNSERsplit.ui.register.RegisterActivity;
-import at.htlsaalfelden.UNSERsplit.ui.settings.SettingsActivity;
-import at.htlsaalfelden.UNSERsplit.ui.transaction.TransactionActivity;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -207,6 +199,39 @@ public class HomeActivity extends AppCompatActivity {
 
         });
 
+        findViewById(R.id.buttonAddGroups).setOnClickListener(v -> {
+            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
+            builder.setView(R.layout.popup_add_group);
+            final EditText[] input = {null};
+
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String groupName = input[0].getText().toString();
+
+                    API.service.createGroup(new GroupCreateRequest(groupName)).enqueue(new DefaultCallback<Group>() {
+                        @Override
+                        public void onSucess(@Nullable Group response) {
+                            Intent myIntent = new Intent(HomeActivity.this, GroupOverviewActivity.class);
+                            myIntent.putExtra("GROUP", response.getGroupid());
+                            myIntent.putExtra("EDITING", true);
+                            startActivity(myIntent);
+                        }
+                    });
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            input[0] = dialog.findViewById(R.id.groupNameEditText);
+        });
+
 
 
 
@@ -324,6 +349,4 @@ public class HomeActivity extends AppCompatActivity {
     private void changeBalance(double delta) {
         setBalance(getBalance() + delta);
     }
-
-
 }
