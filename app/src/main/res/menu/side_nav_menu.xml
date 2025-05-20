@@ -1,18 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="HardcodedText">
 
         <item
-            android:id="@+id/nav_account"
-            android:title="My Account" />
-
-        <item
+            android:icon="@drawable/baseline_brightness_low_24"
             android:id="@+id/nav_settings"
             android:title="Settings" />
 
+        <group android:id="@+id/group_split_options">
+                <item
+                    android:id="@+id/nav_transaction"
+                    android:title="50/50 Split" />
+                <item
+                    android:id="@+id/nav_createGroup"
+                    android:title="Gruppe erstellen" />
+        </group>
+
+
+        <item
+            android:id="@+id/navaddFriends"
+            android:icon="@drawable/add_user"
+            android:title="Freunde adden" />
+
         <item
             android:id="@+id/nav_logout"
+            android:icon="@drawable/logout"
             android:title="Logout" />
 
 

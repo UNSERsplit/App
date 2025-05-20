@@ -110,11 +110,11 @@
             android:id="@+id/addFriends"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginStart="300dp"
-            android:layout_marginTop="224dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
             android:clickable="true"
             android:contentDescription="s"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/add_user" />
 
@@ -127,22 +127,6 @@
             android:text="Button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sumContainer" />
-
-        <at.htlsaalfelden.UNSERsplit.NoLib.ui.BurgerMenu
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="48dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <Button
-                android:id="@+id/buttonAddGroups"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_weight="1"
-                android:height="100dp"
-                android:text="Button" />
-        </at.htlsaalfelden.UNSERsplit.NoLib.ui.BurgerMenu>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -167,6 +151,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <at.htlsaalfelden.UNSERsplit.NoLib.ui.BurgerMenu
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="48dp">
+
+                <Button
+                    android:id="@+id/buttonAddGroups"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:height="100dp"
+                    android:text="Button" />
+            </at.htlsaalfelden.UNSERsplit.NoLib.ui.BurgerMenu>
         </FrameLayout>
 
     </LinearLayout>

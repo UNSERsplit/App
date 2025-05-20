@@ -279,7 +279,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 // Handle the selected item based on its ID
-                if (item.getItemId() == R.id.nav_account) {
+                if (item.getItemId() == R.id.nav_transaction) {
                     // Show a Toast message for the Account item
                     Toast.makeText(HomeActivity.this,
                             "Account Details", Toast.LENGTH_SHORT).show();
