@@ -247,7 +247,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
-        toolbar.setNavigationOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.END));
+        toolbar.setNavigationOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
 
         // Create an ActionBarDrawerToggle to handle
         // the drawer's open/close state
@@ -259,10 +259,10 @@ public class HomeActivity extends AppCompatActivity {
 
         // gleiche Animation behalten
         toolbar.setNavigationOnClickListener(v -> {
-            if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
-                drawerLayout.closeDrawer(GravityCompat.END);
+            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                drawerLayout.closeDrawer(GravityCompat.START);
             } else {
-                drawerLayout.openDrawer(GravityCompat.END);
+                drawerLayout.openDrawer(GravityCompat.START);
             }
         });
 
@@ -310,12 +310,12 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void handleOnBackPressed() {
                 // Check if the drawer is open
-                if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
+                if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
                     // Close the drawer if it's open
-                    drawerLayout.closeDrawer(GravityCompat.END);
+                    drawerLayout.closeDrawer(GravityCompat.START);
                 } else {
                     // Finish the activity if the drawer is closed
-                    drawerLayout.openDrawer(GravityCompat.END);
+                    drawerLayout.openDrawer(GravityCompat.START);
                     //finish();
                 }
             }

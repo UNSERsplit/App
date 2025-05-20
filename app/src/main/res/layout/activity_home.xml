@@ -9,9 +9,7 @@
     tools:context=".MainActivity"
     tools:openDrawer="end">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/home"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -120,12 +118,21 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/add_user" />
 
+        <Button
+            android:id="@+id/buttonyxcyxcycy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="29dp"
+            android:layout_marginEnd="61dp"
+            android:text="Button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sumContainer" />
+
         <at.htlsaalfelden.UNSERsplit.NoLib.ui.BurgerMenu
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="48dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <Button
@@ -137,16 +144,6 @@
                 android:text="Button" />
         </at.htlsaalfelden.UNSERsplit.NoLib.ui.BurgerMenu>
 
-        <Button
-            android:id="@+id/buttonyxcyxcycy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="29dp"
-            android:layout_marginEnd="61dp"
-            android:text="Button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sumContainer" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -154,13 +151,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="24dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="visible">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-
             android:elevation="8dp"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
@@ -168,7 +165,9 @@
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+        </FrameLayout>
 
     </LinearLayout>
 
@@ -176,8 +175,9 @@
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
+        android:layout_gravity="start"
         android:layout_marginTop="100dp"
+        android:visibility="visible"
         app:menu="@menu/side_nav_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
