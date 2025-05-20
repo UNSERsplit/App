@@ -32,10 +32,6 @@
             android:exported="false"
             android:label="@string/title_activity_settings" />
         <activity
-            android:name=".ui.adads"
-            android:exported="false"
-            android:label="@string/title_activity_settisdsdngs" />
-        <activity
             android:name=".ui.register.RegisterActivity"
             android:exported="false"
             android:label="@string/title_activity_register" />

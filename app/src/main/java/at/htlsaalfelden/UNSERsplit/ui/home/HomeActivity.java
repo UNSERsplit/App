@@ -21,7 +21,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.graphics.drawable.DrawerArrowDrawable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
@@ -34,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import at.htlsaalfelden.UNSERsplit.MainActivity;
 import at.htlsaalfelden.UNSERsplit.R;
 import at.htlsaalfelden.UNSERsplit.api.API;
 import at.htlsaalfelden.UNSERsplit.api.DefaultCallback;
@@ -45,9 +45,11 @@ import at.htlsaalfelden.UNSERsplit.api.model.GroupCreateRequest;
 import at.htlsaalfelden.UNSERsplit.api.model.PublicUserData;
 import at.htlsaalfelden.UNSERsplit.api.model.Transaction;
 import at.htlsaalfelden.UNSERsplit.ui.NavigationUtils;
-import at.htlsaalfelden.UNSERsplit.ui.adads;
 import at.htlsaalfelden.UNSERsplit.ui.friends.AddFriendActivity;
 import at.htlsaalfelden.UNSERsplit.ui.groups.GroupOverviewActivity;
+import at.htlsaalfelden.UNSERsplit.ui.register.RegisterActivity;
+import at.htlsaalfelden.UNSERsplit.ui.settings.SettingsActivity;
+import at.htlsaalfelden.UNSERsplit.ui.transaction.TransactionActivity;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -75,11 +77,7 @@ public class HomeActivity extends AppCompatActivity {
 
         groupsView.setAdapter(adapter);
 
-        findViewById(R.id.buttonyxcyxcycy).setOnClickListener(v->{
-            Intent myIntent = new Intent(this, adads.class);
-            startActivity(myIntent,
-                    ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-        });
+
 
         API.service.getGroups().enqueue((DefaultCallback<List<Group>>) groups -> {
             Logger.getLogger("UNSERSPLIT").info("groups");
@@ -173,7 +171,7 @@ public class HomeActivity extends AppCompatActivity {
         DisplayMetrics displayMetrics = new DisplayMetrics();
 
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height =  (int)(displayMetrics.heightPixels * 0.54);
+        int height =  (int)(displayMetrics.heightPixels * 0.64);
         int width = (int) (displayMetrics.widthPixels * 0.8);
 
         params.height = height;
@@ -198,44 +196,6 @@ public class HomeActivity extends AppCompatActivity {
                     ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
 
         });
-
-        findViewById(R.id.buttonAddGroups).setOnClickListener(v -> {
-            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
-            builder.setView(R.layout.popup_add_group);
-            final EditText[] input = {null};
-
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    String groupName = input[0].getText().toString();
-
-                    API.service.createGroup(new GroupCreateRequest(groupName)).enqueue(new DefaultCallback<Group>() {
-                        @Override
-                        public void onSucess(@Nullable Group response) {
-                            Intent myIntent = new Intent(HomeActivity.this, GroupOverviewActivity.class);
-                            myIntent.putExtra("GROUP", response.getGroupid());
-                            myIntent.putExtra("EDITING", true);
-                            startActivity(myIntent);
-                        }
-                    });
-                }
-            });
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
-
-            AlertDialog dialog = builder.create();
-            dialog.show();
-            input[0] = dialog.findViewById(R.id.groupNameEditText);
-        });
-
-
-
-
-
 
 
         //Side Navbar
@@ -279,22 +239,66 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 // Handle the selected item based on its ID
-                if (item.getItemId() == R.id.nav_transaction) {
-                    // Show a Toast message for the Account item
-                    Toast.makeText(HomeActivity.this,
-                            "Account Details", Toast.LENGTH_SHORT).show();
+                if (item.getItemId() == R.id.nav_settings) {
+                    //switch to Settings
+                        Intent myIntent = new Intent(HomeActivity.this, SettingsActivity.class);
+                        startActivity(myIntent,
+                                ActivityOptions.makeSceneTransitionAnimation(HomeActivity.this).toBundle());
+
                 }
 
-                if (item.getItemId() == R.id.nav_settings) {
-                    // Show a Toast message for the Settings item
-                    Toast.makeText(HomeActivity.this,
-                            "Settings Opened", Toast.LENGTH_SHORT).show();
+                if (item.getItemId() == R.id.nav_transaction) {
+                    Intent myIntent = new Intent(HomeActivity.this, TransactionActivity.class);
+                    startActivity(myIntent,
+                            ActivityOptions.makeSceneTransitionAnimation(HomeActivity.this).toBundle());
+
+                }
+
+                if (item.getItemId() == R.id.nav_createGroup) {
+                    // Show a Toast message for the Logout item
+                    MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(HomeActivity.this);
+                    builder.setView(R.layout.popup_add_group);
+                    final EditText[] input = {null};
+
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            String groupName = input[0].getText().toString();
+
+                            API.service.createGroup(new GroupCreateRequest(groupName)).enqueue(new DefaultCallback<Group>() {
+                                @Override
+                                public void onSucess(@Nullable Group response) {
+                                    Intent myIntent = new Intent(HomeActivity.this, GroupOverviewActivity.class);
+                                    myIntent.putExtra("GROUP", response.getGroupid());
+                                    myIntent.putExtra("EDITING", true);
+                                    startActivity(myIntent);
+                                }
+                            });
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    input[0] = dialog.findViewById(R.id.groupNameEditText);
+                }
+
+                if (item.getItemId() == R.id.navaddFriends) {
+                    Intent myIntent = new Intent(HomeActivity.this, AddFriendActivity.class);
+                    startActivity(myIntent,
+                            ActivityOptions.makeSceneTransitionAnimation(HomeActivity.this).toBundle());
                 }
 
                 if (item.getItemId() == R.id.nav_logout) {
-                    // Show a Toast message for the Logout item
-                    Toast.makeText(HomeActivity.this,
-                            "You are Logged Out", Toast.LENGTH_SHORT).show();
+                    API.setToken(HomeActivity.this ,"");
+                    Intent myIntent = new Intent(HomeActivity.this, MainActivity.class);
+                    startActivity(myIntent,
+                            ActivityOptions.makeSceneTransitionAnimation(HomeActivity.this).toBundle());
                 }
 
                 // Close the drawer after selection
