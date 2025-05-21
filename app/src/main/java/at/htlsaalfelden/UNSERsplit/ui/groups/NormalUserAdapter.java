@@ -39,10 +39,8 @@ public class NormalUserAdapter extends UserAdapter {
             String iban = data.getUserData().getIban();
 
             if(!IBANutils.isValidIban(iban)) {
-                Toast toast = new Toast(this.activity);
-                toast.setText("no valid IBAN found");
-                toast.setDuration(Toast.LENGTH_SHORT);
-                toast.show();
+                Toast.makeText(this.activity, "no valid IBAN found", Toast.LENGTH_SHORT).show();
+
                 return;
             }
 
@@ -50,10 +48,7 @@ public class NormalUserAdapter extends UserAdapter {
             ClipData clip = ClipData.newPlainText(iban, iban);
             clipboard.setPrimaryClip(clip);
 
-            Toast toast = new Toast(this.activity);
-            toast.setText("Copied IBAN");
-            toast.setDuration(Toast.LENGTH_SHORT);
-            toast.show();
+            Toast.makeText(this.activity, "copied IBAN", Toast.LENGTH_SHORT).show();
         });
 
         return o;
