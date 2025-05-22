@@ -15,7 +15,7 @@ Home:
 Transaktionen:
     -DONE- Funktionalität
     -DONE- Gruppenauswahl
-    Gruppenauswahl zwei icons als unterscheidung zwischen Personen und Gruppen
+    -DONE- Gruppenauswahl zwei icons als unterscheidung zwischen Personen und Gruppen
     -DONE- Usersuche auch Gruppensuche, bei Gruppe: alle User der Gruppe auswählen und ID vermerken. wenn ID vermerkt ist: keine Personen auserhalb der Gruppe vorschlagen
 
 -DONE- Notifications

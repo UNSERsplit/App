@@ -46,13 +46,14 @@ public class UserAndGroupSearch extends CustomSearchView<UnionUserGroup> {
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        setSuggestionLayout(R.layout.layout_username);
+        setSuggestionLayout(R.layout.layout_username_and_image);
 
         setListener(new SearchViewListener<UnionUserGroup>() {
             @Override
             public int[] getResourceIds() {
                 return new int[] {
-                        R.id.txtViewUsername
+                        R.id.txtViewUsername,
+                        R.id.imgViewUsername
                 };
             }
 
@@ -63,7 +64,9 @@ public class UserAndGroupSearch extends CustomSearchView<UnionUserGroup> {
                         @Override
                         public void onSucess(@Nullable List<Group> response) {
                             for (Group group : response) {
-                                context.setValue(new UnionUserGroup(null, group), -group.getGroupid(), group.getName());
+                                context.setValue(new UnionUserGroup(null, group), -group.getGroupid(),
+                                        group.getName(),
+                                        R.drawable.people);
                                 context.update();
                             }
 
@@ -74,7 +77,9 @@ public class UserAndGroupSearch extends CustomSearchView<UnionUserGroup> {
                         @Override
                         public void onSucess(@Nullable List<PublicUserData> response) {
                             for (PublicUserData userData : response) {
-                                context.setValue(new UnionUserGroup(userData, null), userData.getUserid(), userData.getFirstname() + " " + userData.getLastname());
+                                context.setValue(new UnionUserGroup(userData, null), userData.getUserid(),
+                                        userData.getFirstname() + " " + userData.getLastname(),
+                                        R.drawable.person);
                                 context.update();
                             }
                         }
