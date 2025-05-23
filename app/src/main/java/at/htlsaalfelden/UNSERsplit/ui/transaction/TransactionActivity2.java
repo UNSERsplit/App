@@ -39,7 +39,7 @@ import at.htlsaalfelden.UNSERsplit.api.model.TransactionCreateRequest;
 import at.htlsaalfelden.UNSERsplit.ui.NavigationUtils;
 
 
-public class TransactionActivity extends AppCompatActivity implements IUserAdapterAware {
+public class TransactionActivity2 extends AppCompatActivity implements IUserAdapterAware {
 
     public Observable<Boolean> isSplitEven;
     public Observable<Double> totalSum;
@@ -57,7 +57,7 @@ public class TransactionActivity extends AppCompatActivity implements IUserAdapt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_add_transaction2);
+        setContentView(R.layout.activity_add_transaction);
 
         NavigationUtils.initNavbar(this);
 
@@ -171,7 +171,7 @@ public class TransactionActivity extends AppCompatActivity implements IUserAdapt
 
         UserAndGroupSearch userSearchView = findViewById(R.id.searchViewAddPersonen);
 
-        userSearchView.setActivity(this);
+        //userSearchView.setActivity(TransactionActivity.this);
 
         userSearchView.setUserConsumer(publicUserData -> {
             userSearchView.setQuery("", false);

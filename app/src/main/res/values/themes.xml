@@ -10,5 +10,16 @@
         <item name="colorSecondaryVariant">@color/primary_medium_dark</item>
         <item name="colorOnSecondary">@color/white</item>
     </style>
+
+>
+
+
+
+    <style name="rundetabs" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerSize">8dp</item>
+    </style>
+
+
+
     <style name="Theme.UNSERsplit" parent="Base.Theme.UNSERsplit" />
 </resources>

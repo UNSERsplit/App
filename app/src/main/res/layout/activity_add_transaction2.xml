@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_shaped_blue18">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tablayout"
+
+        android:layout_width="268dp"
+        android:layout_height="68dp"
+        android:layout_marginTop="50dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabGravity="fill"
+        app:tabMode="fixed">
+
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="50/50"
+
+            />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Individuel"
+
+            />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/addContainer"
+        android:layout_width="350dp"
+        android:layout_height="375dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/background_white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tablayout">
+
+        <EditText
+            android:id="@+id/editTextBetrag"
+            android:layout_width="150dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Betrag"
+            android:inputType="numberDecimal"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/betragChange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Restbetrag"
+            android:textColor="#FF0000"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextBetrag"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/editTextBetrag"
+            app:layout_constraintTop_toTopOf="@+id/editTextBetrag" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchViewAddPersonen">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/halfSlpitContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ListView
+                    android:id="@+id/scrollView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="16dp"
+                    android:contentDescription="abc"
+                    android:divider="#828282"
+                    android:dividerHeight="2dp"
+                    android:labelFor="@+id/constraintLayout2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></ListView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <at.htlsaalfelden.UNSERsplit.NoLib.ui.UserAndGroupSearch
+            android:id="@+id/searchViewAddPersonen"
+            android:layout_width="240dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextBetrag">
+
+        </at.htlsaalfelden.UNSERsplit.NoLib.ui.UserAndGroupSearch>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+<com.google.android.material.bottomnavigation.BottomNavigationView
+    android:id="@+id/bottomNavigationView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:menu="@menu/button_nav_menu"
+    tools:layout_editor_absoluteX="30dp" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
