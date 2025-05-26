@@ -47,64 +47,11 @@ public class SettingsActivity extends AppCompatActivity {
 
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height =  (int)(displayMetrics.heightPixels * 0.6);
-        int width = (int) (displayMetrics.widthPixels * 0.75);
+        int width = (int) (displayMetrics.widthPixels * 0.79);
 
         params.height = height;
         params.width = width;
         layout.setLayoutParams(params);
-
-        //Dynamic Vorname
-        ConstraintLayout VornameInnerContainer = findViewById(R.id.VornameInnerContainer);
-        params = VornameInnerContainer.getLayoutParams();
-        displayMetrics = new DisplayMetrics();
-
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        height =  (int)(displayMetrics.heightPixels * 0.1);
-        width = (int) (displayMetrics.widthPixels * 0.6);
-
-        params.height = height;
-        params.width = width;
-        VornameInnerContainer.setLayoutParams(params);
-
-
-        //Dynamic Nachname
-        ConstraintLayout NachnameInnerContainer = findViewById(R.id.NachnameInnerContainer);
-        params = NachnameInnerContainer.getLayoutParams();
-        displayMetrics = new DisplayMetrics();
-
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        height =  (int)(displayMetrics.heightPixels * 0.1);
-        width = (int) (displayMetrics.widthPixels * 0.6);
-
-        params.height = height;
-        params.width = width;
-        NachnameInnerContainer.setLayoutParams(params);
-
-        //Dynamic Iban
-        ConstraintLayout IbanInnerContainer = findViewById(R.id.IbanInnerContainer);
-        params = IbanInnerContainer.getLayoutParams();
-        displayMetrics = new DisplayMetrics();
-
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        height =  (int)(displayMetrics.heightPixels * 0.1);
-        width = (int) (displayMetrics.widthPixels * 0.6);
-
-        params.height = height;
-        params.width = width;
-        IbanInnerContainer.setLayoutParams(params);
-
-        //Dynamic Passwort
-        ConstraintLayout PasswortInnerContainer = findViewById(R.id.PasswortInnerContainer);
-        params = PasswortInnerContainer.getLayoutParams();
-        displayMetrics = new DisplayMetrics();
-
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        height =  (int)(displayMetrics.heightPixels * 0.1);
-        width = (int) (displayMetrics.widthPixels * 0.6);
-
-        params.height = height;
-        params.width = width;
-        PasswortInnerContainer.setLayoutParams(params);
 
 
         //Dynamic Buttons
@@ -146,20 +93,12 @@ public class SettingsActivity extends AppCompatActivity {
         buttonSpace.setLayoutParams(params);
 
 
-        //Set all Editfields to "not editable"
-        EditText vorname = findViewById(R.id.txtViewSettingVornameData);
-        vorname.setInputType(InputType.TYPE_NULL);
-
-        EditText name = findViewById(R.id.txtViewSettingNameData);
-        name.setInputType(InputType.TYPE_NULL);
-
-        EditText iban = findViewById(R.id.txtViewSettingIbanData);
-        iban.setInputType(InputType.TYPE_NULL);
-
-        EditText passwort = findViewById(R.id.txtInputPasswortData);
-        passwort.setInputType(InputType.TYPE_NULL);
-
         var ctx = this;
+
+        EditText vorname = findViewById(R.id.textViewSettingVornamData);
+        EditText name = findViewById(R.id.txtViewSettingNamData);
+        EditText iban = findViewById(R.id.txtViewSettingIbaData);
+        EditText passwort = findViewById(R.id.txtViewSettingpassworData);
 
         final User[] currentUser = {null};
 
@@ -169,13 +108,11 @@ public class SettingsActivity extends AppCompatActivity {
                 vorname.setText(response.getFirstname());
                 name.setText(response.getLastname());
                 iban.setText(response.getIban());
-                passwort.setText("");
+                passwort.setHint("*****");
 
                 currentUser[0] = response;
             }
         });
-
-
 
         findViewById(R.id.btnLoeschen).setOnClickListener(v -> {
             API.service.deleteUser();
@@ -194,31 +131,5 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             });
         });
-
-        findViewById(R.id.txtViewSettingVornameData).setOnClickListener(v -> {
-            EditText editText = findViewById(R.id.txtViewSettingVornameData);
-            editText.setInputType(InputType.TYPE_CLASS_TEXT);
-        });
-
-        findViewById(R.id.btnSettingVornameChange).setOnClickListener(v -> {
-            EditText editText = findViewById(R.id.txtViewSettingNameData);
-            editText.setInputType(InputType.TYPE_CLASS_TEXT);
-        });
-
-        findViewById(R.id.btnSettingIbanChange).setOnClickListener(v -> {
-            EditText editText = findViewById(R.id.txtViewSettingIbanData);
-            editText.setInputType(InputType.TYPE_CLASS_TEXT);
-        });
-
-        findViewById(R.id.btnSettingPasswortChange).setOnClickListener(v -> {
-            EditText editText = findViewById(R.id.txtInputPasswortData);
-            editText.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        });
-
-       /* ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.home), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });*/
     }
 }

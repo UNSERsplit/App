@@ -57,7 +57,7 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/rounded_text"
             android:ems="10"
-            android:hint="IBAN"
+            android:hint="IBAN(optional)"
             android:inputType="text"
             android:minWidth="48dp"
             android:minHeight="48dp"
@@ -103,6 +103,7 @@
             android:backgroundTint="#22b4f0"
 
             android:text="Registrieren"
+            android:textColor="#f1f1f1"
             android:textSize="22dp"
             app:cornerRadius="12dp"
             app:layout_constraintBottom_toBottomOf="parent"

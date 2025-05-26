@@ -3,33 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/background_shaped_blue6"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/txtViewTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_medium"
-        android:text="Einstellungen"
-        android:textColor="#00184b"
-        android:textSize="55sp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.060000002" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/contentLayout"
-        android:layout_width="362dp"
-        android:layout_height="353dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtViewTitle">
-
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,8 +27,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:background="@drawable/border_box_filled"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/border_box"
                 android:paddingStart="5dp">
 
                 <TextView
@@ -67,7 +49,6 @@
                     android:ems="10"
                     android:hint="dein Name"
                     android:inputType="text"
-                    android:paddingEnd="4dp"
                     app:layout_constraintStart_toStartOf="@+id/textViewSettingVornam"
                     app:layout_constraintTop_toBottomOf="@+id/textViewSettingVornam" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -75,8 +56,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:background="@drawable/border_box_filled"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/border_box"
                 android:paddingStart="5dp">
 
                 <TextView
@@ -97,7 +78,6 @@
                     android:ems="10"
                     android:hint="dein Name"
                     android:inputType="text"
-                    android:paddingEnd="4dp"
                     app:layout_constraintStart_toStartOf="@+id/txtViewSettingNam"
                     app:layout_constraintTop_toBottomOf="@+id/txtViewSettingNam" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -105,8 +85,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:background="@drawable/border_box_filled"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/border_box"
                 android:paddingStart="5dp">
 
                 <TextView
@@ -127,7 +107,6 @@
                     android:ems="10"
                     android:hint="dein Name"
                     android:inputType="text"
-                    android:paddingEnd="4dp"
                     app:layout_constraintStart_toStartOf="@+id/txtViewSettingIba"
                     app:layout_constraintTop_toBottomOf="@+id/txtViewSettingIba" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -135,8 +114,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:background="@drawable/border_box_filled"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/border_box"
                 android:paddingStart="5dp">
 
                 <TextView
@@ -157,59 +136,9 @@
                     android:ems="10"
                     android:hint="dein Name"
                     android:inputType="text"
-                    android:paddingEnd="4dp"
                     app:layout_constraintStart_toStartOf="@+id/txtViewSettingpasswor"
                     app:layout_constraintTop_toBottomOf="@+id/txtViewSettingpasswor" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="45dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <Button
-            android:id="@+id/btnLoeschen"
-            android:layout_width="wrap_content"
-            android:layout_height="55dp"
-            android:backgroundTint="#CC2B21"
-            android:fontFamily="@font/roboto_medium"
-            android:text="Löschen"
-            android:textColor="#f1f1f1"
-            app:cornerRadius="5dp" />
-
-        <Space
-            android:id="@+id/spaceBtn"
-            android:layout_width="75dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <Button
-            android:id="@+id/btnSpeichern"
-            android:layout_width="wrap_content"
-            android:layout_height="55dp"
-            android:backgroundTint="#2E971E"
-            android:fontFamily="@font/roboto_medium"
-            android:text="Speichern"
-            android:textColor="#f1f1f1"
-            app:cornerRadius="5dp" />
-    </LinearLayout>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/button_nav_menu" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
