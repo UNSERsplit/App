@@ -110,14 +110,14 @@ public interface ApiService {
     Call<FriendData> sendFriendRequest(@Query("touserid") int userid);
 
     @PUT("friends/")
-    Call<FriendData> acceptFriendRequest(@Query("fromuserid") int fromUserId);
+    Call<FriendData> acceptFriendRequest(@Query("requestid") int requestId);
 
     @DELETE("friends/")
-    Call<FriendData> denyFriendRequest(@Query("fromuserid") int fromUserId);
+    Call<FriendData> denyFriendRequest(@Query("requestid") int fromUserId);
 
     @DELETE("friends/{userid}")
     Call<FriendData> removeFriend(@Path("userid") int userid);
 
-    @GET("user/search")
+    @GET("friends/search")
     Call<List<PublicUserData>> searchFriend(@Query("query") String query);
 }

@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import at.htlsaalfelden.UNSERsplit.NoLib.Observable;
+import at.htlsaalfelden.UNSERsplit.NoLib.ui.LayoutSwitcher;
 import at.htlsaalfelden.UNSERsplit.NoLib.ui.UserSearchView;
 import at.htlsaalfelden.UNSERsplit.R;
 import at.htlsaalfelden.UNSERsplit.api.API;
@@ -39,7 +40,7 @@ import at.htlsaalfelden.UNSERsplit.ui.transaction.IUserAdapterAware;
 import at.htlsaalfelden.UNSERsplit.ui.transaction.UserAdapter;
 
 public class GroupOverviewActivity extends AppCompatActivity {
-    public final Observable<Boolean> editing = new Observable<>(false);
+    public final Observable<Boolean> showMembers = new Observable<>(false);
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -48,10 +49,14 @@ public class GroupOverviewActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_group_overview);
 
+        LayoutSwitcher layoutSwitcher = findViewById(R.id.memberSwitcher);
+
+        layoutSwitcher.setStateVariable(showMembers);
+
         NavigationUtils.initNavbar(this );
 
         int groupId = getIntent().getIntExtra("GROUP", -1);
-        editing.set(getIntent().getBooleanExtra("EDITING", false));
+        showMembers.set(!getIntent().getBooleanExtra("EDITING", false));
 
         var ctx = this;
 
@@ -86,7 +91,7 @@ public class GroupOverviewActivity extends AppCompatActivity {
         DisplayMetrics displayMetrics3 = new DisplayMetrics();
 
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics3);
-        height =  (int)(displayMetrics3.heightPixels * 0.57);
+        height =  (int)(displayMetrics3.heightPixels * 0.5);
 
         params3.height = height;
 
@@ -124,6 +129,11 @@ public class GroupOverviewActivity extends AppCompatActivity {
             public void onSucess(@Nullable List<PublicUserData> response) {
                 AtomicInteger i = new AtomicInteger(0);
                 for(PublicUserData userData : response) {
+                    System.out.println(userData.getUserid() + " " + userData.getFirstname() + " " + API.userID);
+                    if(userData.getUserid() == API.userID) {
+                        continue;
+                    }
+                    i.addAndGet(1);
                     API.service.getTransactions(userData.getUserid()).enqueue(new DefaultCallback<List<Transaction>>() {
                         @Override
                         public void onSucess(@Nullable List<Transaction> response2) {
@@ -143,10 +153,9 @@ public class GroupOverviewActivity extends AppCompatActivity {
                                 }
                             }
 
-                            System.out.println(userData.getUserid() + ":" + balance);
                             users.add(new CombinedUser(userData, balance));
 
-                            if(i.addAndGet(1) == response.size()) {
+                            if(i.addAndGet(-1) == 0) {
                                 normalUserAdapter.notifyDataSetChanged();
                                 settingsUserAdapter.notifyDataSetChanged();
                             }
@@ -157,31 +166,25 @@ public class GroupOverviewActivity extends AppCompatActivity {
                 groupInfo.setText("Mitglieder: " + response.size());
 
                 originalUsers[0] = response;
+
+                if(response.size() == 1) {
+                    findViewById(R.id.looksEmptyHereView).setVisibility(View.VISIBLE);
+                    findViewById(R.id.mitgliederList).setVisibility(View.GONE);
+                }
             }
         });
 
 
-        editing.addInstantListener((o,v) -> {
-            if(v) {
+        showMembers.addInstantListener((o,v) -> {
+            if(!v) {
                 mitgliederContainer.setVisibility(View.INVISIBLE);
                 gruppenSettingsContainer.setVisibility(View.VISIBLE);
-                findViewById(R.id.ausgewähltLinieEinstellung).setVisibility(View.VISIBLE);
-                findViewById(R.id.ausgewähltLinieMitglieder).setVisibility(View.INVISIBLE);
             } else {
                 mitgliederContainer.setVisibility(View.VISIBLE);
                 gruppenSettingsContainer.setVisibility(View.INVISIBLE);
-                findViewById(R.id.ausgewähltLinieEinstellung).setVisibility(View.INVISIBLE);
-                findViewById(R.id.ausgewähltLinieMitglieder).setVisibility(View.VISIBLE);
             }
         });
 
-        findViewById(R.id.textViewMitglieder).setOnClickListener(v -> {
-                editing.set(false);
-        });
-
-        findViewById(R.id.textViewSettings).setOnClickListener(v -> {
-            editing.set(true);
-        });
 
         findViewById(R.id.btnLoeschen).setOnClickListener(v ->{
             Intent myIntent = new Intent(this, HomeActivity.class);
