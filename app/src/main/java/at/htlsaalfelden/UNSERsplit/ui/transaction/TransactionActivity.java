@@ -67,6 +67,9 @@ public class TransactionActivity extends AppCompatActivity implements IUserAdapt
         deleteMode = new Observable<>(false);
         userSum = new Observable<>(0.0);
 
+        LayoutSwitcher layoutSwitcher = findViewById(R.id.transactionSwitcher);
+        layoutSwitcher.setStateVariable(isSplitEven);
+
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION

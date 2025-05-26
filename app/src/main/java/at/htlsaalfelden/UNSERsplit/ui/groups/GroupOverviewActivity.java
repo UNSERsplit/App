@@ -175,15 +175,15 @@ public class GroupOverviewActivity extends AppCompatActivity {
         });
 
 
-        showMembers.addInstantListener((o,v) -> {
-            if(!v) {
-                mitgliederContainer.setVisibility(View.INVISIBLE);
-                gruppenSettingsContainer.setVisibility(View.VISIBLE);
-            } else {
-                mitgliederContainer.setVisibility(View.VISIBLE);
-                gruppenSettingsContainer.setVisibility(View.INVISIBLE);
-            }
-        });
+//        showMembers.addInstantListener((o,v) -> {
+//            if(!v) {
+//                mitgliederContainer.setVisibility(View.INVISIBLE);
+//                gruppenSettingsContainer.setVisibility(View.VISIBLE);
+//            } else {
+//                mitgliederContainer.setVisibility(View.VISIBLE);
+//                gruppenSettingsContainer.setVisibility(View.INVISIBLE);
+//            }
+//        });
 
 
         findViewById(R.id.btnLoeschen).setOnClickListener(v ->{

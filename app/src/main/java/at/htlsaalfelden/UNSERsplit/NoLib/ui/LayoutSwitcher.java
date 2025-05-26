@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import at.htlsaalfelden.UNSERsplit.NoLib.Observable;
@@ -20,6 +21,12 @@ public class LayoutSwitcher extends ConstraintLayout {
     private final int idRight;
     private final String valLeft;
     private final String valRight;
+
+    private View elementLeft;
+    private View elementRight;
+    private final AppCompatActivity context;
+    private final int eLeft;
+    private final int eRight;
 
     private boolean hasLayouted = false;
 
@@ -49,6 +56,17 @@ public class LayoutSwitcher extends ConstraintLayout {
 
         valLeft = a.getString(R.styleable.LayoutSwitcher_textLeft);
         valRight = a.getString(R.styleable.LayoutSwitcher_textRight);
+
+        eLeft = a.getResourceId(R.styleable.LayoutSwitcher_elementLeft, -1);
+        eRight = a.getResourceId(R.styleable.LayoutSwitcher_elementRight, -1);
+
+        if(context instanceof AppCompatActivity) {
+            this.context = (AppCompatActivity) context;
+        } else {
+            this.context = null;
+        }
+
+        a.recycle();
 
         inflate(context, R.layout.layout_switcher, this);
     }
@@ -103,9 +121,13 @@ public class LayoutSwitcher extends ConstraintLayout {
             if(v) {
                 underscore_left.setVisibility(View.VISIBLE);
                 underscore_right.setVisibility(View.INVISIBLE);
+                if(elementLeft != null) elementLeft.setVisibility(View.VISIBLE);
+                if(elementRight != null) elementRight.setVisibility(View.INVISIBLE);
             } else {
                 underscore_left.setVisibility(View.INVISIBLE);
                 underscore_right.setVisibility(View.VISIBLE);
+                if(elementLeft != null) elementLeft.setVisibility(View.INVISIBLE);
+                if(elementRight != null) elementRight.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -117,6 +139,9 @@ public class LayoutSwitcher extends ConstraintLayout {
         if(hasLayouted) {
             return;
         }
+
+        elementLeft = this.context.findViewById(eLeft);
+        elementRight = this.context.findViewById(eRight);
 
         TextView txtLeft = findViewById(R.id.txtLeft);
         TextView txtRight = findViewById(R.id.txtRight);

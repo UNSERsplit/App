@@ -102,6 +102,9 @@ public class CustomSearchView<T> extends SearchView {
     private void expandAndUnfocus() {
         // expand without acquiring the focus
         Activity callingActivity = ReflectionUtils.getActivity(getContext());
+        if(callingActivity == null) {
+            return; // assume rendering inside android studio
+        }
         View currentFocus = callingActivity.getCurrentFocus();
 
         this.setIconified(false); // expand
