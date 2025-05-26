@@ -23,7 +23,7 @@ Layout am Handy
 Gruppen hinzufügen
 Settings:
     Editing klarer machen & Placeholder ändern
-    User löschen implementieren
+    -DONE- User löschen implementieren
 
 Freunde:
     -DONE- update nach annahme
@@ -32,6 +32,7 @@ Custom components:
     -DONE- Hamburger Menu erstellen
     View Selector
 
+text ausserhalb von container
 Iban eingabe fixen
 alle aingaben auf material3 ändern
 strings extrahieren + internationalization

@@ -61,82 +61,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout3"
+        <at.htlsaalfelden.UNSERsplit.NoLib.ui.LayoutSwitcher
+            android:id="@+id/memberSwitcher"
             android:layout_width="382dp"
             android:layout_height="97dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/textViewSettings"
-                android:layout_width="130dp"
-                android:layout_height="51dp"
-                android:layout_weight="1"
-                android:background="@drawable/background_lightblue_transparent"
-                android:clickable="true"
-                android:gravity="center"
-                android:text="Einstellungen"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/constraintLayout6"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout6"
-                android:layout_width="4dp"
-                android:layout_height="66dp"
-                android:background="@drawable/background_blue"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                android:id="@+id/textViewMitglieder"
-                android:layout_width="117dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:background="@drawable/background_lightblue_transparent"
-                android:clickable="true"
-                android:gravity="center"
-                android:text="Mitglieder"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/constraintLayout6"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/ausgewähltLinieMitglieder"
-                android:layout_width="125dp"
-                android:layout_height="4dp"
-                android:layout_marginTop="2dp"
-                android:background="@drawable/linie"
-                app:layout_constraintEnd_toEndOf="@+id/textViewMitglieder"
-                app:layout_constraintStart_toStartOf="@+id/textViewMitglieder"
-                app:layout_constraintTop_toBottomOf="@+id/textViewMitglieder">
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/ausgewähltLinieEinstellung"
-                android:layout_width="140dp"
-                android:layout_height="4dp"
-                android:layout_marginTop="2dp"
-                android:background="@drawable/linie"
-                android:visibility="invisible"
-                app:layout_constraintEnd_toEndOf="@+id/textViewSettings"
-                app:layout_constraintStart_toStartOf="@+id/textViewSettings"
-                app:layout_constraintTop_toBottomOf="@+id/textViewSettings">
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toTopOf="parent"
+            app:textLeft="Mitglieder"
+            app:textRight="Einstellungen"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/mitgliederContainer"
@@ -184,7 +117,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+            app:layout_constraintTop_toBottomOf="@+id/memberSwitcher">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/contentLayout"

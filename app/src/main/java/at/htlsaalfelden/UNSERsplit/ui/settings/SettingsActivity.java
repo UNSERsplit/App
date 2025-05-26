@@ -178,7 +178,7 @@ public class SettingsActivity extends AppCompatActivity {
 
 
         findViewById(R.id.btnLoeschen).setOnClickListener(v -> {
-            //Todo User löschen implementieren
+            API.service.deleteUser();
         });
 
         findViewById(R.id.btnSpeichern).setOnClickListener(v -> {

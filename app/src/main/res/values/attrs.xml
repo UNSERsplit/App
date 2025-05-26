@@ -3,4 +3,9 @@
     <declare-styleable name="CustomSearchView">
         <attr name="suggestionLayout" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="LayoutSwitcher">
+        <attr name="textLeft" format="reference|string" />
+        <attr name="textRight" format="reference|string" />
+    </declare-styleable>
 </resources>
