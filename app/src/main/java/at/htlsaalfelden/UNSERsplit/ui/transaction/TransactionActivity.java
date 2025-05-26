@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import at.htlsaalfelden.UNSERsplit.NoLib.Observable;
+import at.htlsaalfelden.UNSERsplit.NoLib.ui.LayoutSwitcher;
 import at.htlsaalfelden.UNSERsplit.NoLib.ui.SimpleAPISearchView;
 import at.htlsaalfelden.UNSERsplit.NoLib.ui.UserAndGroupSearch;
 import at.htlsaalfelden.UNSERsplit.NoLib.ui.UserSearchView;
@@ -71,13 +72,7 @@ public class TransactionActivity extends AppCompatActivity implements IUserAdapt
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN);
 
-        findViewById(R.id.textViewbtnHalf).setOnClickListener(v -> {
-            isSplitEven.set(true);
-        });
 
-        findViewById(R.id.textViewbtnCostum).setOnClickListener(v -> {
-            isSplitEven.set(false);
-        });
 
         findViewById(R.id.btnLoeschen).setOnClickListener(v -> {
             deleteMode.set(!deleteMode.get());
