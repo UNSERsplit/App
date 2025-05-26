@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
-            android:visibility="visible"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -94,7 +94,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
-            android:visibility="invisible"
+            android:visibility="visible"
             tools:layout_editor_absoluteX="328dp">
 
             <TextView
@@ -106,7 +106,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Benutzername"
-                android:textSize="24sp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -118,15 +118,12 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
+            <TextView
                 android:id="@+id/floatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-
-                android:clickable="true"
-                android:contentDescription="löschen"
-                app:srcCompat="@android:drawable/ic_delete" />
+                android:text="X"
+                android:textColor="#CC2B21" />
 
             <Space
                 android:layout_width="20dp"

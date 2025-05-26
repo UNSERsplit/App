@@ -53,38 +53,39 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <at.htlsaalfelden.UNSERsplit.NoLib.ui.LayoutSwitcher
+        android:id="@+id/memberSwitcher"
+        android:layout_width="match_parent"
+        android:layout_height="69dp"
+        app:layout_constraintBottom_toTopOf="@+id/contentContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:textLeft="Mitglieder"
+        app:textRight="Einstellungen" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/contentContainer"
         android:layout_width="match_parent"
-        android:layout_height="487dp"
+        android:layout_height="563dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="16dp"
         android:paddingLeft="2dp"
         android:paddingRight="2dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <at.htlsaalfelden.UNSERsplit.NoLib.ui.LayoutSwitcher
-            android:id="@+id/memberSwitcher"
-            android:layout_width="382dp"
-            android:layout_height="97dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:textLeft="Mitglieder"
-            app:textRight="Einstellungen" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/mitgliederContainer"
             android:layout_width="match_parent"
             android:layout_height="388dp"
-            android:layout_marginTop="4dp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="32dp"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
-            app:layout_constraintVertical_bias="1.0">
+            app:layout_constraintTop_toTopOf="@+id/gruppenSettingsContainer">
 
             <TextView
                 android:id="@+id/looksEmptyHereView"
@@ -113,155 +114,129 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/gruppenSettingsContainer"
             android:layout_width="match_parent"
-            android:layout_height="388dp"
-            android:layout_marginBottom="8dp"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="508dp"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/memberSwitcher">
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/contentLayout"
                 android:layout_width="match_parent"
-                android:layout_height="471dp"
+                android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-
                 <LinearLayout
-                    android:id="@+id/linearLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.16000003">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:layout_marginBottom="2dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Gruppenname:"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                        android:id="@+id/gruppenNameContainer"
+                    <EditText
+                        android:id="@+id/txtViewSettingVornameData"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/VornameInnerContainer"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:id="@+id/textViewSettingVorname"
-                                android:layout_width="wrap_content"
-                                android:layout_height="25dp"
-                                android:fontFamily="@font/roboto_medium"
-                                android:text="Gruppenname:"
-                                android:textSize="18sp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <EditText
-                                android:id="@+id/txtViewSettingVornameData"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/roboto_medium"
-                                android:hint="Saubärn..."
-                                android:minWidth="48dp"
-                                android:minHeight="48dp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/textViewSettingVorname" />
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                            android:id="@+id/btnSettingVornameChange"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginBottom="1dp"
-                            android:clickable="true"
-                            android:contentDescription="bearbeiten"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/pen" />
-
-                    </LinearLayout>
-
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:ems="10"
+                        android:fontFamily="@font/roboto_medium"
+                        android:hint="Saubärn..."
+                        android:inputType="text"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp" />
 
                     <Space
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="10dp" />
 
                     <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/textView7"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_medium"
                         android:text="Personen hinzufügen:"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                     <at.htlsaalfelden.UNSERsplit.NoLib.ui.UserSearchView
                         android:id="@+id/searchViewAddPersonToGroup"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="44dp"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginEnd="25dp"
+                        android:background="@drawable/border_box">
 
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp" />
+                    </at.htlsaalfelden.UNSERsplit.NoLib.ui.UserSearchView>
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/textView8"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
                         android:fontFamily="@font/roboto_medium"
                         android:text="Löschen:"
-                        android:textSize="18sp">
+                        android:textSize="16sp">
 
                     </TextView>
 
                     <ListView
                         android:id="@+id/mitgliederListe"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
-
-                    <Button
-                        android:id="@+id/btnLoeschen"
-                        android:layout_width="123dp"
-                        android:layout_height="55dp"
-                        android:backgroundTint="#DBB12B"
-                        android:fontFamily="@font/roboto_medium"
-                        android:text="Zurück"
-                        app:cornerRadius="5dp" />
-
-                    <Space
-                        android:id="@+id/spaceBtn"
-                        android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="15dp" />
 
-                    <Button
-                        android:id="@+id/btnSpeichern"
-                        android:layout_width="123dp"
-                        android:layout_height="55dp"
-                        android:backgroundTint="#2E971E"
-                        android:fontFamily="@font/roboto_medium"
-                        android:text="Speichern"
-                        app:cornerRadius="5dp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <Button
+                            android:id="@+id/btnLoeschen"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:backgroundTint="#CC2B21"
+                            android:fontFamily="@font/roboto_medium"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
+                            android:text="Löschen"
+                            android:textColor="#f1f1f1"
+                            app:cornerRadius="5dp" />
+
+                        <Button
+                            android:id="@+id/btnSpeichern"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:backgroundTint="#2E971E"
+                            android:fontFamily="@font/roboto_medium"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
+                            android:text="Speichern"
+                            android:textColor="#f1f1f1"
+                            app:cornerRadius="5dp" />
+                    </LinearLayout>
                 </LinearLayout>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
