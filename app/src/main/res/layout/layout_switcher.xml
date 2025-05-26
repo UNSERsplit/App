@@ -7,11 +7,12 @@
 
     <TextView
         android:id="@+id/txtLeft"
-        android:layout_width="117dp"
-        android:layout_height="50dp"
-        android:background="@drawable/background_lightblue_transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_box"
         android:clickable="true"
         android:gravity="center"
+        android:padding="10dp"
         android:text="TextView"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -23,7 +24,7 @@
         android:id="@+id/center_bar"
         android:layout_width="4dp"
         android:layout_height="66dp"
-        android:background="#2549B6"
+        android:background="@color/primary_dark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,11 +34,12 @@
 
     <TextView
         android:id="@+id/txtRight"
-        android:layout_width="117dp"
-        android:layout_height="50dp"
-        android:background="@drawable/background_lightblue_transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_box"
         android:clickable="true"
         android:gravity="center"
+        android:padding="10dp"
         android:text="TextView"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -50,10 +52,10 @@
         android:layout_width="0dp"
         android:layout_height="4dp"
         android:layout_marginTop="2dp"
+        android:background="@color/primary_dark"
         app:layout_constraintEnd_toEndOf="@id/txtLeft"
         app:layout_constraintStart_toStartOf="@id/txtLeft"
-        app:layout_constraintTop_toBottomOf="@id/txtLeft"
-        android:background="#2549B6">
+        app:layout_constraintTop_toBottomOf="@id/txtLeft">
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -62,10 +64,10 @@
         android:layout_width="0dp"
         android:layout_height="4dp"
         android:layout_marginTop="2dp"
+        android:background="@color/primary_dark"
         app:layout_constraintEnd_toEndOf="@id/txtRight"
         app:layout_constraintStart_toStartOf="@id/txtRight"
-        app:layout_constraintTop_toBottomOf="@id/txtRight"
-        android:background="#2549B6">
+        app:layout_constraintTop_toBottomOf="@id/txtRight">
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
