@@ -58,7 +58,7 @@
             android:background="@drawable/rounded_text"
             android:ems="10"
             android:hint="IBAN"
-            android:inputType="number"
+            android:inputType="text"
             android:minWidth="48dp"
             android:minHeight="48dp"
             android:visibility="visible"
