@@ -21,6 +21,8 @@ public class LayoutSwitcher extends ConstraintLayout {
     private final String valLeft;
     private final String valRight;
 
+    private boolean hasLayouted = false;
+
     public LayoutSwitcher(Context context) {
         this(context, null);
     }
@@ -106,5 +108,23 @@ public class LayoutSwitcher extends ConstraintLayout {
                 underscore_right.setVisibility(View.VISIBLE);
             }
         });
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+
+        if(hasLayouted) {
+            return;
+        }
+
+        TextView txtLeft = findViewById(R.id.txtLeft);
+        TextView txtRight = findViewById(R.id.txtRight);
+
+        int maxWidth = Math.max(txtLeft.getWidth(), txtRight.getWidth());
+
+        txtLeft.setWidth(maxWidth);
+        txtRight.setWidth(maxWidth);
+        hasLayouted = true;
     }
 }

@@ -55,8 +55,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/contentContainer"
-        android:layout_width="394dp"
+        android:layout_width="match_parent"
         android:layout_height="487dp"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -69,7 +71,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:textLeft="Mitglieder"
-            app:textRight="Einstellungen"/>
+            app:textRight="Einstellungen" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/mitgliederContainer"
