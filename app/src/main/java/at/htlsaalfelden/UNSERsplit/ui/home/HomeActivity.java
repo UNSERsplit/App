@@ -104,7 +104,8 @@ public class HomeActivity extends AppCompatActivity {
 
                     assert transactions != null;
                     for (Transaction transaction : transactions) {
-                        if(transaction.getGroupid() != group.getGroupid()) {
+                        System.out.println(transaction);
+                        if(transaction.getGroupid() == null || transaction.getGroupid() != group.getGroupid()) {
                             continue;
                         }
 

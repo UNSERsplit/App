@@ -119,7 +119,7 @@ public class GroupOverviewActivity extends AppCompatActivity {
                 groupNameEdit.setText(response.getName());
 
                 if(response.getAdminuser_userid() != API.userID) {
-                    findViewById(R.id.constraintLayout3).setVisibility(View.INVISIBLE);
+                    findViewById(R.id.memberSwitcher).setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -141,7 +141,7 @@ public class GroupOverviewActivity extends AppCompatActivity {
 
                             assert response2 != null;
                             for (Transaction transaction : response2) {
-                                if(transaction.getGroupid() != groupId) {
+                                if(transaction.getGroupid() == null || transaction.getGroupid() != groupId) {
                                     continue;
                                 }
 
