@@ -17,6 +17,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationChannelCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.graphics.drawable.IconCompat;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -26,6 +27,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import at.htlsaalfelden.UNSERsplit.MainActivity;
 import at.htlsaalfelden.UNSERsplit.NoLib.ReflectionUtils;
@@ -43,7 +46,7 @@ public class FCMService extends FirebaseMessagingService {
     }
     public static void showNotification(Map<String, String> extra, int id, Context context) {
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            //throw new RuntimeException("User did not grant permissions");
+            Logger.getLogger("Unsersplit").log(Level.WARNING, "User did not grant permission to send notifications");
             return;
         }
 
@@ -53,7 +56,8 @@ public class FCMService extends FirebaseMessagingService {
 
         addExtra(builder, extra, context);
 
-        builder.setSmallIcon(R.drawable.euro);
+        builder.setSmallIcon(R.mipmap.ic_launcher_foreground);
+        builder.setLargeIcon(IconCompat.createWithResource(context, R.mipmap.ic_launcher_foreground).toIcon(context));
 
         Notification notification = builder.build();
 
