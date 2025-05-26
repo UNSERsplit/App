@@ -60,6 +60,8 @@
         app:layout_constraintBottom_toTopOf="@+id/contentContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:elementLeft="@id/mitgliederContainer"
+        app:elementRight="@id/gruppenSettingsContainer"
         app:textLeft="Mitglieder"
         app:textRight="Einstellungen" />
 
@@ -81,7 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="388dp"
             android:layout_marginTop="32dp"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -115,7 +117,7 @@
             android:id="@+id/gruppenSettingsContainer"
             android:layout_width="match_parent"
             android:layout_height="508dp"
-            android:visibility="visible"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">

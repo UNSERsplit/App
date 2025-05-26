@@ -7,5 +7,7 @@
     <declare-styleable name="LayoutSwitcher">
         <attr name="textLeft" format="reference|string" />
         <attr name="textRight" format="reference|string" />
+        <attr name="elementLeft" format="reference" />
+        <attr name="elementRight" format="reference" />
     </declare-styleable>
 </resources>

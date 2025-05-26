@@ -2,9 +2,12 @@ package at.htlsaalfelden.UNSERsplit.ui.settings;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.transition.Explode;
 import android.transition.Fade;
 import android.transition.Slide;
@@ -21,11 +24,15 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
+import at.htlsaalfelden.UNSERsplit.MainActivity;
 import at.htlsaalfelden.UNSERsplit.R;
 import at.htlsaalfelden.UNSERsplit.api.API;
 import at.htlsaalfelden.UNSERsplit.api.DefaultCallback;
 import at.htlsaalfelden.UNSERsplit.api.model.User;
 import at.htlsaalfelden.UNSERsplit.api.model.UserCreateRequest;
+import at.htlsaalfelden.UNSERsplit.ui.IBANutils;
 import at.htlsaalfelden.UNSERsplit.ui.NavigationUtils;
 import at.htlsaalfelden.UNSERsplit.ui.home.HomeActivity;
 
@@ -100,6 +107,27 @@ public class SettingsActivity extends AppCompatActivity {
         EditText iban = findViewById(R.id.txtViewSettingIbaData);
         EditText passwort = findViewById(R.id.txtViewSettingpassworData);
 
+        iban.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(!s.toString().isEmpty() && !IBANutils.isValidIban(s.toString())) {
+                    iban.setError("Iban is invalid");
+                } else {
+                    iban.setError(null);
+                }
+            }
+        });
+
         final User[] currentUser = {null};
 
         API.service.getUser().enqueue(new DefaultCallback<User>() {
@@ -115,10 +143,27 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         findViewById(R.id.btnLoeschen).setOnClickListener(v -> {
-            API.service.deleteUser();
+            MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(this);
+            materialAlertDialogBuilder.setMessage("Are you sure to delete your account. This action can not be undone!");
+            materialAlertDialogBuilder.setTitle("Delete your account");
+
+            materialAlertDialogBuilder.setPositiveButton("Yes", (dialog, which) -> {
+                API.service.deleteUser();
+            });
+
+            materialAlertDialogBuilder.setNegativeButton("No", (dialog, which) -> {
+
+            });
+
+            materialAlertDialogBuilder.create().show();
+
         });
 
         findViewById(R.id.btnSpeichern).setOnClickListener(v -> {
+            if(!iban.getText().toString().isEmpty() && !IBANutils.isValidIban(iban.getText().toString())) {
+                return;
+            }
+
             API.service.updateUser(new UserCreateRequest(vorname.getText().toString(),
                                                         name.getText().toString(),
                                                         currentUser[0].getEmail(),

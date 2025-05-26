@@ -6,8 +6,6 @@ GroupOverview:
     -DONE- Wenn nur 1 Person in gruppe is alles Leer
     gruppen löschen
 
-PersonenÜbersicht:
-    alles
 
 Home:
     -DONE- Gesamtbilanz
@@ -21,25 +19,23 @@ Transaktionen:
     -DONE- Usersuche auch Gruppensuche, bei Gruppe: alle User der Gruppe auswählen und ID vermerken. wenn ID vermerkt ist: keine Personen auserhalb der Gruppe vorschlagen
 
 -DONE- Notifications
-Layout am Handy
-Gruppen hinzufügen
+-DONE- Gruppen hinzufügen
 Settings:
-    Editing klarer machen & Placeholder ändern
+    -DONE- Editing klarer machen & Placeholder ändern
     -DONE- User löschen implementieren
-    redesigning
-    passwort -> 403
-    popup bei benutzer löschen
+    -DONE- redesigning
+    -?- passwort -> 403
+    -DONE- popup bei benutzer löschen
 
 Freunde:
     -DONE- update nach annahme
 
 Custom components:
-    -DONE- Hamburger Menu erstellen
     -DONE- View Selector
     Layout switcher:
-        autom. switchen
+        -DONE- autom. switchen
 
 text ausserhalb von container
-Iban eingabe fixen
+-DONE- Iban eingabe fixen
 alle aingaben auf material3 ändern
 strings extrahieren + internationalization
