@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_home">Hauptseite</string>
+    <string name="title_activity_settings">Einstellungen</string>
+    <string name="title_activity_register">Registrieren</string>
+    <string name="title_activity_transaction">Transaktion hinzufügen</string>
+    <string name="title_activity_add_friend">Freunde verwalten</string>
+    <string name="title_activity_groupOverview">Gruppe verwalten</string>
+    <string name="nav_open">Navigation öffnen</string>
+    <string name="nav_close">Navigation schließen</string>
+    <string name="add_friend">Freund hinzufügen</string>
+    <string name="friend_requests">Freundschaftsanfragen</string>
+    <string name="exclamation_error">Ups</string>
+    <string name="groups_and_people">Gruppen/Personen:</string>
+    <string name="input_password">Passwort</string>
+    <string name="question_no_account">Noch kein Konto?</string>
+    <string name="input_firstname">Vorname</string>
+    <string name="input_lastname">Nachname</string>
+    <string name="input_optional_iban">IBAN (optional)</string>
+    <string name="input_email">E-Mail</string>
+    <string name="button_delete">Löschen</string>
+    <string name="button_save">Speichern</string>
+    <string name="example_firstname">Max</string>
+    <string name="example_lastname">Mustermann</string>
+    <string name="button_accept">Akzeptieren</string>
+    <string name="button_deny">Ablehnen</string>
+    <string name="members">%1$d Mitglieder</string>
+    <string name="button_back">Zurück</string>
+    <string name="person">Person</string>
+    <string name="create_group">Gruppe erstellen</string>
+    <string name="logout">Abmelden</string>
+</resources>

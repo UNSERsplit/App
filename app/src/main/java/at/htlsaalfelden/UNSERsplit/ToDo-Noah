@@ -39,3 +39,6 @@ text ausserhalb von container
 -DONE- Iban eingabe fixen
 alle aingaben auf material3 ändern
 -DONE- strings extrahieren + internationalization
+Logging
+Email verifikation internationalisieren
+Transaktionsrichtungen besser erklären
