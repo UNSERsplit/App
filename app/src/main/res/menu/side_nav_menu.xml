@@ -1,35 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="HardcodedText">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
         <item
             android:icon="@drawable/baseline_brightness_low_24"
             android:id="@+id/nav_settings"
-            android:title="Settings" />
+            android:title="@string/title_activity_settings" />
 
         <group android:id="@+id/group_split_options">
                 <item
                     android:id="@+id/nav_transaction"
                     android:icon="@drawable/plus"
-                    android:title="Transaktionen" />
+                    android:title="@string/title_activity_transaction" />
                 <item
                     android:id="@+id/nav_createGroup"
                     android:icon="@drawable/people_fill"
-                    android:title="Gruppe erstellen" />
+                    android:title="@string/create_group" />
         </group>
 
 
         <item
             android:id="@+id/navaddFriends"
             android:icon="@drawable/add_user"
-            android:title="Freunde adden" />
+            android:title="@string/title_activity_add_friend" />
 
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/logout"
-            android:title="Logout" />
+            android:title="@string/logout" />
 
 
 </menu>

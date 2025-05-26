@@ -8,6 +8,8 @@ import androidx.annotation.Nullable;
 
 import java.util.Objects;
 
+import at.htlsaalfelden.UNSERsplit.R;
+
 public class CombinedUser implements CombinedData{
     private PublicUserData userData;
     private BaseAdapter adapter;
@@ -38,8 +40,8 @@ public class CombinedUser implements CombinedData{
     }
 
     @Override
-    public String getExtra() {
-        return "Person";
+    public String getExtra(Context context) {
+        return context.getString(R.string.person);
     }
 
     @Override

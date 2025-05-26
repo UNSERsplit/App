@@ -1,5 +1,6 @@
 package at.htlsaalfelden.UNSERsplit.ui.friends;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,6 +58,7 @@ public class FriendAdapter extends BaseAdapter {
         return createViewFromResource(layoutInflater, position, convertView, parent, R.layout.layout_pending_friend);
     }
 
+    @SuppressLint("SetTextI18n")
     private @NonNull View createViewFromResource(@NonNull LayoutInflater inflater, int position,
                                                  @Nullable View convertView, @NonNull ViewGroup parent, int resource) {
         final View view;

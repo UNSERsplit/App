@@ -125,9 +125,9 @@ public class TransactionActivity extends AppCompatActivity implements IUserAdapt
             Button btn = findViewById(R.id.btnLoeschen);
 
             if(v) {
-                btn.setText("Zurück");
+                btn.setText(this.getString(R.string.button_back));
             } else {
-                btn.setText("Löschen");
+                btn.setText(this.getString(R.string.button_delete));
             }
         });
 
@@ -268,6 +268,7 @@ public class TransactionActivity extends AppCompatActivity implements IUserAdapt
         this.userSum.set(sum);
     }
 
+    @SuppressLint("SetTextI18n")
     private void checkSum() {
         TextView betragDifference = findViewById(R.id.betragChange);
         if(Math.abs(this.totalSum.get() - this.userSum.get()) < 0.01) {

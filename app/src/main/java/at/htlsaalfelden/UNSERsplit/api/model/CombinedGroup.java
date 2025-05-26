@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import java.util.List;
 
+import at.htlsaalfelden.UNSERsplit.R;
 import at.htlsaalfelden.UNSERsplit.ui.groups.GroupOverviewActivity;
 
 public class CombinedGroup implements CombinedData{
@@ -44,8 +45,8 @@ public class CombinedGroup implements CombinedData{
     }
 
     @Override
-    public String getExtra() {
-        return getMembers().size() + " Mitglieder";
+    public String getExtra(Context context) {
+        return context.getString(R.string.members, getMembers().size());
     }
 
     @Override

@@ -1,33 +1,34 @@
 <resources>
-    <string name="app_name">UNSERsplit</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
-    <string name="title_activity_home">Home</string>
-    <string name="title_activity_settings">title_activity_settings</string>
-    <string name="title_activity_register">title_activity_register\n</string>
-    <string name="title_activity_transaction">title_activity_transaction\n</string>
-    <string name="addbetrag">AddBetrag</string>
-    <string name="nav_open">Open</string>
-    <string name="nav_close">Close</string>
-    <string name="betrag">Betrag</string>
-    <string name="title_activity_groupOverview" />
-    <string name="title_activity_settisdsdngs">sd</string>
-    <string-array name="splitVariant">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
-    </string-array>
-
+    <string name="app_name" translatable="false">UNSERsplit</string>
+    <string name="title_activity_login">login</string>
+    <string name="title_activity_home">home</string>
+    <string name="title_activity_settings">settings</string>
+    <string name="title_activity_register">register</string>
+    <string name="title_activity_transaction">transaction</string>
+    <string name="title_activity_add_friend">friends</string>
+    <string name="title_activity_groupOverview">group</string>
+    <string name="nav_open">open</string>
+    <string name="nav_close">close</string>
+    <string name="add_friend">Add Friends</string>
+    <string name="friend_requests">friend requests</string>
+    <string name="exclamation_error">Uh Oh</string>
+    <string name="groups_and_people">Groups/People:</string>
+    <string name="input_password">password</string>
+    <string name="question_no_account">No account?</string>
+    <string name="input_firstname">first name</string>
+    <string name="input_lastname">last name</string>
+    <string name="input_optional_iban">iban (optional)</string>
+    <string name="input_email">email</string>
+    <string name="button_delete">delete</string>
+    <string name="button_save">save</string>
+    <string name="example_firstname">John</string>
+    <string name="example_lastname">Doe</string>
+    <string name="example_iban" translatable="false">AT61 1904 3002 3457 3201</string>
+    <string name="button_accept">accept</string>
+    <string name="button_deny">deny</string>
+    <string name="members">members: %1$d</string>
+    <string name="button_back">back</string>
+    <string name="person">person</string>
+    <string name="create_group">create group</string>
+    <string name="logout">logout</string>
 </resources>

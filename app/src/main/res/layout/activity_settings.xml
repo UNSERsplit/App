@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_medium"
-        android:text="Einstellungen"
+        android:text="@string/title_activity_settings"
         android:textColor="#00184b"
         android:textSize="55sp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
@@ -55,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="Vorname:"
+                    android:text="@string/input_firstname"
                     android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -65,7 +65,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="dein Name"
+                    android:hint="@string/example_firstname"
                     android:inputType="text"
                     android:paddingEnd="4dp"
                     app:layout_constraintStart_toStartOf="@+id/textViewSettingVornam"
@@ -85,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="Name:"
+                    android:text="@string/input_lastname"
                     android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -95,7 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="dein Name"
+                    android:hint="@string/example_lastname"
                     android:inputType="text"
                     android:paddingEnd="4dp"
                     app:layout_constraintStart_toStartOf="@+id/txtViewSettingNam"
@@ -115,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="IBAN:"
+                    android:text="@string/input_optional_iban"
                     android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -125,7 +125,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="dein Name"
+                    android:hint="@string/example_iban"
                     android:inputType="text"
                     android:paddingEnd="4dp"
                     app:layout_constraintStart_toStartOf="@+id/txtViewSettingIba"
@@ -145,7 +145,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="Passwort:"
+                    android:text="@string/input_password"
                     android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -155,7 +155,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="dein Name"
+                    android:hint="@string/input_password"
                     android:inputType="text"
                     android:paddingEnd="4dp"
                     app:layout_constraintStart_toStartOf="@+id/txtViewSettingpasswor"
@@ -181,7 +181,7 @@
             android:layout_height="55dp"
             android:backgroundTint="#CC2B21"
             android:fontFamily="@font/roboto_medium"
-            android:text="Löschen"
+            android:text="@string/button_delete"
             android:textColor="#f1f1f1"
             app:cornerRadius="5dp" />
 
@@ -197,7 +197,7 @@
             android:layout_height="55dp"
             android:backgroundTint="#2E971E"
             android:fontFamily="@font/roboto_medium"
-            android:text="Speichern"
+            android:text="@string/button_save"
             android:textColor="#f1f1f1"
             app:cornerRadius="5dp" />
     </LinearLayout>

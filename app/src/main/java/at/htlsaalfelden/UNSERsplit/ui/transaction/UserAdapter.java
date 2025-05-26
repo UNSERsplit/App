@@ -1,5 +1,6 @@
 package at.htlsaalfelden.UNSERsplit.ui.transaction;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -67,6 +68,7 @@ public class UserAdapter extends BaseAdapter {
         return createViewFromResource(layoutInflater, position, convertView, parent, R.layout.layout_transaction_userlist_half);
     }
 
+    @SuppressLint("SetTextI18n")
     private @NonNull View createViewFromResource(@NonNull LayoutInflater inflater, int position,
                                                  @Nullable View convertView, @NonNull ViewGroup parent, int resource) {
         final View view;

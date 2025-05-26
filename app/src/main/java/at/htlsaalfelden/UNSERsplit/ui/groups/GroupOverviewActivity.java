@@ -163,7 +163,7 @@ public class GroupOverviewActivity extends AppCompatActivity {
                     });
                 }
 
-                groupInfo.setText("Mitglieder: " + response.size());
+                groupInfo.setText(ctx.getString(R.string.members, response.size()));
 
                 originalUsers[0] = response;
 

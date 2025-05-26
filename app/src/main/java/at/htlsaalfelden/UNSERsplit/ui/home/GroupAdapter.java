@@ -1,6 +1,8 @@
 package at.htlsaalfelden.UNSERsplit.ui.home;
 
 import androidx.annotation.Nullable;
+
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.util.DisplayMetrics;
@@ -58,8 +60,9 @@ public class GroupAdapter extends BaseAdapter {
         return createViewFromResource(layoutInflater, position, convertView, parent, R.layout.layout_group);
     }
 
+    @SuppressLint("SetTextI18n")
     private @NonNull View createViewFromResource(@NonNull LayoutInflater inflater, int position,
-                                                                    @Nullable View convertView, @NonNull ViewGroup parent, int resource) {
+                                                 @Nullable View convertView, @NonNull ViewGroup parent, int resource) {
         final View view;
 
         if (convertView == null) {
@@ -75,7 +78,7 @@ public class GroupAdapter extends BaseAdapter {
         final CombinedData item = getItem(position);
         groupName.setText(item.getName());
         groupBalance.setText(item.getBalance() + "");
-        groupUsers.setText(item.getExtra());
+        groupUsers.setText(item.getExtra(context));
 
         if (groupName.getText().length() > 10){
             groupName.setText(groupName.getText().subSequence(0, 10) + "...");
