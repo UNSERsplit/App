@@ -3,7 +3,8 @@ GroupOverview:
     -DONE- Einstellungen bei nicht-Admin verstecken
     -DONE- Iban kopierbar machen
     Gruppenname steht über bildschirm hinaus
-    Wenn nur 1 Person in gruppe is alles Leer
+    -DONE- Wenn nur 1 Person in gruppe is alles Leer
+    gruppen löschen
 
 PersonenÜbersicht:
     alles
@@ -11,6 +12,7 @@ PersonenÜbersicht:
 Home:
     -DONE- Gesamtbilanz
     -DONE- GroupAdapter für User und Gruppen Auslegen
+    Person -> IBAN kopieren
 
 Transaktionen:
     -DONE- Funktionalität
@@ -26,13 +28,16 @@ Settings:
     -DONE- User löschen implementieren
     redesigning
     passwort -> 403
+    popup bei benutzer löschen
 
 Freunde:
     -DONE- update nach annahme
 
 Custom components:
     -DONE- Hamburger Menu erstellen
-    View Selector
+    -DONE- View Selector
+    Layout switcher:
+        autom. switchen
 
 text ausserhalb von container
 Iban eingabe fixen

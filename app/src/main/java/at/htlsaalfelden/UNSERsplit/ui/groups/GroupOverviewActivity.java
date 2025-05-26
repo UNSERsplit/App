@@ -205,6 +205,8 @@ public class GroupOverviewActivity extends AppCompatActivity {
                 usersToRemove.removeIf((u) -> u.getUserid() == user.getUserData().getUserid());
             }
 
+            usersToRemove.removeIf(u -> u.getUserid() == API.userID);
+
             int t = usersToRemove.size() + usersToAdd.size() + 1;
 
             API.service.updateGroup(groupId, new GroupCreateRequest(groupNameEdit.getText().toString())).enqueue(new DefaultCallback<Group>() {
@@ -260,6 +262,7 @@ public class GroupOverviewActivity extends AppCompatActivity {
             users.add(user);
 
             onUserAdd(user);
+            normalUserAdapter.notifyDataSetChanged();
         });
     }
 
