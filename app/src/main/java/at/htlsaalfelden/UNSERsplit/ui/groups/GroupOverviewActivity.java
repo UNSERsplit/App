@@ -66,7 +66,7 @@ public class GroupOverviewActivity extends AppCompatActivity {
         DisplayMetrics displayMetrics = new DisplayMetrics();
 
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height =  (int)(displayMetrics.heightPixels * 0.62);
+        int height =  (int)(displayMetrics.heightPixels * 0.6);
         int width = (int) (displayMetrics.widthPixels * 0.80);
 
         params.height = height;
