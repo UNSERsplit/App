@@ -61,43 +61,6 @@ public class SettingsActivity extends AppCompatActivity {
         layout.setLayoutParams(params);
 
 
-        //Dynamic Buttons
-        Button btnLoeschen = findViewById(R.id.btnLoeschen);
-        params = btnLoeschen.getLayoutParams();
-        displayMetrics = new DisplayMetrics();
-
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        height =  (int)(displayMetrics.heightPixels * 0.065);
-        width = (int) (displayMetrics.widthPixels * 0.35);
-
-        params.height = height;
-        params.width = width;
-        btnLoeschen.setLayoutParams(params);
-
-
-        //Dynamic Buttons
-        Button btnSpeichern = findViewById(R.id.btnSpeichern);
-        params = btnSpeichern.getLayoutParams();
-        displayMetrics = new DisplayMetrics();
-
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        height =  (int)(displayMetrics.heightPixels * 0.065);
-        width = (int) (displayMetrics.widthPixels * 0.35);
-
-        params.height = height;
-        params.width = width;
-        btnSpeichern.setLayoutParams(params);
-
-        //Dynamic Space
-        Space buttonSpace = findViewById(R.id.spaceBtn);
-        params = buttonSpace.getLayoutParams();
-        displayMetrics = new DisplayMetrics();
-
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        width = (int) (displayMetrics.widthPixels * 0.2);
-
-        params.width = width;
-        buttonSpace.setLayoutParams(params);
 
 
         var ctx = this;

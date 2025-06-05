@@ -165,9 +165,9 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="45dp"
         android:orientation="horizontal"
@@ -183,13 +183,22 @@
             android:fontFamily="@font/roboto_medium"
             android:text="@string/button_delete"
             android:textColor="#f1f1f1"
-            app:cornerRadius="5dp" />
+            app:cornerRadius="5dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/spaceBtn"/>
 
-        <Space
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/spaceBtn"
-            android:layout_width="75dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
             android:id="@+id/btnSpeichern"
@@ -199,8 +208,12 @@
             android:fontFamily="@font/roboto_medium"
             android:text="@string/button_save"
             android:textColor="#f1f1f1"
-            app:cornerRadius="5dp" />
-    </LinearLayout>
+            app:cornerRadius="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/spaceBtn"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
