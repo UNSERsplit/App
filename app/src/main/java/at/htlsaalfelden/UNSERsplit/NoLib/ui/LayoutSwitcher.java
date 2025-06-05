@@ -149,5 +149,7 @@ public class LayoutSwitcher extends ConstraintLayout {
         txtLeft.setWidth(maxWidth);
         txtRight.setWidth(maxWidth);
         hasLayouted = true;
+
+        leftSelected.forceUpdate();
     }
 }

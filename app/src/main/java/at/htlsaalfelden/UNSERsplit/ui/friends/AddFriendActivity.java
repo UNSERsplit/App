@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
+import java.util.logging.Logger;
 
 import at.htlsaalfelden.UNSERsplit.NoLib.Observable;
 import at.htlsaalfelden.UNSERsplit.NoLib.ui.LayoutSwitcher;
@@ -103,6 +104,7 @@ public class AddFriendActivity extends AppCompatActivity {
                         public void onSucess(@Nullable PublicUserData response) {
                             pendingFriends.add(new CombinedFriend(response, friendData));
                             pendingFriendAdapter.notifyDataSetChanged();
+                            Logger.getLogger("Unsersplit").info("pending request from " + response.getFirstname() + " " + response.getLastname() + " (" + response.getUserid() + ")");
                         }
                     });
                 }
@@ -123,6 +125,7 @@ public class AddFriendActivity extends AppCompatActivity {
                         public void onSucess(@Nullable PublicUserData response) {
                             activeFriends.add(new CombinedFriend(response, friendData));
                             friendListAdapter.notifyDataSetChanged();
+                            Logger.getLogger("Unsersplit").info("active friend " + response.getFirstname() + " " + response.getLastname() + " (" + response.getUserid() + ")");
                         }
                     });
                 }

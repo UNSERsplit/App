@@ -45,6 +45,10 @@ public class Observable<T> {
         this.isUpdating = false;
     }
 
+    public void forceUpdate() {
+        onChange(this.value, this.value);
+    }
+
     public boolean isUpdating() {
         return isUpdating;
     }
