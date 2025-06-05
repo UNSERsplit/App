@@ -89,7 +89,7 @@ public class UserAndGroupSearch extends CustomSearchView<UnionUserGroup> {
                         @Override
                         public void onSucess(@Nullable List<PublicUserData> response) {
                             for (PublicUserData userData : response) {
-                                context.setValue(new UnionUserGroup(userData, null), userData.getUserid(), userData.getFirstname() + " " + userData.getLastname());
+                                context.setValue(new UnionUserGroup(userData, null), userData.getUserid(), userData.getFirstname() + " " + userData.getLastname(), R.drawable.person);
                                 context.update();
                             }
                         }

@@ -19,6 +19,7 @@ import android.widget.ListPopupWindow;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
@@ -29,6 +30,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import at.htlsaalfelden.UNSERsplit.NoLib.ReflectionUtils;
@@ -45,6 +47,7 @@ public class CustomSearchView<T> extends SearchView {
     private SimpleCursorAdapter simpleCursorAdapter;
 
     private List<T> data;
+    private Context context;
 
     public CustomSearchView(@NonNull Context context) {
         super(context);
@@ -66,6 +69,7 @@ public class CustomSearchView<T> extends SearchView {
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        this.context = context;
         TypedArray a = context.getTheme().obtainStyledAttributes(
                 attrs,
                 R.styleable.CustomSearchView,
@@ -142,7 +146,12 @@ public class CustomSearchView<T> extends SearchView {
 
         @Override
         public boolean onSuggestionClick(int position) {
+            if(position >= data.size()) {
+                Logger.getLogger("UNSERSPLIT").severe("Search Race condition?");
+                return false;
+            }
             T rawData = data.get(position);
+            Logger.getLogger("UNSERSPLIT").info("clicked " + rawData.toString());
 
             mCallback.onClickSuggestion(rawData, position);
             return true;
@@ -166,6 +175,8 @@ public class CustomSearchView<T> extends SearchView {
             System.arraycopy(colNames, 0, names, 1, colNames.length);
 
             MatrixCursor cursor = new MatrixCursor(names);
+            simpleCursorAdapter.changeCursor(cursor);
+            simpleCursorAdapter.notifyDataSetChanged();
 
             ListView suggestionsView = getListViewUnsafe(CustomSearchView.this);
 

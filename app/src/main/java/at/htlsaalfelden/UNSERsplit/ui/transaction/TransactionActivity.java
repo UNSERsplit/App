@@ -174,9 +174,17 @@ public class TransactionActivity extends AppCompatActivity implements IUserAdapt
         userSearchView.setUserConsumer(publicUserData -> {
             userSearchView.setQuery("", false);
 
+            if(users.stream().anyMatch((c) -> c.getUserData().getUserid() == publicUserData.getUserid())) {
+                System.err.println(publicUserData.getUserid());
+                return;
+            } // sehr buggy
+
+
+
             CombinedUser user = new CombinedUser(publicUserData, 1);
             user.setAdapter(userAdapter);
             users.add(user);
+            System.err.println("Added " + user.getUserData().getFirstname());
 
             onUserAdd(user);
         });
@@ -190,10 +198,13 @@ public class TransactionActivity extends AppCompatActivity implements IUserAdapt
 
                     users.clear();
 
+                    System.err.println("Added " + response);
+
                     for(PublicUserData userData : response) {
                         CombinedUser user = new CombinedUser(userData, 0);
                         user.setAdapter(userAdapter);
                         users.add(user);
+
 
                         onUserAdd(user);
                     }
