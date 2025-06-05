@@ -10,7 +10,7 @@ GroupOverview:
 Home:
     -DONE- Gesamtbilanz
     -DONE- GroupAdapter für User und Gruppen Auslegen
-    Person -> IBAN kopieren
+    -DONE- Person -> IBAN kopieren
     border box
 
 Transaktionen:

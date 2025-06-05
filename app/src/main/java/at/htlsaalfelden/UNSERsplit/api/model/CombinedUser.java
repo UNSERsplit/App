@@ -1,14 +1,18 @@
 package at.htlsaalfelden.UNSERsplit.api.model;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.BaseAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import java.util.Objects;
 
 import at.htlsaalfelden.UNSERsplit.R;
+import at.htlsaalfelden.UNSERsplit.ui.IBANutils;
 
 public class CombinedUser implements CombinedData{
     private PublicUserData userData;
@@ -46,7 +50,21 @@ public class CombinedUser implements CombinedData{
 
     @Override
     public Intent getClickIntent(Context ctx) {
-        return null; //TODO create user overview
+        String iban = this.getUserData().getIban();
+
+        if(!IBANutils.isValidIban(iban)) {
+            Toast.makeText(ctx, "no valid IBAN found", Toast.LENGTH_SHORT).show();
+
+            return null;
+        }
+
+        ClipboardManager clipboard = (ClipboardManager) ctx.getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText(iban, iban);
+        clipboard.setPrimaryClip(clip);
+
+        Toast.makeText(ctx, "copied IBAN", Toast.LENGTH_SHORT).show();
+
+        return null;
     }
 
     public void setBalance(double balance) {

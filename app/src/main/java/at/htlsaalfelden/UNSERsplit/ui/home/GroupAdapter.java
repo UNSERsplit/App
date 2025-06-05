@@ -86,6 +86,9 @@ public class GroupAdapter extends BaseAdapter {
 
         view.setOnClickListener(v -> {
             Intent intent = item.getClickIntent(this.context);
+            if(intent == null) {
+                return;
+            }
             this.context.startActivity(intent);
         });
 
