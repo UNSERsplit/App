@@ -136,7 +136,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="#DBB12B"
+            android:backgroundTint="#CC2B21"
             android:text="Löschen"
             android:textColor="#f1f1f1"
             app:cornerRadius="5dp" />

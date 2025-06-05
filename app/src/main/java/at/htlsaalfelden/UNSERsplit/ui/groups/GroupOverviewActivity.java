@@ -18,6 +18,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -187,9 +189,26 @@ public class GroupOverviewActivity extends AppCompatActivity {
 
 
         findViewById(R.id.btnLoeschen).setOnClickListener(v ->{
-            Intent myIntent = new Intent(this, HomeActivity.class);
-            startActivity(myIntent,
-                    ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+            MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(this);
+            materialAlertDialogBuilder.setMessage(ctx.getString(R.string.content_delete_group, groupName.getText().toString()));
+            materialAlertDialogBuilder.setTitle(ctx.getString(R.string.title_delete_group));
+
+            materialAlertDialogBuilder.setPositiveButton(ctx.getString(R.string.action_yes), (dialog, which) -> {
+                API.service.deleteGroup(groupId).enqueue(new DefaultCallback<Group>() {
+                    @Override
+                    public void onSucess(@Nullable Group response) {
+                        Intent myIntent = new Intent(ctx, HomeActivity.class);
+                        startActivity(myIntent,
+                                ActivityOptions.makeSceneTransitionAnimation(ctx).toBundle());
+                    }
+                });
+            });
+
+            materialAlertDialogBuilder.setNegativeButton(ctx.getString(R.string.action_no), (dialog, which) -> {
+
+            });
+
+            materialAlertDialogBuilder.create().show();
         });
 
         findViewById(R.id.btnSpeichern).setOnClickListener(v -> {
@@ -263,6 +282,7 @@ public class GroupOverviewActivity extends AppCompatActivity {
 
             onUserAdd(user);
             normalUserAdapter.notifyDataSetChanged();
+            settingsUserAdapter.notifyDataSetChanged();
         });
     }
 

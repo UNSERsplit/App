@@ -205,10 +205,6 @@ public class CustomSearchView<T> extends SearchView {
                     simpleCursorAdapter.changeCursor(cursor);
                     simpleCursorAdapter.notifyDataSetChanged();
 
-                    for(Object o : data) {
-                        System.out.println(o);
-                    }
-
                     ListView suggestionsView = getListViewUnsafe(CustomSearchView.this);
 
                     if(suggestionsView != null) {

@@ -32,4 +32,10 @@
     <string name="logout">Abmelden</string>
     <string name="add_friends">Hinzufügen</string>
     <string name="pending_friends">Ausstehend</string>
+    <string name="action_yes">Ja</string>
+    <string name="action_no">Nein</string>
+    <string name="title_delete_user">Sind Sie sicher?</string>
+    <string name="content_delete_user">Wollen Sie wirklich ihren Benutzer löschen? Dieser Vorgang kann nicht rückgängig gemacht werden!</string>
+    <string name="title_delete_group">Sind Sie sicher?</string>
+    <string name="content_delete_group">Wollen Sie wirklich die Gruppe \'%1$s\' löschen? Dieser Vorgang kann nicht rückgängig gemacht werden!</string>
 </resources>

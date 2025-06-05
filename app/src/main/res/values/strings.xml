@@ -33,4 +33,10 @@
     <string name="logout">logout</string>
     <string name="add_friends">add friends</string>
     <string name="pending_friends">pending</string>
+    <string name="action_yes">yes</string>
+    <string name="action_no">no</string>
+    <string name="title_delete_user">Delete your account</string>
+    <string name="content_delete_user">Are you sure to delete your account. This action can not be undone!</string>
+    <string name="title_delete_group">Delete this group</string>
+    <string name="content_delete_group">Are you sure to delete \'%1$s\'. This action can not be undone!</string>
 </resources>

@@ -107,14 +107,14 @@ public class SettingsActivity extends AppCompatActivity {
 
         findViewById(R.id.btnLoeschen).setOnClickListener(v -> {
             MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(this);
-            materialAlertDialogBuilder.setMessage("Are you sure to delete your account. This action can not be undone!");
-            materialAlertDialogBuilder.setTitle("Delete your account");
+            materialAlertDialogBuilder.setMessage(ctx.getString(R.string.content_delete_user));
+            materialAlertDialogBuilder.setTitle(ctx.getString(R.string.title_delete_user));
 
-            materialAlertDialogBuilder.setPositiveButton("Yes", (dialog, which) -> {
+            materialAlertDialogBuilder.setPositiveButton(ctx.getString(R.string.action_yes), (dialog, which) -> {
                 API.service.deleteUser();
             });
 
-            materialAlertDialogBuilder.setNegativeButton("No", (dialog, which) -> {
+            materialAlertDialogBuilder.setNegativeButton(ctx.getString(R.string.action_no), (dialog, which) -> {
 
             });
 

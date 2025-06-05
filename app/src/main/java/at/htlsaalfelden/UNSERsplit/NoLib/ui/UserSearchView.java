@@ -31,7 +31,7 @@ public class UserSearchView extends SimpleAPISearchView<PublicUserData> {
 
     @Override
     protected Call<List<PublicUserData>> call(String query) {
-        return API.service.searchUser(query);
+        return API.service.searchFriend(query);
     }
 
     @Override
