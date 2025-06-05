@@ -11,11 +11,11 @@ Home:
     -DONE- Gesamtbilanz
     -DONE- GroupAdapter für User und Gruppen Auslegen
     Person -> IBAN kopieren
+    border box
 
 Transaktionen:
     -DONE- Funktionalität
     -DONE- Gruppenauswahl
-    -DONE- Gruppenauswahl zwei icons als unterscheidung zwischen Personen und Gruppen
     -DONE- Usersuche auch Gruppensuche, bei Gruppe: alle User der Gruppe auswählen und ID vermerken. wenn ID vermerkt ist: keine Personen auserhalb der Gruppe vorschlagen
 
 -DONE- Notifications
@@ -29,6 +29,8 @@ Settings:
 
 Freunde:
     -DONE- update nach annahme
+    layout switcher
+    border box
 
 Custom components:
     -DONE- View Selector

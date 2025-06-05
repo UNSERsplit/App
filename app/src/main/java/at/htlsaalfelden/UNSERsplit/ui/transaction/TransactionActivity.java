@@ -191,7 +191,7 @@ public class TransactionActivity extends AppCompatActivity implements IUserAdapt
                     users.clear();
 
                     for(PublicUserData userData : response) {
-                        CombinedUser user = new CombinedUser(userData, 1);
+                        CombinedUser user = new CombinedUser(userData, 0);
                         user.setAdapter(userAdapter);
                         users.add(user);
 
@@ -226,6 +226,9 @@ public class TransactionActivity extends AppCompatActivity implements IUserAdapt
     }
 
     private void onUserAdd(CombinedUser user) {
+        if(user.getUserData().getUserid() == API.userID) {
+            users.remove(user);
+        }
         if(this.isSplitEven.get()) {
             onUserChange();
         } else {

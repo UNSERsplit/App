@@ -110,10 +110,10 @@ public class HomeActivity extends AppCompatActivity {
                         }
 
                         if(transaction.getFromuserid() == API.userID) {
-                            balance -= transaction.getAmount();
+                            balance += transaction.getAmount();
                         }
                         if(transaction.getTouserid() == API.userID) {
-                            balance += transaction.getAmount();
+                            balance -= transaction.getAmount();
                         }
                     }
                     changeBalance(balance);
@@ -145,15 +145,15 @@ public class HomeActivity extends AppCompatActivity {
 
                             for(Transaction transaction : response) {
                                 if(transaction.getFromuserid() == API.userID) {
-                                    balance -= transaction.getAmount();
-                                    if(transaction.getGroupid() == null) {
-                                        userBalance -= transaction.getAmount();
-                                    }
-                                }
-                                if(transaction.getTouserid() == API.userID) {
                                     balance += transaction.getAmount();
                                     if(transaction.getGroupid() == null) {
                                         userBalance += transaction.getAmount();
+                                    }
+                                }
+                                if(transaction.getTouserid() == API.userID) {
+                                    balance -= transaction.getAmount();
+                                    if(transaction.getGroupid() == null) {
+                                        userBalance -= transaction.getAmount();
                                     }
                                 }
                             }
