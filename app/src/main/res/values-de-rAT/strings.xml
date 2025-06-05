@@ -30,4 +30,6 @@
     <string name="person">Person</string>
     <string name="create_group">Gruppe erstellen</string>
     <string name="logout">Abmelden</string>
+    <string name="add_friends">Hinzufügen</string>
+    <string name="pending_friends">Ausstehend</string>
 </resources>

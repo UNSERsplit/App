@@ -28,55 +28,18 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.736">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/switchContainer"
-                    android:layout_width="331dp"
+                <at.htlsaalfelden.UNSERsplit.NoLib.ui.LayoutSwitcher
+                    android:id="@+id/layoutSwitcher"
+                    android:layout_width="341dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    app:layout_constraintBottom_toTopOf="@+id/searchContainer"
+                    android:layout_marginTop="75dp"
+                    app:elementLeft="@id/addList"
+                    app:elementRight="@id/requestList"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.62">
-
-                        <TextView
-                            android:id="@+id/txtViewAddFriend"
-                            android:layout_width="108dp"
-                            android:layout_height="61dp"
-                            android:background="@drawable/background_white3"
-                            android:fontFamily="@font/roboto_medium"
-                            android:gravity="center"
-                            android:text="@string/add_friend"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/constraintLayout4"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/constraintLayout4"
-                            android:layout_width="3dp"
-                            android:layout_height="0dp"
-                            android:background="@drawable/strich15"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        <TextView
-                            android:id="@+id/textViewAnfrage"
-                            android:layout_width="108dp"
-                            android:layout_height="61dp"
-                            android:background="@drawable/background_white4"
-                            android:fontFamily="@font/roboto_medium"
-                            android:gravity="center"
-                            android:text="@string/friend_requests"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/constraintLayout4"
-                            app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    app:textLeft="@string/add_friends"
+                    app:textRight="@string/pending_friends" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/searchContainer"
@@ -113,7 +76,7 @@
                             android:id="@+id/addList"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:visibility="invisible"
+                            android:visibility="visible"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -134,7 +97,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@drawable/background_white"
-                            android:visibility="visible"
+                            android:visibility="invisible"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"

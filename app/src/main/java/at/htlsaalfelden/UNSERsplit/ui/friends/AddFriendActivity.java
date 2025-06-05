@@ -25,6 +25,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
 import at.htlsaalfelden.UNSERsplit.NoLib.Observable;
+import at.htlsaalfelden.UNSERsplit.NoLib.ui.LayoutSwitcher;
 import at.htlsaalfelden.UNSERsplit.NoLib.ui.UserSearchView;
 import at.htlsaalfelden.UNSERsplit.R;
 import at.htlsaalfelden.UNSERsplit.api.API;
@@ -37,7 +38,7 @@ import at.htlsaalfelden.UNSERsplit.ui.NavigationUtils;
 
 
 public class AddFriendActivity extends AppCompatActivity {
-    private Observable<Boolean> showPending = new Observable<>(false);
+    private Observable<Boolean> showActive = new Observable<>(true);
     public Consumer<CombinedFriend> onFriendConsumer;
 
     @Override
@@ -49,28 +50,14 @@ public class AddFriendActivity extends AppCompatActivity {
 
         var ctx = this;
 
-        showPending.set(getIntent().getBooleanExtra("PENDING", false));
+        LayoutSwitcher layoutSwitcher = findViewById(R.id.layoutSwitcher);
+        layoutSwitcher.setStateVariable(showActive);
+
+        showActive.set(!getIntent().getBooleanExtra("PENDING", false));
 
         ConstraintLayout addList = findViewById(R.id.addList);
         ConstraintLayout requestList = findViewById(R.id.requestList);
 
-        findViewById(R.id.txtViewAddFriend).setOnClickListener((v)->{
-            showPending.set(false);
-        });
-
-        findViewById(R.id.textViewAnfrage).setOnClickListener((v)->{
-            showPending.set(true);
-        });
-
-        showPending.addInstantListener((o,v)->{
-            if(v) {
-                addList.setVisibility(View.GONE);
-                requestList.setVisibility(View.VISIBLE);
-            } else {
-                requestList.setVisibility(View.GONE);
-                addList.setVisibility(View.VISIBLE);
-            }
-        });
 
         ListView friendRequestList = findViewById(R.id.friendRequestList);
         ListView friendsList = findViewById(R.id.friendsList);
@@ -142,15 +129,6 @@ public class AddFriendActivity extends AppCompatActivity {
                 }
             });
         });
-
-
-        TextView txtViewAddFriend = findViewById(R.id.txtViewAddFriend);
-        TextView textViewAnfrage = findViewById(R.id.textViewAnfrage);
-        dynamicSize(txtViewAddFriend, 0.08,0.31);
-        dynamicSize(textViewAnfrage, 0.08,0.31);
-
-        ConstraintLayout listContainer = findViewById(R.id.listContainer);
-        dynamicSize(listContainer, 0.6,0.77);
     }
 
     public void dynamicSize(View x, double heighta, double widtha){
