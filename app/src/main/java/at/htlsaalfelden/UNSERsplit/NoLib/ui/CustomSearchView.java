@@ -28,6 +28,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.logging.Logger;
@@ -48,6 +49,7 @@ public class CustomSearchView<T> extends SearchView {
 
     private List<T> data;
     private Context context;
+    private int currentMagicCookie;
 
     public CustomSearchView(@NonNull Context context) {
         super(context);
@@ -171,6 +173,7 @@ public class CustomSearchView<T> extends SearchView {
             names[0] = "_id";
 
             data = new ArrayList<>();
+            CustomSearchView.this.currentMagicCookie = newText.hashCode();
 
             System.arraycopy(colNames, 0, names, 1, colNames.length);
 
@@ -198,7 +201,12 @@ public class CustomSearchView<T> extends SearchView {
             int finalChange = change;
             SearchContext<T> searchContext = new SearchContext<>() {
                 @Override
-                public void setValue(T rawData, int id, Object... contents) {
+                public void setValue(int magicCookie, T rawData, int id, Object... contents) {
+                    if(magicCookie != CustomSearchView.this.currentMagicCookie) {
+                        Logger.getLogger("UNSERSPLIT_debug").severe("cookie missmatch");
+                        return;
+                    }
+
                     assert colNames.length == contents.length;
                     Object[] objects = new Object[colNames.length+1];
 
@@ -212,7 +220,12 @@ public class CustomSearchView<T> extends SearchView {
                 }
 
                 @Override
-                public void update() {
+                public void update(int magicCookie) {
+                    if(magicCookie != CustomSearchView.this.currentMagicCookie) {
+                        Logger.getLogger("UNSERSPLIT_debug").severe("cookie missmatch");
+                        return;
+                    }
+
                     simpleCursorAdapter.changeCursor(cursor);
                     simpleCursorAdapter.notifyDataSetChanged();
 
@@ -230,7 +243,7 @@ public class CustomSearchView<T> extends SearchView {
                 }
             };
 
-            mCallback.updateSuggestions(newText, searchContext);
+            mCallback.updateSuggestions(newText, searchContext, CustomSearchView.this.currentMagicCookie);
 
             return false;
         }
@@ -252,7 +265,7 @@ public class CustomSearchView<T> extends SearchView {
          * @param query the new query
          * @param context a {@link SearchContext} implementation to communicate back
          */
-        void updateSuggestions(String query, SearchContext<T> context);
+        void updateSuggestions(String query, SearchContext<T> context, int magicCookie);
 
         /**
          * Called when the user has clicked a suggestion
@@ -273,12 +286,12 @@ public class CustomSearchView<T> extends SearchView {
          * @param id unique id to identify this suggestion
          * @param contents Array of anything {@link SimpleCursorAdapter} can handle
          */
-        void setValue(T rawData, int id, Object ...contents);
+        void setValue(int magicCookie, T rawData, int id, Object ...contents);
 
         /**
          * update the ui
          */
-        void update();
+        void update(int magicCookie);
     }
 
     private static ListView getListViewUnsafe(SearchView searchView) {

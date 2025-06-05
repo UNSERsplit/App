@@ -53,16 +53,16 @@ public abstract class SimpleAPISearchView<T> extends CustomSearchView<T> {
             }
 
             @Override
-            public void updateSuggestions(String query, SearchContext<T> context) {
+            public void updateSuggestions(String query, SearchContext<T> context, int cookie) {
                 call(query).enqueue(new DefaultCallback<List<T>>() {
                     @Override
                     public void onSucess(@Nullable List<T> response) {
                         assert response != null;
                         for (T entry : response) {
-                            context.setValue(entry, getId(entry), getName(entry));
+                            context.setValue(cookie, entry, getId(entry), getName(entry));
                         }
 
-                        context.update();
+                        context.update(cookie);
                     }
                 });
             }

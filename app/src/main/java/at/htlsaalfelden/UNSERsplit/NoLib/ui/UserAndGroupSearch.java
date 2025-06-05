@@ -58,16 +58,16 @@ public class UserAndGroupSearch extends CustomSearchView<UnionUserGroup> {
             }
 
             @Override
-            public void updateSuggestions(String query, SearchContext<UnionUserGroup> context) {
+            public void updateSuggestions(String query, SearchContext<UnionUserGroup> context, int cookie) {
                 if(activity.groupId.get() == null) {
                     API.service.searchGroup(query).enqueue(new DefaultCallback<List<Group>>() {
                         @Override
                         public void onSucess(@Nullable List<Group> response) {
                             for (Group group : response) {
-                                context.setValue(new UnionUserGroup(null, group), -group.getGroupid(),
+                                context.setValue(cookie, new UnionUserGroup(null, group), -group.getGroupid(),
                                         group.getName(),
                                         R.drawable.people);
-                                context.update();
+                                context.update(cookie);
                             }
 
                         }
@@ -77,10 +77,10 @@ public class UserAndGroupSearch extends CustomSearchView<UnionUserGroup> {
                         @Override
                         public void onSucess(@Nullable List<PublicUserData> response) {
                             for (PublicUserData userData : response) {
-                                context.setValue(new UnionUserGroup(userData, null), userData.getUserid(),
+                                context.setValue(cookie, new UnionUserGroup(userData, null), userData.getUserid(),
                                         userData.getFirstname() + " " + userData.getLastname(),
                                         R.drawable.person);
-                                context.update();
+                                context.update(cookie);
                             }
                         }
                     });
@@ -89,8 +89,8 @@ public class UserAndGroupSearch extends CustomSearchView<UnionUserGroup> {
                         @Override
                         public void onSucess(@Nullable List<PublicUserData> response) {
                             for (PublicUserData userData : response) {
-                                context.setValue(new UnionUserGroup(userData, null), userData.getUserid(), userData.getFirstname() + " " + userData.getLastname(), R.drawable.person);
-                                context.update();
+                                context.setValue(cookie, new UnionUserGroup(userData, null), userData.getUserid(), userData.getFirstname() + " " + userData.getLastname(), R.drawable.person);
+                                context.update(cookie);
                             }
                         }
                     });
