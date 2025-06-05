@@ -104,7 +104,7 @@ public class HomeActivity extends AppCompatActivity {
 
                     assert transactions != null;
                     for (Transaction transaction : transactions) {
-                        System.out.println(transaction);
+                        Logger.getLogger("UNSERSPLIT").info(transaction.toString());
                         if(transaction.getGroupid() == null || transaction.getGroupid() != group.getGroupid()) {
                             continue;
                         }
@@ -117,6 +117,7 @@ public class HomeActivity extends AppCompatActivity {
                         }
                     }
                     changeBalance(balance);
+                    Logger.getLogger("UNSERSPLIT_balance").info(balance + " group " + group.getGroupid());
                     combinedGroup.setBalance(balance);
                     adapter.notifyDataSetChanged();
                 });
@@ -127,7 +128,6 @@ public class HomeActivity extends AppCompatActivity {
         API.service.getFriends().enqueue(new DefaultCallback<List<PublicUserData>>() {
             @Override
             public void onSucess(@Nullable List<PublicUserData> response) {
-                System.out.println(response);
                 for(PublicUserData user : response) {
                     if(user.getUserid() == API.userID) {
                         continue;
@@ -158,7 +158,8 @@ public class HomeActivity extends AppCompatActivity {
                                 }
                             }
                             changeBalance(userBalance);
-                            combinedUser.setBalanceNoNotify(balance);
+                            Logger.getLogger("UNSERSPLIT_balance").info(userBalance + " (" + balance + ") friend " + user.getUserid() + " " + user.getFirstname());
+                            combinedUser.setBalanceNoNotify(userBalance);
                             adapter.notifyDataSetChanged();
                         }
                     });

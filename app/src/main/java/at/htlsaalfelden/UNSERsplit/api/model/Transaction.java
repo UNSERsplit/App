@@ -1,5 +1,7 @@
 package at.htlsaalfelden.UNSERsplit.api.model;
 
+import androidx.annotation.NonNull;
+
 public class Transaction {
     private int touserid;
     private double amount;
@@ -30,5 +32,15 @@ public class Transaction {
 
     public String getDate() {
         return date;
+    }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "touserid=" + touserid +
+                ", fromuserid=" + fromuserid +
+                ", groupid=" + groupid +
+                ", amount=" + amount +
+                '}';
     }
 }
