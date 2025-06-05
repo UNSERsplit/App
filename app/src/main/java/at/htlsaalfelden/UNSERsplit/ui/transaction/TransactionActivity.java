@@ -99,7 +99,7 @@ public class TransactionActivity extends AppCompatActivity implements IUserAdapt
                 }
             }
 
-            onUserChange();
+            onUserChange(null);
 
             checkSum();
         });
@@ -116,7 +116,7 @@ public class TransactionActivity extends AppCompatActivity implements IUserAdapt
                 }
             }
 
-            onUserChange();
+            onUserChange(null);
 
             checkSum();
         });
@@ -227,10 +227,11 @@ public class TransactionActivity extends AppCompatActivity implements IUserAdapt
 
     private void onUserAdd(CombinedUser user) {
         if(user.getUserData().getUserid() == API.userID) {
-            users.remove(user);
+            user.getUserData().setFirstname(this.getString(R.string.you));
+            user.getUserData().setLastname("");
         }
         if(this.isSplitEven.get()) {
-            onUserChange();
+            onUserChange(user);
         } else {
             double combined = 0;
             for(CombinedUser u : this.users) {
@@ -255,7 +256,7 @@ public class TransactionActivity extends AppCompatActivity implements IUserAdapt
         return this.deleteMode;
     }
 
-    public void onUserChange() {
+    public void onUserChange(CombinedUser user) {
         if(this.isSplitEven.get()) {
             double per_user = Math.ceil((totalSum.get() / users.size()) * 100) / 100;
             for(CombinedUser u : this.users) {

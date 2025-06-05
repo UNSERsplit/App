@@ -113,7 +113,7 @@ public class UserAdapter extends BaseAdapter {
 
         view.findViewById(R.id.floatingActionButton).setOnClickListener(v -> {
             this.users.remove(item);
-            context.onUserChange();
+            context.onUserChange(item);
             this.notifyDataSetChanged();
         });
 
@@ -150,11 +150,11 @@ public class UserAdapter extends BaseAdapter {
                 Double.parseDouble(text.getText().toString());
             } catch (NumberFormatException e) {
                 combinedUser.setBalanceNoNotify(0);
-                context.onUserChange();
+                context.onUserChange(null);
                 return;
             }
             combinedUser.setBalanceNoNotify(Math.ceil(Double.parseDouble(text.getText().toString()) * 100) / 100);
-            context.onUserChange();
+            context.onUserChange(null);
         }
     }
 }

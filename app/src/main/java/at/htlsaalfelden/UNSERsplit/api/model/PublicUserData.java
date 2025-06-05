@@ -28,4 +28,12 @@ public class PublicUserData {
     public int getUserid() {
         return userid;
     }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
 }

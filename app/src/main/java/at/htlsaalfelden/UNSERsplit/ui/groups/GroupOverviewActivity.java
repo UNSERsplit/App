@@ -103,11 +103,12 @@ public class GroupOverviewActivity extends AppCompatActivity {
         ListView mitgliederList = findViewById(R.id.mitgliederList);
 
 
-        List<CombinedUser> users = new ArrayList<>();
+        List<CombinedUser> normalUsers = new ArrayList<>();
+        List<CombinedUser> settingUsers = new ArrayList<>();
         final List<PublicUserData>[] originalUsers = new List[]{null};
 
-        UserAdapter settingsUserAdapter = new UserAdapter(new StaticAwareContext(false, true), users, this);
-        UserAdapter normalUserAdapter = new NormalUserAdapter(new StaticAwareContext(true, false), users, this);
+        UserAdapter settingsUserAdapter = new UserAdapter(new StaticAwareContext(false, true, normalUsers), settingUsers, this);
+        UserAdapter normalUserAdapter = new NormalUserAdapter(new StaticAwareContext(true, false, normalUsers), normalUsers, this);
 
         mitgliederList.setAdapter(normalUserAdapter);
 
@@ -132,9 +133,9 @@ public class GroupOverviewActivity extends AppCompatActivity {
             public void onSucess(@Nullable List<PublicUserData> response) {
                 AtomicInteger i = new AtomicInteger(0);
                 for(PublicUserData userData : response) {
-                    System.out.println(userData.getUserid() + " " + userData.getFirstname() + " " + API.userID);
                     if(userData.getUserid() == API.userID) {
-                        continue;
+                        userData.setFirstname(ctx.getString(R.string.you));
+                        userData.setLastname("");
                     }
                     i.addAndGet(1);
                     API.service.getTransactions(userData.getUserid()).enqueue(new DefaultCallback<List<Transaction>>() {
@@ -149,14 +150,18 @@ public class GroupOverviewActivity extends AppCompatActivity {
                                 }
 
                                 if(transaction.getFromuserid() == API.userID) {
-                                    balance -= transaction.getAmount();
+                                    balance += transaction.getAmount();
                                 }
                                 if(transaction.getTouserid() == API.userID) {
-                                    balance += transaction.getAmount();
+                                    balance -= transaction.getAmount();
                                 }
                             }
 
-                            users.add(new CombinedUser(userData, balance));
+                            normalUsers.add(new CombinedUser(userData, balance));
+
+                            if(userData.getUserid() != API.userID) {
+                                settingUsers.add(new CombinedUser(userData, balance));
+                            }
 
                             if(i.addAndGet(-1) == 0) {
                                 normalUserAdapter.notifyDataSetChanged();
@@ -214,14 +219,14 @@ public class GroupOverviewActivity extends AppCompatActivity {
 
         findViewById(R.id.btnSpeichern).setOnClickListener(v -> {
             AtomicInteger a = new AtomicInteger(0);
-            List<CombinedUser> usersToAdd = new ArrayList<>(users);
+            List<CombinedUser> usersToAdd = new ArrayList<>(settingUsers);
             List<PublicUserData> usersToRemove = new ArrayList<>(originalUsers[0]);
 
             for(PublicUserData user : originalUsers[0]) {
                 usersToAdd.removeIf((u) -> u.getUserData().getUserid() == user.getUserid());
             }
 
-            for(CombinedUser user : users) {
+            for(CombinedUser user : settingUsers) {
                 usersToRemove.removeIf((u) -> u.getUserid() == user.getUserData().getUserid());
             }
 
@@ -277,14 +282,15 @@ public class GroupOverviewActivity extends AppCompatActivity {
         searchView.setOnEntrySelect(publicUserData -> {
             searchView.setQuery("", false);
 
-            if(users.stream().anyMatch((c) -> c.getUserData().getUserid() == publicUserData.getUserid())) {
+            if(settingUsers.stream().anyMatch((c) -> c.getUserData().getUserid() == publicUserData.getUserid())) {
                 return;
             }
 
             CombinedUser user = new CombinedUser(publicUserData, 1);
             user.setAdapter(normalUserAdapter);
 
-            users.add(user);
+            settingUsers.add(user);
+            normalUsers.add(user);
 
             onUserAdd(user);
             normalUserAdapter.notifyDataSetChanged();
@@ -301,10 +307,12 @@ public class GroupOverviewActivity extends AppCompatActivity {
     public static class StaticAwareContext implements IUserAdapterAware {
         private Observable<Boolean> even;
         private Observable<Boolean> delete;
+        private List<CombinedUser> normalUsers;
 
-        public StaticAwareContext(boolean isSplitEven, boolean deleteMode) {
+        public StaticAwareContext(boolean isSplitEven, boolean deleteMode, List<CombinedUser> normalUsers) {
             this.even = new Observable<>(isSplitEven);
             this.delete = new Observable<>(deleteMode);
+            this.normalUsers = normalUsers;
         }
         @Override
         public Observable<Boolean> getIsSplitEven() {
@@ -317,8 +325,10 @@ public class GroupOverviewActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onUserChange() {
-
+        public void onUserChange(CombinedUser combinedUser) {
+            if(combinedUser != null) {
+                this.normalUsers.remove(combinedUser);
+            }
         }
     }
 
