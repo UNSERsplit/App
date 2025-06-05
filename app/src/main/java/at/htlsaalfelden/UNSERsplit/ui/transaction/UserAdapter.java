@@ -4,17 +4,20 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.Space;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.List;
 
@@ -72,6 +75,11 @@ public class UserAdapter extends BaseAdapter {
     private @NonNull View createViewFromResource(@NonNull LayoutInflater inflater, int position,
                                                  @Nullable View convertView, @NonNull ViewGroup parent, int resource) {
         final View view;
+        double width = 1;
+
+        if(this.activity instanceof GroupOverviewActivity) {
+            width = 0.2;
+        }
 
         if (convertView == null) {
             view = inflater.inflate(resource, parent, false);
@@ -85,6 +93,13 @@ public class UserAdapter extends BaseAdapter {
         TextView username2 = view.findViewById(R.id.txtViewBenutzername2);
         TextView betrag = view.findViewById(R.id.textViewBetrag);
         EditText betragEdit = view.findViewById(R.id.editTextNumber);
+
+        ConstraintLayout space = view.findViewById(R.id.spaceHolder);
+
+        ViewGroup.LayoutParams params = space.getLayoutParams();
+
+        params.width = (int) (params.width * width);
+        space.setLayoutParams(params);
 
         username.setText(item.getUserData().getFirstname() + " " + item.getUserData().getLastname());
         username2.setText(item.getUserData().getFirstname() + " " + item.getUserData().getLastname());
