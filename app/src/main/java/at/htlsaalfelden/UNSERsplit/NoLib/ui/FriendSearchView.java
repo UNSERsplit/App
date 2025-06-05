@@ -11,27 +11,27 @@ import at.htlsaalfelden.UNSERsplit.api.API;
 import at.htlsaalfelden.UNSERsplit.api.model.PublicUserData;
 import retrofit2.Call;
 
-public class UserSearchView extends SimpleAPISearchView<PublicUserData> {
+public class FriendSearchView extends SimpleAPISearchView<PublicUserData> {
 
-    public UserSearchView(@NonNull Context context) {
+    public FriendSearchView(@NonNull Context context) {
         super(context);
     }
 
-    public UserSearchView(Context context, AttributeSet attrs) {
+    public FriendSearchView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public UserSearchView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public FriendSearchView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    public UserSearchView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public FriendSearchView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
     @Override
     protected Call<List<PublicUserData>> call(String query) {
-        return API.service.searchUser(query);
+        return API.service.searchFriend(query);
     }
 
     @Override

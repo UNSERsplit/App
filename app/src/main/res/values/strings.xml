@@ -39,4 +39,5 @@
     <string name="content_delete_user">Are you sure to delete your account. This action can not be undone!</string>
     <string name="title_delete_group">Delete this group</string>
     <string name="content_delete_group">Are you sure to delete \'%1$s\'. This action can not be undone!</string>
+    <string name="already_friend">already sent</string>
 </resources>

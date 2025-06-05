@@ -1,6 +1,9 @@
 package at.htlsaalfelden.UNSERsplit.ui.friends;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,8 +13,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -30,11 +35,15 @@ import at.htlsaalfelden.UNSERsplit.NoLib.ui.UserSearchView;
 import at.htlsaalfelden.UNSERsplit.R;
 import at.htlsaalfelden.UNSERsplit.api.API;
 import at.htlsaalfelden.UNSERsplit.api.DefaultCallback;
+import at.htlsaalfelden.UNSERsplit.api.FailableCallback;
 import at.htlsaalfelden.UNSERsplit.api.model.CombinedFriend;
 import at.htlsaalfelden.UNSERsplit.api.model.CombinedUser;
 import at.htlsaalfelden.UNSERsplit.api.model.FriendData;
 import at.htlsaalfelden.UNSERsplit.api.model.PublicUserData;
+import at.htlsaalfelden.UNSERsplit.ui.IBANutils;
 import at.htlsaalfelden.UNSERsplit.ui.NavigationUtils;
+import retrofit2.Call;
+import retrofit2.Response;
 
 
 public class AddFriendActivity extends AppCompatActivity {
@@ -122,10 +131,27 @@ public class AddFriendActivity extends AppCompatActivity {
 
         UserSearchView userSearchView = findViewById(R.id.addFriendSearch);
         userSearchView.setOnEntrySelect(publicUserData -> {
-            API.service.sendFriendRequest(publicUserData.getUserid()).enqueue(new DefaultCallback<FriendData>() {
+            if(publicUserData.getUserid() == API.userID) {
+                return;
+            }
+
+            if(activeFriends.stream().anyMatch((f) -> f.getUserData().getUserid() == publicUserData.getUserid())) {
+                return;
+            }
+
+            API.service.sendFriendRequest(publicUserData.getUserid()).enqueue(new FailableCallback<>() {
+                @Override
+                public void on400(@NonNull Call<FriendData> call, @NonNull Response<FriendData> response, Object requestData) {
+                    if(response.code() == 406) {
+                        Toast.makeText(ctx, ctx.getText(R.string.already_friend), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    FailableCallback.super.on400(call, response, requestData);
+                }
+
                 @Override
                 public void onSucess(@Nullable FriendData response) {
-                    
+
                 }
             });
         });

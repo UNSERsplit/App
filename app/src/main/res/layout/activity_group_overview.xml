@@ -171,7 +171,7 @@
                         android:text="Personen hinzufügen:"
                         android:textSize="16sp" />
 
-                    <at.htlsaalfelden.UNSERsplit.NoLib.ui.UserSearchView
+                    <at.htlsaalfelden.UNSERsplit.NoLib.ui.FriendSearchView
                         android:id="@+id/searchViewAddPersonToGroup"
                         android:layout_width="match_parent"
                         android:layout_height="44dp"
@@ -179,7 +179,7 @@
                         android:layout_marginEnd="25dp"
                         android:background="@drawable/border_box">
 
-                    </at.htlsaalfelden.UNSERsplit.NoLib.ui.UserSearchView>
+                    </at.htlsaalfelden.UNSERsplit.NoLib.ui.FriendSearchView>
 
                     <TextView
                         android:id="@+id/textView8"

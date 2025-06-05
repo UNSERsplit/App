@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import at.htlsaalfelden.UNSERsplit.NoLib.Observable;
+import at.htlsaalfelden.UNSERsplit.NoLib.ui.FriendSearchView;
 import at.htlsaalfelden.UNSERsplit.NoLib.ui.LayoutSwitcher;
 import at.htlsaalfelden.UNSERsplit.NoLib.ui.UserSearchView;
 import at.htlsaalfelden.UNSERsplit.R;
@@ -271,13 +272,18 @@ public class GroupOverviewActivity extends AppCompatActivity {
         ListView listView = findViewById(R.id.mitgliederListe);
         listView.setAdapter(settingsUserAdapter);
 
-        UserSearchView searchView = findViewById(R.id.searchViewAddPersonToGroup);
+        FriendSearchView searchView = findViewById(R.id.searchViewAddPersonToGroup);
 
         searchView.setOnEntrySelect(publicUserData -> {
             searchView.setQuery("", false);
 
+            if(users.stream().anyMatch((c) -> c.getUserData().getUserid() == publicUserData.getUserid())) {
+                return;
+            }
+
             CombinedUser user = new CombinedUser(publicUserData, 1);
             user.setAdapter(normalUserAdapter);
+
             users.add(user);
 
             onUserAdd(user);

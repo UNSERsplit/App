@@ -106,9 +106,7 @@ public class LayoutSwitcher extends ConstraintLayout {
     }
 
     public void setStateVariable(Observable<Boolean> leftSelected) {
-        boolean oldVal = this.leftSelected.get();
         this.leftSelected = leftSelected;
-        this.leftSelected.set(oldVal);
 
         addListener();
     }
